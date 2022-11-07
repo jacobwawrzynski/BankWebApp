@@ -1,5 +1,6 @@
 ﻿using BankSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
 
 namespace BankSystem.Controllers
@@ -28,5 +29,10 @@ namespace BankSystem.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        //public IActionResult Login()
+        //{
+        //    return RedirectToPage("/Areas/Identity/Pages/Account/Login");
+        //}
     }
 }
