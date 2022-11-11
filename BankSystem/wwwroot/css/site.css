@@ -897,23 +897,23 @@ h6 {
 }
 
 /* Recent Sales */
-.dashboard .recent-sales {
+.dashboard .history {
     font-size: 14px;
 }
 
-    .dashboard .recent-sales .table thead {
+    .dashboard .history .table thead {
         background: #f6f6fe;
     }
 
-        .dashboard .recent-sales .table thead th {
+        .dashboard .history .table thead th {
             border: 0;
         }
 
-    .dashboard .recent-sales .dataTable-top {
+    .dashboard .history .dataTable-top {
         padding: 0 0 10px 0;
     }
 
-    .dashboard .recent-sales .dataTable-bottom {
+    .dashboard .history .dataTable-bottom {
         padding: 10px 0 0 0;
     }
 
@@ -1201,25 +1201,3 @@ h6 {
         max-width: 50%;
     }
 }
-
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-.footer {
-    padding: 20px 0;
-    font-size: 14px;
-    transition: all 0.3s;
-    border-top: 1px solid #cddfff;
-}
-
-    .footer .copyright {
-        text-align: center;
-        color: #012970;
-    }
-
-    .footer .credits {
-        padding-top: 5px;
-        text-align: center;
-        font-size: 13px;
-        color: #012970;
-    }

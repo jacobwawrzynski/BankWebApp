@@ -24,15 +24,30 @@ namespace BankSystem.Controllers
             return View();
         }
 
+        public IActionResult Transfer()
+        {
+            return View();
+        }
+
+        public IActionResult MyApplications()
+        {
+            return View();
+        }
+
+        public IActionResult Profile() // TO DO WITH IDENTITY
+        {
+            return View();
+        }
+
+        public IActionResult CurrencyExchange()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        //public IActionResult Login()
-        //{
-        //    return RedirectToPage("/Areas/Identity/Pages/Account/Login");
-        //}
     }
 }
