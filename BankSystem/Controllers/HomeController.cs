@@ -29,7 +29,7 @@ namespace BankSystem.Controllers
             return View();
         }
 
-        public IActionResult MyApplications()
+        public IActionResult LoanApplications()
         {
             return View();
         }
