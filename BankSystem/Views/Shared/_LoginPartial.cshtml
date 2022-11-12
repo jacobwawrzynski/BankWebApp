@@ -9,7 +9,7 @@
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
     <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout">
             <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
         </form>
     </li>
@@ -24,3 +24,51 @@ else
     </li>
 }
 </ul>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-heading">Menu</li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Home">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Transfer" asp-controller="Home">
+                    <i class="bi bi-envelope"></i>
+                    <span>Transfer</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="CurrencyExchange" asp-controller="Home">
+                    <i class="bi bi-envelope"></i>
+                    <span>Currency exchange</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="MyApplications" asp-controller="Home">
+                    <i class="bi bi-envelope"></i>
+                    <span>My applications</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+}

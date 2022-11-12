@@ -34,11 +34,6 @@ namespace BankSystem.Controllers
             return View();
         }
 
-        public IActionResult Profile() // TO DO WITH IDENTITY
-        {
-            return View();
-        }
-
         public IActionResult CurrencyExchange()
         {
             return View();
