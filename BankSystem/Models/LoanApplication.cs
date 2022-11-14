@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankSystem.Models
 {
@@ -9,13 +10,28 @@ namespace BankSystem.Models
         
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper forename")]
-        [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\\\\\/]{2,20})$")]
+        [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\p{P}]{2,20})$")]
         public string Firstname { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper lastname")]
-        [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\\\\\/]{2,20})$")]
+        [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\p{P}]{2,20})$")]
         public string Lastname { get; set; }
+
+        [Required]
+        public double NetIncome { get; set; }
+
+        [Required]
+        public string EmploymentType { get; set; }
+
+        [Required]
+        public Currency Currency { get; set; }
+
+        [Required]
+        public int MonthToPayOff { get; set; }
+
+        [Required]
+        public int Amount { get; set; }
 
         [Required]
         [Phone]

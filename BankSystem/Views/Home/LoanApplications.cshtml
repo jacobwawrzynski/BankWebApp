@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" placeholder="">
-                        <label for="floatingInput">Net income</label>
+                        <label for="floatingInput">Net income (per month)</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" placeholder="">
@@ -63,12 +63,12 @@
                         
                         <div>
                             <label for="customRange2" class="form-label">Months to pay off</label>
-                            <input class="range-input" type="text" id="monthsLoanValue" value="" readonly>
+                            <input class="range-input" type="text" id="monthsLoanValue" value="" placeholder="12" readonly>
                             <input type="range" class="form-range" min="2" max="24" step="1" onchange="updateMonthsValue(this.value);">
                         </div>
                         <div>
                             <label for="customRange2" class="form-label">Amount</label>
-                            <input class="range-input" type="text" id="amountLoanValue" value="" readonly>
+                            <input class="range-input" type="text" id="amountLoanValue" value="" placeholder="50000" readonly>
                             <input type="range" class="form-range" min="1000" max="100000" step="100" onchange="updateLoanValue(this.value);">
                         </div>
                             <h5 class="card-title">Send application</h5>
