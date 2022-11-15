@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BankSystem.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankSystem.Data
@@ -9,5 +10,36 @@ namespace BankSystem.Data
             : base(options)
         {
         }
+
+        public DbSet<DollarAccount> DollarAccounts { get; set; }
+        public DbSet<EuroAccount> EuroAccounts { get; set; }
+        public DbSet<PoundAccount> PoundAccounts { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<HistoryOfTransaction> HistoryOfTransactions { get; set; }
+        public DbSet<LoanApplication> LoanApplications { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Client>()
+                .HasOne(da => da.DollarAcc)
+                .WithOne(c => c._Client)
+                .HasForeignKey<DollarAccount>(da => da.IDnumberFK);
+
+            builder.Entity<Client>()
+                .HasOne(ea => ea.EuroAcc)
+                .WithOne(c => c._Client)
+                .HasForeignKey<EuroAccount>(ea => ea.IDnumberFK);
+
+            builder.Entity<Client>()
+                .HasOne(pa => pa.PoundAcc)
+                .WithOne(c => c._Client)
+                .HasForeignKey<PoundAccount>(pa => pa.IDnumberFK);
+
+
+
+            base.OnModelCreating(builder);
+        }
+
     }
 }

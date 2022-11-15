@@ -40,5 +40,10 @@ namespace BankSystem.Models
         [StringLength(10, MinimumLength = 1, ErrorMessage = "Provide the proper house/apartment number")]
         [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper house/apartment number")]
         public string ApartmentNumber { get; set; }
+
+        // One-to-one relationship with EuroAccount, DollarAccount, PoundAccount
+        public DollarAccount DollarAcc { get; set; }
+        public EuroAccount EuroAcc { get; set; }
+        public PoundAccount PoundAcc { get; set; }
     }
 }
