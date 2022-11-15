@@ -14,5 +14,7 @@ namespace BankSystem.Models
         public Client _Client { get; set; }
         public string IDnumberFK { get; set; }
 
+        // One-to-many relationship with HistoryOfTrasaction
+        public List<HistoryOfTransaction> Transaction { get; set; }
     }
 }

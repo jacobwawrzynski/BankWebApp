@@ -31,5 +31,16 @@ namespace BankSystem.Models
         [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper ID number")]
         public string IDnumber { get; set; }
 
+        // Many-to-one relationship with Accounts
+        public int EuroAccountFK { get; set; }
+        public EuroAccount EuroAcc { get; set; }
+
+        public int DollarAccountFK { get; set; }
+        public DollarAccount DollarAcc { get; set; }
+
+        public int PoundAccountFK { get; set; }
+        public PoundAccount PoundAcc { get; set; }
+
+
     }
 }

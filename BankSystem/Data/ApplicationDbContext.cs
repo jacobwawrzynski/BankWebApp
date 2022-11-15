@@ -36,7 +36,20 @@ namespace BankSystem.Data
                 .WithOne(c => c._Client)
                 .HasForeignKey<PoundAccount>(pa => pa.IDnumberFK);
 
+            builder.Entity<DollarAccount>()
+                .HasMany(hot => hot.Transaction)
+                .WithOne(da => da.DollarAcc)
+                .HasForeignKey(hot => hot.DollarAccountFK);
 
+            builder.Entity<EuroAccount>()
+                .HasMany(hot => hot.Transaction)
+                .WithOne(ea => ea.EuroAcc)
+                .HasForeignKey(hot => hot.EuroAccountFK);
+
+            builder.Entity<PoundAccount>()
+                .HasMany(hot => hot.Transaction)
+                .WithOne(pa => pa.PoundAcc)
+                .HasForeignKey(hot => hot.PoundAccountFK);
 
             base.OnModelCreating(builder);
         }
