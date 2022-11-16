@@ -1,7 +1,6 @@
 ﻿using BankSystem.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Transactions;
 
 namespace BankSystem.Data
 {
@@ -23,6 +22,11 @@ namespace BankSystem.Data
         public DbSet<HistoryOfTransaction> HistoryOfTransactions { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data source = E:\\WSEI-resources\\BankWebApp\\BankDB.db");
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
