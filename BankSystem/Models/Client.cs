@@ -45,5 +45,8 @@ namespace BankSystem.Models
         public DollarAccount DollarAcc { get; set; }
         public EuroAccount EuroAcc { get; set; }
         public PoundAccount PoundAcc { get; set; }
+
+        // One-to-many relationship with LoanApplication
+        public List<LoanApplication> LoanApplications { get; set; }
     }
 }

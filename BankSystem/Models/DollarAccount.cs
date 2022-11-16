@@ -6,7 +6,8 @@ namespace BankSystem.Models
     public class DollarAccount
     {
         [Key]
-        public int AccountNumber { get; set; }
+        [RegularExpression("^[0-9]*$")]
+        public string AccountNumber { get; set; }
 
         [Required]
         public double DollarFunds { get; set; }
@@ -17,5 +18,8 @@ namespace BankSystem.Models
 
         // One-to-many relationship with HistoryOfTrasaction
         public List<HistoryOfTransaction> Transaction { get; set; }
+
+        // One-to-many relationship with Transfers
+        public List<Transfer> Transfers { get; set; }
     }
 }

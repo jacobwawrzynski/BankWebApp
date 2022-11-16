@@ -1,6 +1,7 @@
 ﻿using BankSystem.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Transactions;
 
 namespace BankSystem.Data
 {
@@ -36,6 +37,11 @@ namespace BankSystem.Data
                 .WithOne(c => c._Client)
                 .HasForeignKey<PoundAccount>(pa => pa.IDnumberFK);
 
+            builder.Entity<Client>()
+                .HasMany(la => la.LoanApplications)
+                .WithOne(c => c._Client)
+                .HasForeignKey(la => la.IDnumberFK);
+            
             builder.Entity<DollarAccount>()
                 .HasMany(hot => hot.Transaction)
                 .WithOne(da => da.DollarAcc)
@@ -50,6 +56,41 @@ namespace BankSystem.Data
                 .HasMany(hot => hot.Transaction)
                 .WithOne(pa => pa.PoundAcc)
                 .HasForeignKey(hot => hot.PoundAccountFK);
+
+            builder.Entity<HistoryOfTransaction>()
+                .Property(p => p.Currency)
+                .HasConversion<string>()
+                .HasMaxLength(6);
+
+            builder.Entity<Transfer>()
+                .HasOne(hot => hot.Transaction)
+                .WithOne(t => t._Transfer)
+                .HasForeignKey<HistoryOfTransaction>(hot => hot.TransferFK);
+
+            builder.Entity<Transfer>()
+                .HasOne(ea => ea.EuroAcc)
+                .WithMany(t => t.Transfers)
+                .HasForeignKey(ea => ea.EuroAccountFK);
+
+            builder.Entity<Transfer>()
+                .HasOne(da => da.DollarAcc)
+                .WithMany(t => t.Transfers)
+                .HasForeignKey(da => da.DollarAccountFK);
+
+            builder.Entity<Transfer>()
+                .HasOne(pa => pa.PoundAcc)
+                .WithMany(t => t.Transfers)
+                .HasForeignKey(pa => pa.PoundAccountFK);
+
+            builder.Entity<Transfer>()
+               .Property(p => p.Currency)
+               .HasConversion<string>()
+               .HasMaxLength(6);
+
+            builder.Entity<LoanApplication>()
+               .Property(p => p.Currency)
+               .HasConversion<string>()
+               .HasMaxLength(6);
 
             base.OnModelCreating(builder);
         }

@@ -54,11 +54,8 @@ namespace BankSystem.Models
         [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper house/apartment number")]
         public string ApartmentNumber { get; set; }
 
-
-        // Foreign key to Clients
-        [Required]
-        [StringLength(10, MinimumLength = 2, ErrorMessage = "Provide the proper ID number")]
-        [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper ID number")]
-        public string IDnumber { get; set; }
+        // Many-to-one relationship with Client
+        public string IDnumberFK { get; set; }
+        public Client _Client { get; set; }
     }
 }
