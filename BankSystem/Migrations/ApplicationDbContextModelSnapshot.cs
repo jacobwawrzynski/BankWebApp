@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BankSystem.Data.Migrations
+namespace BankSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -61,7 +61,7 @@ namespace BankSystem.Data.Migrations
 
                     b.HasKey("IDnumber");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("BankSystem.Models.DollarAccount", b =>
@@ -81,7 +81,7 @@ namespace BankSystem.Data.Migrations
                     b.HasIndex("IDnumberFK")
                         .IsUnique();
 
-                    b.ToTable("DollarAccounts", (string)null);
+                    b.ToTable("DollarAccounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
@@ -101,7 +101,7 @@ namespace BankSystem.Data.Migrations
                     b.HasIndex("IDnumberFK")
                         .IsUnique();
 
-                    b.ToTable("EuroAccounts", (string)null);
+                    b.ToTable("EuroAccounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.HistoryOfTransaction", b =>
@@ -155,7 +155,7 @@ namespace BankSystem.Data.Migrations
                     b.HasIndex("TransferFK")
                         .IsUnique();
 
-                    b.ToTable("HistoryOfTransactions", (string)null);
+                    b.ToTable("HistoryOfTransactions");
                 });
 
             modelBuilder.Entity("BankSystem.Models.LoanApplication", b =>
@@ -223,7 +223,7 @@ namespace BankSystem.Data.Migrations
 
                     b.HasIndex("IDnumberFK");
 
-                    b.ToTable("LoanApplications", (string)null);
+                    b.ToTable("LoanApplications");
                 });
 
             modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
@@ -243,7 +243,7 @@ namespace BankSystem.Data.Migrations
                     b.HasIndex("IDnumberFK")
                         .IsUnique();
 
-                    b.ToTable("PoundAccounts", (string)null);
+                    b.ToTable("PoundAccounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.Transfer", b =>
@@ -302,7 +302,7 @@ namespace BankSystem.Data.Migrations
 
                     b.HasIndex("PoundAccountFK");
 
-                    b.ToTable("Transfers", (string)null);
+                    b.ToTable("Transfers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
