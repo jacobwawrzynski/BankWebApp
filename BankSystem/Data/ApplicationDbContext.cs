@@ -7,6 +7,10 @@ namespace BankSystem.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -22,6 +26,7 @@ namespace BankSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // Client-accounts relationships
             builder.Entity<Client>()
                 .HasOne(da => da.DollarAcc)
                 .WithOne(c => c._Client)
@@ -37,50 +42,61 @@ namespace BankSystem.Data
                 .WithOne(c => c._Client)
                 .HasForeignKey<PoundAccount>(pa => pa.IDnumberFK);
 
+            // Client-LoanApplications relationship
             builder.Entity<Client>()
                 .HasMany(la => la.LoanApplications)
                 .WithOne(c => c._Client)
                 .HasForeignKey(la => la.IDnumberFK);
             
+            // Accounts - HistoryOfTransaction relationships
             builder.Entity<DollarAccount>()
                 .HasMany(hot => hot.Transaction)
                 .WithOne(da => da.DollarAcc)
-                .HasForeignKey(hot => hot.DollarAccountFK);
+                .HasForeignKey(hot => hot.DollarAccountFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<EuroAccount>()
                 .HasMany(hot => hot.Transaction)
                 .WithOne(ea => ea.EuroAcc)
-                .HasForeignKey(hot => hot.EuroAccountFK);
+                .HasForeignKey(hot => hot.EuroAccountFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<PoundAccount>()
                 .HasMany(hot => hot.Transaction)
                 .WithOne(pa => pa.PoundAcc)
-                .HasForeignKey(hot => hot.PoundAccountFK);
+                .HasForeignKey(hot => hot.PoundAccountFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<HistoryOfTransaction>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
-
+            //Transfer - HistoryOfTransaction relationship
             builder.Entity<Transfer>()
                 .HasOne(hot => hot.Transaction)
                 .WithOne(t => t._Transfer)
                 .HasForeignKey<HistoryOfTransaction>(hot => hot.TransferFK);
 
+            //Transfer - Accounts relationships
             builder.Entity<Transfer>()
                 .HasOne(ea => ea.EuroAcc)
                 .WithMany(t => t.Transfers)
-                .HasForeignKey(ea => ea.EuroAccountFK);
+                .HasForeignKey(ea => ea.EuroAccountFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Transfer>()
                 .HasOne(da => da.DollarAcc)
                 .WithMany(t => t.Transfers)
-                .HasForeignKey(da => da.DollarAccountFK);
+                .HasForeignKey(da => da.DollarAccountFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Transfer>()
                 .HasOne(pa => pa.PoundAcc)
                 .WithMany(t => t.Transfers)
-                .HasForeignKey(pa => pa.PoundAccountFK);
+                .HasForeignKey(pa => pa.PoundAccountFK)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Currency Enum config
+            builder.Entity<HistoryOfTransaction>()
+                .Property(p => p.Currency)
+                .HasConversion<string>()
+                .HasMaxLength(6);
 
             builder.Entity<Transfer>()
                .Property(p => p.Currency)

@@ -21,6 +21,9 @@ namespace BankSystem.Models
         public string Lastname { get; set; }
 
         [Required]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
         [Phone]
         public string Phone { get; set; }
 
