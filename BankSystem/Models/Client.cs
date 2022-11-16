@@ -37,7 +37,7 @@ namespace BankSystem.Models
         public string PostalCode { get; set; }
 
         [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper street")]
-        public string Street { get; set; }
+        public string? Street { get; set; }
 
         [Required]
         [StringLength(10, MinimumLength = 1, ErrorMessage = "Provide the proper house/apartment number")]

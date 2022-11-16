@@ -111,7 +111,7 @@ namespace BankSystem.Areas.Identity.Pages.Account
 
             [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper street")]
             [Display(Name = "Street")]
-            public string Street { get; set; }
+            public string? Street { get; set; }
 
             [Required]
             [StringLength(10, MinimumLength = 1, ErrorMessage = "Provide the proper house/apartment number")]
@@ -163,7 +163,7 @@ namespace BankSystem.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, $"{Input.Firstname} {Input.Lastname}", CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Firstname, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
