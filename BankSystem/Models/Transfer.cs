@@ -32,9 +32,6 @@ namespace BankSystem.Models
         
         public bool IsInstant { get; set; } = false;
 
-        //One-to-one relationship with HistoryOfTransaction
-        public HistoryOfTransaction Transaction { get; set; }
-
         // Many-to-one relationships with Accounts
         public string EuroAccountFK { get; set; }
         public EuroAccount EuroAcc { get; set; }

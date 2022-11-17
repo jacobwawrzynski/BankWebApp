@@ -51,31 +51,6 @@ namespace BankSystem.Data
                 .HasMany(la => la.LoanApplications)
                 .WithOne(c => c._Client)
                 .HasForeignKey(la => la.IDnumberFK);
-            
-            // Accounts - HistoryOfTransaction relationships
-            builder.Entity<DollarAccount>()
-                .HasMany(hot => hot.Transaction)
-                .WithOne(da => da.DollarAcc)
-                .HasForeignKey(hot => hot.DollarAccountFK)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<EuroAccount>()
-                .HasMany(hot => hot.Transaction)
-                .WithOne(ea => ea.EuroAcc)
-                .HasForeignKey(hot => hot.EuroAccountFK)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<PoundAccount>()
-                .HasMany(hot => hot.Transaction)
-                .WithOne(pa => pa.PoundAcc)
-                .HasForeignKey(hot => hot.PoundAccountFK)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            //Transfer - HistoryOfTransaction relationship
-            builder.Entity<Transfer>()
-                .HasOne(hot => hot.Transaction)
-                .WithOne(t => t._Transfer)
-                .HasForeignKey<HistoryOfTransaction>(hot => hot.TransferFK);
 
             //Transfer - Accounts relationships
             builder.Entity<Transfer>()

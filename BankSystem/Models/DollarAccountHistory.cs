@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using BankSystem.Models.Interfaces;
 
 namespace BankSystem.Models
 {
-    public class HistoryOfTransaction
+    public class DollarAccountHistory : IAccountHistory
     {
         [Key]
         public int Id { get; set; }
@@ -20,19 +21,13 @@ namespace BankSystem.Models
         public DateTime Date { get; set; } = DateTime.Now;
 
         [Required]
+        public Currency Currency { get; } = Currency.Dollar;
+
+        [Required]
         public string BeneficiaryAccount { get; set; }
 
-        // Many-to-one relationships with Accounts
-
-
+        // Many-to-one realationship with DollarAccount
         public string DollarAccountFK { get; set; }
         public DollarAccount DollarAcc { get; set; }
-
-        public string PoundAccountFK { get; set; }
-        public PoundAccount PoundAcc { get; set; }
-
-        // One-to-one relationship with Transfers
-        public int TransferFK { get; set; }
-        public Transfer _Transfer { get; set; }
     }
 }
