@@ -19,7 +19,9 @@ namespace BankSystem.Data
         public DbSet<EuroAccount> EuroAccounts { get; set; }
         public DbSet<PoundAccount> PoundAccounts { get; set; }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<HistoryOfTransaction> HistoryOfTransactions { get; set; }
+        public DbSet<EuroAccountHistory> EuroAccountHistory { get; set; }
+        public DbSet<PoundAccountHistory> PoundAccountHistory { get; set; }
+        public DbSet<DollarAccountHistory> DollarAccountHistory { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
 
@@ -71,8 +73,49 @@ namespace BankSystem.Data
                 .HasForeignKey(pa => pa.PoundAccountFK)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            //Accounts - AccountHistory relationships
+            builder.Entity<DollarAccountHistory>()
+                .HasOne(da => da.DollarAcc)
+                .WithMany(dah => dah.DollarAH)
+                .HasForeignKey(da => da.DollarAccountFK);
+
+            builder.Entity<EuroAccountHistory>()
+                .HasOne(ea => ea.EuroAcc)
+                .WithMany(eah => eah.EuroAH)
+                .HasForeignKey(ea => ea.EuroAccountFK);
+
+            builder.Entity<PoundAccountHistory>()
+                .HasOne(pa => pa.PoundAcc)
+                .WithMany(pah => pah.PoundAH)
+                .HasForeignKey(pa => pa.PoundAccountFK);
+
             // Currency Enum config
-            builder.Entity<HistoryOfTransaction>()
+            builder.Entity<DollarAccountHistory>()
+                .Property(p => p.Currency)
+                .HasConversion<string>()
+                .HasMaxLength(6);
+
+            builder.Entity<EuroAccountHistory>()
+                .Property(p => p.Currency)
+                .HasConversion<string>()
+                .HasMaxLength(6);
+
+            builder.Entity<PoundAccountHistory>()
+                .Property(p => p.Currency)
+                .HasConversion<string>()
+                .HasMaxLength(6);
+
+            builder.Entity<PoundAccount>()
+                .Property(p => p.Currency)
+                .HasConversion<string>()
+                .HasMaxLength(6);
+
+            builder.Entity<EuroAccount>()
+                .Property(p => p.Currency)
+                .HasConversion<string>()
+                .HasMaxLength(6);
+
+            builder.Entity<DollarAccount>()
                 .Property(p => p.Currency)
                 .HasConversion<string>()
                 .HasMaxLength(6);

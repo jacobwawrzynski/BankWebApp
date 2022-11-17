@@ -1,5 +1,4 @@
 ﻿using BankSystem.Models.Interfaces;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BankSystem.Models
@@ -13,9 +12,15 @@ namespace BankSystem.Models
         [Required]
         public double Funds { get; set; }
 
+        [Required]
+        public Currency Currency { get; } = Currency.Dollar;
+
         // One-to-one relationship with Client
         public Client _Client { get; set; }
         public string IDnumberFK { get; set; }
+
+        // One-to-many relationship with Account History 
+        public List<DollarAccountHistory> DollarAH { get; set; }
 
         // One-to-many relationship with Transfers
         public List<Transfer> Transfers { get; set; }
