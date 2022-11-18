@@ -80,13 +80,11 @@ namespace BankSystem.Areas.Identity.Pages.Account
 
             [Required]
             [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper forename")]
-            [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\\\\\/]{2,20})$")]
             [Display(Name = "Firstname")]
             public string Firstname { get; set; }
 
             [Required]
             [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper lastname")]
-            [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\\\\\/]{2,20})$")]
             [Display(Name = "Lastname")]
             public string Lastname { get; set; }
 
@@ -149,26 +147,28 @@ namespace BankSystem.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync()
         {
-            ReturnUrl = returnUrl;
+            //ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
-            returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            //returnUrl ??= Url.Content("~/");
+            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                //var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Firstname, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                //await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                //await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                //var result = await _userManager.CreateAsync(user, Input.Password);
 
                 var client = new Client
                 {
+                    UserName = Input.Email,
+                    Email = Input.Email,
                     IDnumber = Input.IDnumber,
                     Firstname = Input.Firstname,
                     Lastname = Input.Lastname,
@@ -181,9 +181,10 @@ namespace BankSystem.Areas.Identity.Pages.Account
 
                 };
 
-                using var context = new ApplicationDbContext();
-                await context.Clients.AddAsync(client);
-                await context.SaveChangesAsync();
+                var result = await _userManager.CreateAsync(client, Input.Password); 
+                //using var context = new ApplicationDbContext();
+                //await context.Clients.AddAsync(client);
+                //await context.SaveChangesAsync();
 
                 if (result.Succeeded)
                 {
@@ -207,8 +208,8 @@ namespace BankSystem.Areas.Identity.Pages.Account
                     //}
                     //else
                     //{
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
+                        //return LocalRedirect(returnUrl);
                     //}
                 }
                 foreach (var error in result.Errors)
