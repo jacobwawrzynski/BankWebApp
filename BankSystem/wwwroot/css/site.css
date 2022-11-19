@@ -70,7 +70,7 @@ h6 {
 }
 
 .card-title {
-    padding: 20px 0 15px 0;
+    padding: 20px 0 15px 30px;
     font-size: 18px;
     font-weight: 500;
     color: #012970;
@@ -85,6 +85,10 @@ h6 {
 
 .card-body {
     padding: 0 20px 20px 20px;
+}
+
+.card-body-account {
+    width: 600px;
 }
 
 .card-img-overlay {
@@ -317,7 +321,7 @@ h6 {
     background: #e0f0ff;
 }
 
-.dashboard .dolar-card .card-icon {
+.dashboard .dollar-card .card-icon {
     color: #2eca6a;
     background: #e0f8e9;
 }
@@ -325,6 +329,18 @@ h6 {
 .dashboard .pound-card .card-icon {
     color: #ff771d;
     background: #ffecdf;
+}
+
+.account-buttons-horizontal {
+
+}
+
+.account-buttons {
+    list-style: none;
+}
+
+.account-buttons li {
+    padding-left: 20px;
 }
 
 /* HISTORY OF TRANSACTIONS */

@@ -12,58 +12,115 @@
         <div class="col-lg-8">
           <div class="row">
 
-            <div class="col-xxl-4 col-md-6">
-              <div class="card-account info-card dolar-card">
 
-                <div class="card-body">
-                  <h5 class="card-title">US Dollar Funds</h5>
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">$</div>
-                    <div class="ps-3">
-                      <h6>3,264</h6>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="col-xxl-4 col-md-6">
+              <div class="col-12">
               <div class="card-account info-card euro-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Euro Funds</h5>
+                  
+                <div class="card-body card-body-account">
+                  
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">€</div>
+                    
                     <div class="ps-3">
-                      <h6>3,264</h6>
+                      
+                      <div class="account-buttons-horizontal">
+                        <h5 class="card-title">Euro Funds</h5>
+
+                         <ul class="list-group list-group-flush list-group-horizontal account-buttons">
+                             <li>
+                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">€</div>
+                             </li>
+                             <li>
+                                 <h6>3,264</h6>
+                             </li>
+                              <li>
+                                <a class="btn btn-outline-secondary" asp-action="History" asp-controller="Home">History</a>
+                              </li>
+                              <li>
+                                <a class="btn btn-outline-primary" asp-action="Transfer" asp-controller="Home">Transfer</a>
+                              </li>
+                         </ul>
+                      </div>
                     </div>
                   </div>
+                  
                 </div>
 
               </div>
             </div>
+            <div class="col-12">
+                <div class="card-account info-card dollar-card">
 
-            <div class="col-xxl-4 col-md-6">
+                    <div class="card-body card-body-account">
+
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="ps-3">
+
+                                <div class="account-buttons-horizontal">
+                                    <h5 class="card-title">Dollar Funds</h5>
+
+                                    <ul class="list-group list-group-flush list-group-horizontal account-buttons">
+                                        <li>
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">$</div>
+                                        </li>
+                                        <li>
+                                            <h6>3,264</h6>
+                                        </li>
+                                        <li>
+                                            <a class="btn btn-outline-secondary" asp-action="History" asp-controller="Home">History</a>
+                                        </li>
+                                        <li>
+                                            <a class="btn btn-outline-primary" asp-action="Transfer" asp-controller="Home">Transfer</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12">
               <div class="card-account info-card pound-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">British Pound Funds</h5>
+                  
+                <div class="card-body card-body-account">
+                  
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">£</div>
+                    
                     <div class="ps-3">
-                      <h6>3,264</h6>
+                      
+                      <div class="account-buttons-horizontal">
+                        <h5 class="card-title">British Pound Funds</h5>
+
+                         <ul class="list-group list-group-flush list-group-horizontal account-buttons">
+                             <li>
+                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">£</div>
+                             </li>
+                             <li>
+                                 <h6>3,264</h6>
+                             </li>
+                              <li>
+                                <a class="btn btn-outline-secondary" asp-action="History" asp-controller="Home">History</a>
+                              </li>
+                              <li>
+                                <a class="btn btn-outline-primary" asp-action="Transfer" asp-controller="Home">Transfer</a>
+                              </li>
+                         </ul>
+                      </div>
                     </div>
                   </div>
+                  
                 </div>
 
               </div>
             </div>
             
-            <div class="col-12">
+            @*<div class="col-12">
               <div class="card history overflow-auto">
 
                 <div class="filter">
@@ -109,7 +166,7 @@
                 </div>
 
               </div>
-            </div>
+            </div>*@
           </div>
         </div>
       </div>
