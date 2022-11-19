@@ -23,7 +23,6 @@ namespace BankSystem.Data
         public DbSet<PoundAccountHistory> PoundAccountHistory { get; set; }
         public DbSet<DollarAccountHistory> DollarAccountHistory { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
-        public DbSet<Transfer> Transfers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -53,25 +52,6 @@ namespace BankSystem.Data
                 .HasMany(la => la.LoanApplications)
                 .WithOne(c => c._Client)
                 .HasForeignKey(la => la.IDnumberFK);
-
-            //Transfer - Accounts relationships
-            builder.Entity<Transfer>()
-                .HasOne(ea => ea.EuroAcc)
-                .WithMany(t => t.Transfers)
-                .HasForeignKey(ea => ea.EuroAccountFK)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Transfer>()
-                .HasOne(da => da.DollarAcc)
-                .WithMany(t => t.Transfers)
-                .HasForeignKey(da => da.DollarAccountFK)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Transfer>()
-                .HasOne(pa => pa.PoundAcc)
-                .WithMany(t => t.Transfers)
-                .HasForeignKey(pa => pa.PoundAccountFK)
-                .OnDelete(DeleteBehavior.NoAction);
 
             //Accounts - AccountHistory relationships
             builder.Entity<DollarAccountHistory>()
@@ -119,11 +99,6 @@ namespace BankSystem.Data
                 .Property(p => p.Currency)
                 .HasConversion<string>()
                 .HasMaxLength(6);
-
-            builder.Entity<Transfer>()
-               .Property(p => p.Currency)
-               .HasConversion<string>()
-               .HasMaxLength(6);
 
             builder.Entity<LoanApplication>()
                .Property(p => p.Currency)

@@ -10,11 +10,13 @@ namespace BankSystem.Models
         public int Id { get; set; }
 
         [Required]
-        [DefaultValue("Standard trasaction")]
+        [DefaultValue("Money transfer")]
         public string Title { get; set; }
 
         [Required]
         public double Amount { get; set; }
+
+        public string Address { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.Date)]
@@ -22,6 +24,9 @@ namespace BankSystem.Models
 
         [Required]
         public Currency Currency { get; } = Currency.Euro;
+
+        [Required]
+        public string BeneficiaryName { get; set; }
 
         [Required]
         public string BeneficiaryAccount { get; set; }

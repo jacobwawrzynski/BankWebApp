@@ -26,8 +26,14 @@ namespace BankSystem.Models
         [Required]
         public string BeneficiaryAccount { get; set; }
 
+        public string Address { get; set; } = string.Empty;
+
+        [Required]
+        public string BeneficiaryName { get; set; }
+
         // Many-to-one realationship with DollarAccount
         public string DollarAccountFK { get; set; }
         public DollarAccount DollarAcc { get; set; }
+        
     }
 }

@@ -8,6 +8,5 @@ namespace BankSystem.Models.Interfaces
         public double Funds { get; set; }
         public Client _Client { get; set; }
         public string IDnumberFK { get; set; }
-        public List<Transfer> Transfers { get; set; }
     }
 }

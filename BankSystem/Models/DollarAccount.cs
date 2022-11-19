@@ -22,7 +22,5 @@ namespace BankSystem.Models
         // One-to-many relationship with Account History 
         public List<DollarAccountHistory> DollarAH { get; set; }
 
-        // One-to-many relationship with Transfers
-        public List<Transfer> Transfers { get; set; }
     }
 }

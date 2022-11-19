@@ -26,6 +26,11 @@ namespace BankSystem.Models
         [Required]
         public string BeneficiaryAccount { get; set; }
 
+        public string Address { get; set; } = string.Empty;
+
+        [Required]
+        public string BeneficiaryName { get; set; }
+
         // Many-to-one realationship with EuroAccount
         public string PoundAccountFK { get; set; }
         public PoundAccount PoundAcc { get; set; }
