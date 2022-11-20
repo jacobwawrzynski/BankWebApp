@@ -95,6 +95,12 @@ h6 {
     background-color: rgba(255, 255, 255, 0.6);
 }
 
+/* FLOATING LABEL INPUT */
+.floating-label {
+    font-size: 13px;
+    padding: 2px 0 0 10px !important; 
+}
+
 /* SIDE NAVIGATON */
 .sidebar {
     position: fixed;

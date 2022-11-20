@@ -26,9 +26,11 @@ namespace BankSystem.Models
         public Currency Currency { get; } = Currency.Euro;
 
         [Required]
+        [DisplayName("Beneficiary Name")]
         public string BeneficiaryName { get; set; }
 
         [Required]
+        [DisplayName("Beneficiary Account")]
         public string BeneficiaryAccount { get; set; }
 
         // Many-to-one realationship with EuroAccount

@@ -24,11 +24,13 @@ namespace BankSystem.Models
         public Currency Currency { get; } = Currency.Dollar;
 
         [Required]
+        [DisplayName("Beneficiary Account")]
         public string BeneficiaryAccount { get; set; }
 
         public string Address { get; set; } = string.Empty;
 
         [Required]
+        [DisplayName("Beneficiary Name")]
         public string BeneficiaryName { get; set; }
 
         // Many-to-one realationship with DollarAccount
