@@ -22,7 +22,8 @@ namespace BankSystem.Controllers
         // GET: DollarCurrency
         public async Task<IActionResult> History()
         {
-            var applicationDbContext = _context.DollarAccountHistory.Include(d => d.DollarAcc);
+            //var applicationDbContext = _context.DollarAccountHistory.Include(d => d.DollarAcc);
+            var applicationDbContext = _context.DollarAccountHistory;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -56,113 +57,17 @@ namespace BankSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Transfer([Bind("Id,Title,Amount,Date,Currency,BeneficiaryAccount,Address,BeneficiaryName,DollarAccountFK")] DollarAccountHistory dollarAccountHistory)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(dollarAccountHistory);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(History));
             }
             ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
             return View(dollarAccountHistory);
         }
 
-        // GET: DollarCurrency/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.DollarAccountHistory == null)
-            {
-                return NotFound();
-            }
-
-            var dollarAccountHistory = await _context.DollarAccountHistory.FindAsync(id);
-            if (dollarAccountHistory == null)
-            {
-                return NotFound();
-            }
-            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return View(dollarAccountHistory);
-        }
-
-        // POST: DollarCurrency/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Amount,Date,Currency,BeneficiaryAccount,Address,BeneficiaryName,DollarAccountFK")] DollarAccountHistory dollarAccountHistory)
-        {
-            if (id != dollarAccountHistory.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(dollarAccountHistory);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DollarAccountHistoryExists(dollarAccountHistory.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return View(dollarAccountHistory);
-        }
-
-        // GET: DollarCurrency/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.DollarAccountHistory == null)
-            {
-                return NotFound();
-            }
-
-            var dollarAccountHistory = await _context.DollarAccountHistory
-                .Include(d => d.DollarAcc)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (dollarAccountHistory == null)
-            {
-                return NotFound();
-            }
-
-            return View(dollarAccountHistory);
-        }
-
-        // POST: DollarCurrency/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.DollarAccountHistory == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.DollarAccountHistory'  is null.");
-            }
-            var dollarAccountHistory = await _context.DollarAccountHistory.FindAsync(id);
-            if (dollarAccountHistory != null)
-            {
-                _context.DollarAccountHistory.Remove(dollarAccountHistory);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool DollarAccountHistoryExists(int id)
-        {
-          return _context.DollarAccountHistory.Any(e => e.Id == id);
-        }
     }
 }

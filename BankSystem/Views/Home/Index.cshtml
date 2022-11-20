@@ -1,11 +1,18 @@
 ﻿@page
+@using BankSystem.Data
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserMAnager
+@model Client
 
+@{
+    var context = new ApplicationDbContext();
+    var q = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.EuroAcc.Funds).FirstOrDefault();
+}
 
 @if (SignInManager.IsSignedIn(User))
 {
+    
     <section class="section dashboard">
       <div class="row">
 
@@ -30,13 +37,15 @@
                                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">€</div>
                              </li>
                              <li>
-                                 <h6>3,264</h6>
+                                 <h6>
+                                     @q
+                                 </h6>
                              </li>
                               <li>
-                                <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="EuroHistory">History</a>
+                                <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="EuroCurrency">History</a>
                               </li>
                               <li>
-                                <a class="btn btn-outline-primary" asp-action="Create" asp-controller="EuroHistory">Transfer</a>
+                                <a class="btn btn-outline-primary" asp-action="Create" asp-controller="EuroCurrency">Transfer</a>
                               </li>
                          </ul>
                       </div>
@@ -65,7 +74,7 @@
                                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">$</div>
                                         </li>
                                         <li>
-                                            <h6>3,264</h6>
+                                            @*<h6>@Model.DollarAcc.Funds</h6>*@
                                         </li>
                                         <li>
                                             <a class="btn btn-outline-secondary" asp-action="History" asp-controller="DollarCurrency">History</a>
@@ -100,13 +109,13 @@
                                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">£</div>
                              </li>
                              <li>
-                                 <h6>3,264</h6>
+                                 @*<h6>@Model.PoundAcc.Funds</h6>*@
                              </li>
                               <li>
-                                <a class="btn btn-outline-secondary" asp-action="History" asp-controller="Home">History</a>
+                                <a class="btn btn-outline-secondary" asp-action="History" asp-controller="PoundCurrency">History</a>
                               </li>
                               <li>
-                                <a class="btn btn-outline-primary" asp-action="Transfer" asp-controller="Home">Transfer</a>
+                                <a class="btn btn-outline-primary" asp-action="Transfer" asp-controller="PoundCurrency">Transfer</a>
                               </li>
                          </ul>
                       </div>

@@ -24,11 +24,6 @@ namespace BankSystem.Controllers
             return View();
         }
 
-        public IActionResult Transfer()
-        {
-            return View();
-        }
-
         public IActionResult LoanApplications()
         {
             return View();

@@ -41,9 +41,21 @@
                         <input asp-for="BeneficiaryName" class="form-control" />
                         <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
                     </div>
-
+                    <div class="form-floating mb-3">
+                        <label asp-for="DollarAccountFK" class="floating-label"></label>
+                        <input asp-for="DollarAccountFK" class="form-control" value="@Model.DollarAcc.AccountNumber"/>
+                        <span asp-validation-for="DollarAccountFK" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="DollarAcc" class="floating-label"></label>
+                        <input asp-for="DollarAcc" class="form-control" value="@Model.DollarAcc"/>
+                        <span asp-validation-for="DollarAcc" class="text-danger"></span>
+                    </div>
                     <div class="form-floating mb-3">
                         <input id="transfer-submit" type="submit" value="Send" class="w-100 btn btn-lg btn-info" />
+                    </div>
+                    <div class="form-floating mb-3">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
@@ -56,7 +68,7 @@
 
 
 <div>
-    <a asp-action="History">Back to List</a>
+    <a asp-action="History">Back to History</a>
 </div>
 
 @section Scripts {

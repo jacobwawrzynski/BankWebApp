@@ -77,6 +77,7 @@
                             <span asp-validation-for="Input.ApartmentNumber" class="text-danger"></span>
                         </div>
                         <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-info">Register</button>
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     </form>
 
                 </div>
