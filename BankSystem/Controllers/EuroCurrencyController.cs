@@ -63,5 +63,45 @@ namespace BankSystem.Controllers
             ViewData["EuroAccountFK"] = new SelectList(_context.EuroAccounts, "AccountNumber", "AccountNumber", euroAccountHistory.EuroAccountFK);
             return View(euroAccountHistory);
         }
+
+        public IActionResult AddMoney()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMoney([FromForm] double amount, [FromForm] string accountNumber)
+        {
+            if (ModelState.IsValid)
+            {
+                var account = await _context.EuroAccounts
+                    .Where(da => da.AccountNumber == accountNumber)
+                    .FirstOrDefaultAsync();
+                account.Funds += amount;
+                _context.Update(account);
+                await _context.SaveChangesAsync();
+            }
+            return View();
+        }
+
+        public IActionResult Withdrawal()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Withdrawal([FromForm] double amount, [FromForm] string accountNumber)
+        {
+            if (ModelState.IsValid)
+            {
+                var account = await _context.EuroAccounts
+                    .Where(da => da.AccountNumber == accountNumber)
+                    .FirstOrDefaultAsync();
+                account.Funds -= amount;
+                _context.Update(account);
+                await _context.SaveChangesAsync();
+            }
+            return View();
+        }
     }
 }

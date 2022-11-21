@@ -43,6 +43,12 @@
                                      €@euros
                                  </h6>
                              </li>
+                             <li>
+                                <a class="btn btn-outline-warning" asp-action="Withdrawal" asp-controller="EuroCurrency">Withdrawal</a>
+                             </li>
+                             <li>
+                                <a class="btn btn-outline-success" asp-action="AddMoney" asp-controller="EuroCurrency">Add money</a>
+                             </li>
                               <li>
                                 <a class="btn btn-outline-secondary" asp-action="History" asp-controller="EuroCurrency">History</a>
                               </li>
@@ -79,6 +85,9 @@
                                             <h6>
                                                 $@dollars
                                             </h6>
+                                        </li>
+                                        <li>
+                                            <a class="btn btn-outline-warning" asp-action="Withdrawal" asp-controller="DollarCurrency">Withdrawal</a>
                                         </li>
                                         <li>
                                             <a class="btn btn-outline-success" asp-action="AddMoney" asp-controller="DollarCurrency">Add money</a>
@@ -119,6 +128,12 @@
                                  <h6>
                                      £@pounds
                                  </h6>
+                             </li>
+                             <li>
+                                <a class="btn btn-outline-warning" asp-action="Withdrawal" asp-controller="PoundCurrency">Withdrawal</a>
+                             </li>
+                             <li>
+                                <a class="btn btn-outline-success" asp-action="AddMoney" asp-controller="PoundCurrency">Add money</a>
                              </li>
                               <li>
                                 <a class="btn btn-outline-secondary" asp-action="History" asp-controller="PoundCurrency">History</a>
