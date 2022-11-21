@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BankSystem.Models.EuroAccountHistory>
+﻿@model IEnumerable<BankSystem.Models.PoundAccountHistory>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,19 +19,19 @@
                 @Html.DisplayNameFor(model => model.Amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Currency)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BeneficiaryName)
+                @Html.DisplayNameFor(model => model.BeneficiaryAccount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BeneficiaryAccount)
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeneficiaryName)
             </th>
             <th></th>
         </tr>
@@ -46,19 +46,19 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Currency)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                @Html.DisplayFor(modelItem => item.BeneficiaryAccount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BeneficiaryAccount)
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeneficiaryName)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>
