@@ -1,18 +1,17 @@
 ﻿@using BankSystem.Data
-@model BankSystem.Models.DollarAccountHistory
+@model BankSystem.Models.EuroAccountHistory
 
 @{
-    ViewData["Title"] = "Transfer";
+    ViewData["Title"] = "Create";
 }
 @{
     var context = new ApplicationDbContext();
-    var accNumber = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc.AccountNumber).FirstOrDefault();
-    var account = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc).FirstOrDefault();  
+    var accNumber = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.EuroAcc.AccountNumber).FirstOrDefault();
 }
 
 <section class="section">
     <div class="row">
-    
+
         <form asp-action="Transfer" name="TransferForm" id="transfer-form">
             <div class="card">
                 <div class="card-body">
@@ -48,15 +47,10 @@
                         <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <label asp-for="DollarAccountFK" class="floating-label"></label>
-                        <input asp-for="DollarAccountFK" class="form-control" value=@accNumber readonly/>
-                        <span asp-validation-for="DollarAccountFK" class="text-danger"></span>
+                        <label asp-for="EuroAccountFK" class="floating-label"></label>
+                        <input asp-for="EuroAccountFK" class="form-control" value=@accNumber readonly />
+                        <span asp-validation-for="EuroAccountFK" class="text-danger"></span>
                     </div>
-@*                    <div class="form-floating mb-3">
-                        <label asp-for="DollarAcc" class="floating-label"></label>
-                        <input asp-for="DollarAcc" class="form-control" value=@account readonly/>
-                        <span asp-validation-for="DollarAcc" class="text-danger"></span>
-                    </div>*@
                     <div class="form-floating mb-3">
                         <input id="transfer-submit" type="submit" value="Send" class="w-100 btn btn-lg btn-info" />
                     </div>
@@ -64,17 +58,16 @@
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </form>
-    
+
     </div>
 </section>
 
-
 <div>
-    <a asp-action="History">Back to History</a>
+    <a asp-action="Index">Back to History</a>
 </div>
 
 @section Scripts {

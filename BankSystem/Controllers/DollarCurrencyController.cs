@@ -22,7 +22,6 @@ namespace BankSystem.Controllers
         // GET: DollarCurrency
         public async Task<IActionResult> History()
         {
-            //var applicationDbContext = _context.DollarAccountHistory.Include(d => d.DollarAcc);
             var applicationDbContext = _context.DollarAccountHistory;
             return View(await applicationDbContext.ToListAsync());
         }
@@ -31,17 +30,12 @@ namespace BankSystem.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.DollarAccountHistory == null)
-            {
                 return NotFound();
-            }
 
             var dollarAccountHistory = await _context.DollarAccountHistory
-                .Include(d => d.DollarAcc)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dollarAccountHistory == null)
-            {
                 return NotFound();
-            }
 
             return View(dollarAccountHistory);
         }

@@ -7,7 +7,9 @@
 
 @{
     var context = new ApplicationDbContext();
-    var q = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.EuroAcc.Funds).FirstOrDefault();
+    var euros = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.EuroAcc.Funds).FirstOrDefault();
+    var dollars = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.DollarAcc.Funds).FirstOrDefault();
+    var pounds = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.PoundAcc.Funds).FirstOrDefault();
 }
 
 @if (SignInManager.IsSignedIn(User))
@@ -38,14 +40,14 @@
                              </li>
                              <li>
                                  <h6>
-                                     @q
+                                     @euros
                                  </h6>
                              </li>
                               <li>
-                                <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="EuroCurrency">History</a>
+                                <a class="btn btn-outline-secondary" asp-action="History" asp-controller="EuroCurrency">History</a>
                               </li>
                               <li>
-                                <a class="btn btn-outline-primary" asp-action="Create" asp-controller="EuroCurrency">Transfer</a>
+                                <a class="btn btn-outline-primary" asp-action="Transfer" asp-controller="EuroCurrency">Transfer</a>
                               </li>
                          </ul>
                       </div>
@@ -74,7 +76,9 @@
                                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">$</div>
                                         </li>
                                         <li>
-                                            @*<h6>@Model.DollarAcc.Funds</h6>*@
+                                            <h6>
+                                                @dollars
+                                            </h6>
                                         </li>
                                         <li>
                                             <a class="btn btn-outline-secondary" asp-action="History" asp-controller="DollarCurrency">History</a>
@@ -109,7 +113,9 @@
                                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">£</div>
                              </li>
                              <li>
-                                 @*<h6>@Model.PoundAcc.Funds</h6>*@
+                                 <h6>
+                                     @pounds
+                                 </h6>
                              </li>
                               <li>
                                 <a class="btn btn-outline-secondary" asp-action="History" asp-controller="PoundCurrency">History</a>
@@ -126,54 +132,6 @@
 
               </div>
             </div>
-            
-            @*<div class="col-12">
-              <div class="card history overflow-auto">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">History of transactions</h5>
-
-                  <table class="table table-borderless datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">date</th>
-                        <td>Brandon Jacob</td>
-                        <td>$64</td>
-                        <td><span class="badge bg-success">Sent</span></td>
-                      </tr>
-                      
-                      <tr>
-                        <th scope="row">date</th>
-                        <td>Ashleigh Langosh</td>
-                        <td>$147</td>
-                        <td><span class="badge bg-secondary">Pending...</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">date</th>
-                        <td>Raheem Lehner</td>
-                        <td>$165</td>
-                        <td><span class="badge bg-primary">Received</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-
-              </div>
-            </div>*@
           </div>
         </div>
       </div>

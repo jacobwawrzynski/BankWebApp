@@ -34,6 +34,7 @@ namespace BankSystem.Models
         public string BeneficiaryAccount { get; set; }
 
         // Many-to-one realationship with EuroAccount
+        [DisplayName("Account Number")]
         public string EuroAccountFK { get; set; }
         public EuroAccount EuroAcc { get; set; }
     }
