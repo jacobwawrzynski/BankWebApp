@@ -23,6 +23,7 @@ namespace BankSystem.Data
         public DbSet<PoundAccountHistory> PoundAccountHistory { get; set; }
         public DbSet<DollarAccountHistory> DollarAccountHistory { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
+        public DbSet<Deposit> Deposits { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,6 +32,9 @@ namespace BankSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Deposit>()
+                .HasNoKey();
+
             // Client-accounts relationships
             builder.Entity<Client>()
                 .HasOne(da => da.DollarAcc)
