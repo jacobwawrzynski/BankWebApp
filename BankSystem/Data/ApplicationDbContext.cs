@@ -25,11 +25,6 @@ namespace BankSystem.Data
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data source = E:\\WSEI-resources\\BankWebApp\\BankDB.db");
-        }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Deposit>()

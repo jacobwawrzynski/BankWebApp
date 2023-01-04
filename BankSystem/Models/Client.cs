@@ -17,13 +17,11 @@ namespace BankSystem.Models
 
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper forename")]
-        [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\\\\\/]{2,20})$")]
         [PersonalData]
         public string Firstname { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper lastname")]
-        [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\\\\\/]{2,20})$")]
         [PersonalData]
         public string Lastname { get; set; }
 
@@ -39,7 +37,6 @@ namespace BankSystem.Models
         [PersonalData]
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper city")]
-        [RegularExpression("^[A-Za-z ]+$", ErrorMessage = "Provide the proper city")]
         public string City { get; set; }
 
         [Required]
@@ -48,13 +45,11 @@ namespace BankSystem.Models
         public string PostalCode { get; set; }
 
         [PersonalData]
-        [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper street")]
         public string? Street { get; set; }
 
         [PersonalData]
         [Required]
         [StringLength(10, MinimumLength = 1, ErrorMessage = "Provide the proper house/apartment number")]
-        [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper house/apartment number")]
         public string ApartmentNumber { get; set; }
 
         // One-to-one relationship with EuroAccount, DollarAccount, PoundAccount
