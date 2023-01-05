@@ -10,8 +10,8 @@ namespace BankSystem.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(10, MinimumLength = 4, ErrorMessage = "Provide the proper ID number")]
-        [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper ID number")]
+        [StringLength(10, MinimumLength = 4, ErrorMessage = "ID needs 4 to 10 characters")]
+        [RegularExpression("[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper ID number")]
         [PersonalData]
         public string IDnumber { get; set; }
 
