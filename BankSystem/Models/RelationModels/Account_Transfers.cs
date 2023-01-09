@@ -2,20 +2,20 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BankSystem.Models
+namespace BankSystem.Models.RelationModels
 {
-    public class Client_Accounts
+    public class Account_Transfers
     {
         [Key]
         public int Id { get; set; }
 
-        public int ClientId { get; set; }
         public int AccountId { get; set; }
-
-        [NotMapped]
-        public Client Client { get; set; }
+        public int TransferId { get; set; }
 
         [NotMapped]
         public IAccount Account { get; set; }
+
+        [NotMapped]
+        public ITransfer Transfer { get; set; }
     }
 }

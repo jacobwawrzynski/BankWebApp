@@ -1,4 +1,8 @@
 ﻿using BankSystem.Models;
+using BankSystem.Models.DollarModels;
+using BankSystem.Models.EuroModels;
+using BankSystem.Models.PoundModels;
+using BankSystem.Models.RelationModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

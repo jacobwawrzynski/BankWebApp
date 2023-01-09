@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BankSystem.Models.RelationModels;
 
 namespace BankSystem.Models.Interfaces
 {

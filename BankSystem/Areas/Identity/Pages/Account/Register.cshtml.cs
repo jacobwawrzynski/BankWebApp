@@ -12,6 +12,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using BankSystem.Data;
 using BankSystem.Models;
+using BankSystem.Models.DollarModels;
+using BankSystem.Models.EuroModels;
+using BankSystem.Models.PoundModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -165,6 +168,24 @@ namespace BankSystem.Areas.Identity.Pages.Account
                 //await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 //var result = await _userManager.CreateAsync(user, Input.Password);
 
+                var euroAcc = new EuroAccount
+                {
+                    AccountNumber = "EU" + Input.IDnumber,
+                    Funds = 0,
+                };
+
+                var dollarAcc = new DollarAccount
+                {
+                    AccountNumber = "US" + Input.IDnumber,
+                    Funds = 0,
+                };
+
+                var poundAcc = new PoundAccount
+                {
+                    AccountNumber = "GB" + Input.IDnumber,
+                    Funds = 0,
+                };
+
                 var client = new Client
                 {
                     UserName = Input.Email,
@@ -178,28 +199,14 @@ namespace BankSystem.Areas.Identity.Pages.Account
                     PostalCode = Input.PostalCode,
                     Street = Input.Street,
                     ApartmentNumber = Input.ApartmentNumber,
-                    DollarAcc = new DollarAccount
-                    {
-                        IDnumberFK = Input.IDnumber,
-                        AccountNumber = "US" + Input.IDnumber,
-                        Funds = 100,
-                    },
-                    EuroAcc = new EuroAccount
-                    {
-                        IDnumberFK = Input.IDnumber,
-                        AccountNumber = "EU" + Input.IDnumber,
-                        Funds = 100,
-                    },
-                    PoundAcc = new PoundAccount
-                    {
-                        IDnumberFK = Input.IDnumber,
-                        AccountNumber = "US" + Input.IDnumber,
-                        Funds = 100,
-                    },
                 };
 
+                //TODO
                 var result = await _userManager.CreateAsync(client, Input.Password);
-                //using var context = new ApplicationDbContext();
+                using var context = new ApplicationDbContext()
+                {
+                };
+
                 //await context.Clients.AddAsync(client);
                 //await context.SaveChangesAsync();
 
