@@ -4,7 +4,7 @@ using BankSystem.Models.Interfaces;
 
 namespace BankSystem.Models
 {
-    public class EuroAccountHistory : IAccountHistory
+    public class EuroAccountHistory : ITransactionHistory
     {
         [Key]
         public int Id { get; set; }
