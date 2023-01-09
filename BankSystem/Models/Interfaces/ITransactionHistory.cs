@@ -8,6 +8,7 @@
         public DateTime Date { get; set; }
         public string BeneficiaryName { get; set; }
         public string? Address { get; set; }
-        public IAccount BeneficiaryAccount { get; }
+        public IAccount FromAccount { get; set; }
+        public string BeneficiaryAccountNumber { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace BankSystem.Models
 
         [Required]
         [StringLength(10, MinimumLength = 4, ErrorMessage = "ID needs 4 to 10 characters")]
-        [RegularExpression("[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper ID number")]
+        [RegularExpression("[A-Za-z0-9]+$", ErrorMessage = "Provide the proper ID number")]
         [PersonalData]
         public string IDnumber { get; set; }
 
@@ -52,10 +52,8 @@ namespace BankSystem.Models
         [StringLength(10, MinimumLength = 1, ErrorMessage = "Provide the proper house/apartment number")]
         public string ApartmentNumber { get; set; }
 
-        // One-to-one relationship with EuroAccount, DollarAccount, PoundAccount
-        public DollarAccount DollarAcc { get; set; }
-        public EuroAccount EuroAcc { get; set; }
-        public PoundAccount PoundAcc { get; set; }
+        // One-to-many relationship with ClientAccounts
+        public ICollection<Client_Accounts> Client_Accounts { get; set; }
 
         // One-to-many relationship with LoanApplication
         public List<LoanApplication> LoanApplications { get; set; }

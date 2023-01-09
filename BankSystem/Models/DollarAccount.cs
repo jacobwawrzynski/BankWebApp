@@ -1,5 +1,6 @@
 ﻿using BankSystem.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankSystem.Models
 {
@@ -17,8 +18,7 @@ namespace BankSystem.Models
         [Required]
         public Currency Currency { get; } = Currency.Dollar;
 
-        [Required]
-        public ITransactionHistory TransactionHistory { get; } = new DollarTransactionHistory();
-
+        [NotMapped]
+        public ICollection<Client_Accounts> Client_Accounts { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace BankSystem.Models.Interfaces
         public string AccountNumber { get; set; }
         public double Funds { get; set; }
         public Currency Currency { get; }
-        public ITransactionHistory TransactionHistory { get; }
+        public ICollection<Client_Accounts> Client_Accounts { get; set; }
     }
 }

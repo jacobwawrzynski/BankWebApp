@@ -1,25 +1,24 @@
 ﻿using BankSystem.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankSystem.Models
 {
     public class EuroAccount : IAccount
     {
         [Key]
-        [RegularExpression("^[0-9]*$")]
+        public int Id { get; set; }
+
+        [Required]
         public string AccountNumber { get; set; }
 
         [Required]
-        public double Funds { get; set; }
+        public double Funds { get; set; } = 0;
 
         [Required]
-        public Currency Currency { get; } = Currency.Dollar;
+        public Currency Currency { get; } = Currency.Euro;
 
-        // One-to-one relationship with Client
-        public Client _Client { get; set; }
-        public string IDnumberFK { get; set; }
-
-        // One-to-many relationship with AccountHistory
-        public List<EuroAccountHistory> EuroAH { get; set; }
+        [NotMapped]
+        public ICollection<Client_Accounts> Client_Accounts { get; set; }
     }
 }

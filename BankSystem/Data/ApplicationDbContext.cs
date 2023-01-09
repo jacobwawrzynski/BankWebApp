@@ -21,35 +21,53 @@ namespace BankSystem.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<EuroAccountHistory> EuroAccountHistory { get; set; }
         public DbSet<PoundAccountHistory> PoundAccountHistory { get; set; }
-        public DbSet<DollarAccountHistory> DollarAccountHistory { get; set; }
+        public DbSet<DollarTransactionHistory> DollarAccountHistory { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    base.OnConfiguring(optionsBuilder);
-        //}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Deposit>()
                 .HasNoKey();
 
+            // Client_Accounts realationships
+            builder.Entity<Client_Accounts>()
+                .HasOne(ca => ca.Client)
+                .WithMany(c => c.Client_Accounts)
+                .HasForeignKey(ca => ca.ClientId);
+
+            builder.Entity<Client_Accounts>()
+                .HasOne(ca => ca.Account as DollarAccount)
+                .WithMany(ia => ia.Client_Accounts)
+                .HasForeignKey(ca => ca.AccountId);
+
+            builder.Entity<Client_Accounts>()
+                .HasOne(ca => ca.Account as EuroAccount)
+                .WithMany(ia => ia.Client_Accounts)
+                .HasForeignKey(ca => ca.AccountId);
+
+            builder.Entity<Client_Accounts>()
+                .HasOne(ca => ca.Account as PoundAccount)
+                .WithMany(ia => ia.Client_Accounts)
+                .HasForeignKey(ca => ca.AccountId);
+
+
             // Client-accounts relationships
-            builder.Entity<Client>()
-                .HasOne(da => da.DollarAcc)
-                .WithOne(c => c._Client)
-                .HasForeignKey<DollarAccount>(da => da.IDnumberFK);
 
-            builder.Entity<Client>()
-                .HasOne(ea => ea.EuroAcc)
-                .WithOne(c => c._Client)
-                .HasForeignKey<EuroAccount>(ea => ea.IDnumberFK);
+            //builder.Entity<Client>()
+            //    .HasOne(da => da.DollarAcc)
+            //    .WithOne(c => c._Client)
+            //    .HasForeignKey<DollarAccount>(da => da.IDnumberFK);
 
-            builder.Entity<Client>()
-                .HasOne(pa => pa.PoundAcc)
-                .WithOne(c => c._Client)
-                .HasForeignKey<PoundAccount>(pa => pa.IDnumberFK);
+            //builder.Entity<Client>()
+            //    .HasOne(ea => ea.EuroAcc)
+            //    .WithOne(c => c._Client)
+            //    .HasForeignKey<EuroAccount>(ea => ea.IDnumberFK);
+
+            //builder.Entity<Client>()
+            //    .HasOne(pa => pa.PoundAcc)
+            //    .WithOne(c => c._Client)
+            //    .HasForeignKey<PoundAccount>(pa => pa.IDnumberFK);
 
             // Client-LoanApplications relationship
             builder.Entity<Client>()
@@ -58,26 +76,28 @@ namespace BankSystem.Data
                 .HasForeignKey(la => la.IDnumberFK);
 
             //Accounts - AccountHistory relationships
-            builder.Entity<DollarAccountHistory>()
-                .HasOne(da => da.DollarAcc)
-                .WithMany(dah => dah.DollarAH)
-                .HasForeignKey(da => da.DollarAccountFK);
 
-            builder.Entity<EuroAccountHistory>()
-                .HasOne(ea => ea.EuroAcc)
-                .WithMany(eah => eah.EuroAH)
-                .HasForeignKey(ea => ea.EuroAccountFK);
+            //builder.Entity<DollarTransactionHistory>()
+            //    .HasOne(da => da.DollarAcc)
+            //    .WithMany(dah => dah.DollarAH)
+            //    .HasForeignKey(da => da.DollarAccountFK);
 
-            builder.Entity<PoundAccountHistory>()
-                .HasOne(pa => pa.PoundAcc)
-                .WithMany(pah => pah.PoundAH)
-                .HasForeignKey(pa => pa.PoundAccountFK);
+            //builder.Entity<EuroAccountHistory>()
+            //    .HasOne(ea => ea.EuroAcc)
+            //    .WithMany(eah => eah.EuroAH)
+            //    .HasForeignKey(ea => ea.EuroAccountFK);
+
+            //builder.Entity<PoundAccountHistory>()
+            //    .HasOne(pa => pa.PoundAcc)
+            //    .WithMany(pah => pah.PoundAH)
+            //    .HasForeignKey(pa => pa.PoundAccountFK);
 
             // Currency Enum config
-            builder.Entity<DollarAccountHistory>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
+
+            //builder.Entity<DollarTransactionHistory>()
+            //    .Property(p => p.Currency)
+            //    .HasConversion<string>()
+            //    .HasMaxLength(6);
 
             builder.Entity<EuroAccountHistory>()
                 .Property(p => p.Currency)
