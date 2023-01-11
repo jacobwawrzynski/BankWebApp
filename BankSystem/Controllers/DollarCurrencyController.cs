@@ -50,7 +50,7 @@ namespace BankSystem.Controllers
 
         // POST: DollarCurrency
         [HttpPost]
-        public async Task<IActionResult> Transfer([Bind("Id,Title,Amount,Date,Currency,BeneficiaryAccount,Address,BeneficiaryName,DollarAccountFK")] DollarAccountHistory dollarAccountHistory)
+        public async Task<IActionResult> Transfer([Bind("Id,Title,Amount,Date,Currency,BeneficiaryAccount,Address,BeneficiaryName,DollarAccountFK")] DollarTransactionHistory dollarAccountHistory)
         {
             if (ModelState.IsValid)
             {
