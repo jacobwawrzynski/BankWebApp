@@ -3,9 +3,9 @@ using BankSystem.Models.RelationModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BankSystem.Models.PoundModels
+namespace BankSystem.Models
 {
-    public class PoundAccount : IAccount
+    public class DollarAccount : IAccount
     {
         [Key]
         public int Id { get; set; }
@@ -17,8 +17,9 @@ namespace BankSystem.Models.PoundModels
         public double Funds { get; set; } = 0;
 
         [Required]
-        public Currency Currency { get; } = Currency.Pound;
+        public Currency Currency { get; } = Currency.Dollar;
 
+        // Relation with Client
         [NotMapped]
         public ICollection<Client_Accounts> Client_Accounts { get; set; }
     }

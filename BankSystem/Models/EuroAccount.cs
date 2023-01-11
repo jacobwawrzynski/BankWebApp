@@ -3,7 +3,7 @@ using BankSystem.Models.RelationModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BankSystem.Models.EuroModels
+namespace BankSystem.Models
 {
     public class EuroAccount : IAccount
     {

@@ -53,7 +53,7 @@ namespace BankSystem.Models
         [StringLength(10, MinimumLength = 1, ErrorMessage = "Provide the proper house/apartment number")]
         public string ApartmentNumber { get; set; }
 
-        // One-to-many relationship with ClientAccounts
+        // One-to-many relationship with Client_Accounts
         public ICollection<Client_Accounts> Client_Accounts { get; set; }
 
         // One-to-many relationship with LoanApplication

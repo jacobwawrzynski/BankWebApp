@@ -1,11 +1,9 @@
 ﻿using BankSystem.Models.Interfaces;
-using BankSystem.Models.RelationModels;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BankSystem.Models.PoundModels
+namespace BankSystem.Models
 {
-    public class PoundTransfer : ITransfer
+    public class TransferHistory : ITransfer
     {
         [Key]
         public int Id { get; set; }
@@ -17,23 +15,20 @@ namespace BankSystem.Models.PoundModels
         public string Title { get; set; }
 
         [Required]
-        public DateTime Date { get; } = DateTime.Now;
-
+        public DateTime Date { get; set; }
+        
         [Required]
         public string BeneficiaryName { get; set; }
-
+        
         public string? Address { get; set; }
-
+        
+        [Required]
+        public string FromAccountNumber { get; set; }
+        
         [Required]
         public string BeneficiaryAccountNumber { get; set; }
-
+        
         [Required]
-        public Currency Currency { get; } = Currency.Pound;
-
-        [NotMapped]
-        public IAccount FromAccount { get; set; }
-
-        [NotMapped]
-        public ICollection<Account_Transfers> Account_Transfers { get; set; }
+        public Currency Currency { get; set; }
     }
 }

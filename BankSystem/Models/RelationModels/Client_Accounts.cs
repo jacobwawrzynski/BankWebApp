@@ -6,16 +6,10 @@ namespace BankSystem.Models.RelationModels
 {
     public class Client_Accounts
     {
-        [Key]
-        public int Id { get; set; }
-
-        public int ClientId { get; set; }
-        public int AccountId { get; set; }
-
-        [NotMapped]
+        public int ClientID { get; set; }
         public Client Client { get; set; }
 
-        [NotMapped]
+        public int AccountID { get; set; }
         public IAccount Account { get; set; }
     }
 }

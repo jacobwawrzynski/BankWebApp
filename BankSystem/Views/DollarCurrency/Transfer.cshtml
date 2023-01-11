@@ -1,5 +1,5 @@
 ﻿@using BankSystem.Data
-@model BankSystem.Models.DollarTransactionHistory
+@model TransferViewModel
 
 @{
     ViewData["Title"] = "Transfer";
@@ -7,7 +7,7 @@
 @{
     var context = new ApplicationDbContext();
     var accNumber = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc.AccountNumber).FirstOrDefault();
-    var account = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc).FirstOrDefault();  
+    var account = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc).FirstOrDefault();
 }
 
 <section class="section">
@@ -28,14 +28,14 @@
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <label asp-for="Date" class="floating-label"></label>
-                        <input asp-for="Date" class="form-control" />
-                        <span asp-validation-for="Date" class="text-danger"></span>
+                        <label asp-for="BeneficiaryName" class="floating-label"></label>
+                        <input asp-for="BeneficiaryName" class="form-control" />
+                        <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <label asp-for="BeneficiaryAccount" class="floating-label"></label>
-                        <input asp-for="BeneficiaryAccount" class="form-control" id="floatingInput" />
-                        <span asp-validation-for="BeneficiaryAccount" class="text-danger"></span>
+                        <label asp-for="Date" class="floating-label"></label>
+                        <input asp-for="Date" class="form-control" readonly/>
+                        <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <label asp-for="Address" class="floating-label"></label>
@@ -43,20 +43,11 @@
                         <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <label asp-for="BeneficiaryName" class="floating-label"></label>
-                        <input asp-for="BeneficiaryName" class="form-control" />
-                        <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
+                        <label asp-for="FromAccountNumber" class="floating-label"></label>
+                        <input asp-for="FromAccountNumber" class="form-control" value="@accountNumber" readonly/>
+                        <span asp-validation-for="FromAccountNumber" class="text-danger"></span>
                     </div>
-                    <div class="form-floating mb-3">
-                        <label asp-for="DollarAccountFK" class="floating-label"></label>
-                        <input asp-for="DollarAccountFK" class="form-control" value=@accNumber readonly/>
-                        <span asp-validation-for="DollarAccountFK" class="text-danger"></span>
-                    </div>
-                    @*<div class="form-floating mb-3">
-                        <label asp-for="DollarAcc" class="floating-label"></label>
-                        <input asp-for="DollarAcc" class="form-control" value=@account readonly/>
-                        <span asp-validation-for="DollarAcc" class="text-danger"></span>
-                    </div>*@
+                    
                     <div class="form-floating mb-3">
                         <input id="transfer-submit" type="submit" value="Send" class="w-100 btn btn-lg btn-info" />
                     </div>

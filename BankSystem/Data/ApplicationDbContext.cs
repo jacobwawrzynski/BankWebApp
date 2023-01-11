@@ -1,8 +1,5 @@
 ﻿using BankSystem.Models;
-using BankSystem.Models.DollarModels;
-using BankSystem.Models.EuroModels;
 using BankSystem.Models.Interfaces;
-using BankSystem.Models.PoundModels;
 using BankSystem.Models.RelationModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +20,10 @@ namespace BankSystem.Data
         public DbSet<DollarAccount> DollarAccounts { get; set; }
         public DbSet<EuroAccount> EuroAccounts { get; set; }
         public DbSet<PoundAccount> PoundAccounts { get; set; }
-        public DbSet<DollarTransfer> DollarTransfers { get; set; }
-        public DbSet<EuroTransfer> EuroTransfers { get; set; }
-        public DbSet<PoundTransfer> PoundTransfers { get; set; }
-        public DbSet<History> History { get; set; }
+        //public DbSet<DollarTransfer> DollarTransfers { get; set; }
+        //public DbSet<EuroTransfer> EuroTransfers { get; set; }
+        //public DbSet<PoundTransfer> PoundTransfers { get; set; }
+        //public DbSet<History> History { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
@@ -38,25 +35,22 @@ namespace BankSystem.Data
 
             // Client_Accounts realationships
             builder.Entity<Client_Accounts>()
-                .HasOne(ca => ca.Client)
+                .HasKey(k => new { k.ClientID, k.AccountID });
+
+            builder.Entity<Client_Accounts>()
+                .HasOne(da => da.Account as DollarAccount)
                 .WithMany(c => c.Client_Accounts)
-                .HasForeignKey(ca => ca.ClientId);
+                .HasForeignKey(da => da.AccountID);
 
             builder.Entity<Client_Accounts>()
-                .HasOne(ca => ca.Account as DollarAccount)
-                .WithMany(ia => ia.Client_Accounts)
-                .HasForeignKey(ca => ca.AccountId);
+                .HasOne(da => da.Account as EuroAccount)
+                .WithMany(c => c.Client_Accounts)
+                .HasForeignKey(da => da.AccountID);
 
             builder.Entity<Client_Accounts>()
-                .HasOne(ca => ca.Account as EuroAccount)
-                .WithMany(ia => ia.Client_Accounts)
-                .HasForeignKey(ca => ca.AccountId);
-
-            builder.Entity<Client_Accounts>()
-                .HasOne(ca => ca.Account as PoundAccount)
-                .WithMany(ia => ia.Client_Accounts)
-                .HasForeignKey(ca => ca.AccountId);
-
+                .HasOne(da => da.Account as PoundAccount)
+                .WithMany(c => c.Client_Accounts)
+                .HasForeignKey(da => da.AccountID);
 
             // Client-accounts relationships
 
