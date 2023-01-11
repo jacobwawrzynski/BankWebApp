@@ -20,13 +20,11 @@ namespace BankSystem.Data
         public DbSet<DollarAccount> DollarAccounts { get; set; }
         public DbSet<EuroAccount> EuroAccounts { get; set; }
         public DbSet<PoundAccount> PoundAccounts { get; set; }
-        //public DbSet<DollarTransfer> DollarTransfers { get; set; }
-        //public DbSet<EuroTransfer> EuroTransfers { get; set; }
-        //public DbSet<PoundTransfer> PoundTransfers { get; set; }
-        //public DbSet<History> History { get; set; }
+        public DbSet<TransferHistory> TransferHistory { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<LoanApplication> LoanApplications { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
+        public DbSet<Client_Accounts> Client_Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
