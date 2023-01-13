@@ -18,10 +18,14 @@ namespace BankSystem.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; } = DateTime.Now;
 
         [Required]
         public Currency Currency { get; } = Currency.Dollar;
+
+        [Required]
+        [DisplayName("From Account")]
+        public string FromAccount { get => DollarAcc.AccountNumber; }
 
         [Required]
         [DisplayName("Beneficiary Account")]
@@ -34,8 +38,7 @@ namespace BankSystem.Models
         public string BeneficiaryName { get; set; }
 
         // Many-to-one realationship with DollarAccount
-        [DisplayName("Account Number")]
-        public string DollarAccountFK { get; set; }
+        public int DollarAccountFK { get; set; }
         public DollarAccount DollarAcc { get; set; }
         
     }

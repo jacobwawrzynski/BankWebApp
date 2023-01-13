@@ -1,4 +1,4 @@
-namespace BankSystem.Models
+namespace BankSystem.Models.ViewModels
 {
     public class ErrorViewModel
     {

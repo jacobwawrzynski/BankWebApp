@@ -55,7 +55,7 @@ namespace BankSystem.Models
         public string ApartmentNumber { get; set; }
 
         // Many-to-one relationship with Client
-        public string IDnumberFK { get; set; }
+        public string ClientFK { get; set; }
         public Client _Client { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BankSystem.Models
+namespace BankSystem.Models.ViewModels
 {
-    public class Deposit
+    public class DepositViewModel
     {
         [Required]
         public double Amount { get; set; }

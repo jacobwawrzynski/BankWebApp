@@ -18,10 +18,14 @@ namespace BankSystem.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; } = DateTime.Now;
 
         [Required]
         public Currency Currency { get; } = Currency.Pound;
+
+        [Required]
+        [DisplayName("From Account")]
+        public string FromAccount { get => PoundAcc.AccountNumber; }
 
         [Required]
         [DisplayName("Beneficiary Account")]
@@ -35,7 +39,7 @@ namespace BankSystem.Models
 
         // Many-to-one realationship with EuroAccount
         [DisplayName("Account Number")]
-        public string PoundAccountFK { get; set; }
+        public int PoundAccountFK { get; set; }
         public PoundAccount PoundAcc { get; set; }
     }
 }
