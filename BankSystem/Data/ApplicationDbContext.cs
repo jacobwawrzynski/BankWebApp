@@ -26,6 +26,11 @@ namespace BankSystem.Data
         public DbSet<Deposit> Deposits { get; set; }
         public DbSet<Client_Accounts> Client_Accounts { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=BankApplication;Integrated Security=True");
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Deposit>()
@@ -33,7 +38,7 @@ namespace BankSystem.Data
 
             // Client_Accounts realationships
             builder.Entity<Client_Accounts>()
-                .HasKey(k => new { k.ClientID, k.AccountID });
+                .HasKey(k => new { k.Client_ID, k.AccountID });
 
             builder.Entity<Client_Accounts>()
                 .HasOne(da => da.Account as DollarAccount)

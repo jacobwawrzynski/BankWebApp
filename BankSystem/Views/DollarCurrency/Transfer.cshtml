@@ -7,7 +7,7 @@
 @{
     var context = new ApplicationDbContext();
     var client = context.Clients.Where(c => c.Email == User.Identity.Name).FirstOrDefault();
-    var clientAccount = context.Client_Accounts.Where(ca => ca.ClientID == client.Id).Select(a => a.AccountID).FirstOrDefault();
+    var clientAccount = context.Client_Accounts.Where(ca => ca.Client_ID == client.Id).Select(a => a.AccountID).FirstOrDefault();
     var accountNumber = context.DollarAccounts.Where(da => da.Id == clientAccount).Select(da => da.AccountNumber);
 }
 

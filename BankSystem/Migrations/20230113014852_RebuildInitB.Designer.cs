@@ -3,6 +3,7 @@ using System;
 using BankSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -11,224 +12,142 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221121190014_Deposit")]
-    partial class Deposit
+    [Migration("20230113014852_RebuildInitB")]
+    partial class RebuildInitB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("BankSystem.Models.Deposit", b =>
                 {
                     b.Property<string>("AccountNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Amount")
-                        .HasColumnType("REAL");
+                        .HasColumnType("float");
 
                     b.ToTable("Deposits");
                 });
 
             modelBuilder.Entity("BankSystem.Models.DollarAccount", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasMaxLength(6)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<double>("Funds")
-                        .HasColumnType("REAL");
+                        .HasColumnType("float");
 
-                    b.Property<string>("IDnumberFK")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("AccountNumber");
-
-                    b.HasIndex("IDnumberFK")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("DollarAccounts");
                 });
 
-            modelBuilder.Entity("BankSystem.Models.DollarAccountHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("BeneficiaryAccount")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BeneficiaryName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DollarAccountFK")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DollarAccountFK");
-
-                    b.ToTable("DollarAccountHistory");
-                });
-
             modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
                 {
-                    b.Property<string>("AccountNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Funds")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("IDnumberFK")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("AccountNumber");
-
-                    b.HasIndex("IDnumberFK")
-                        .IsUnique();
-
-                    b.ToTable("EuroAccounts");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.EuroAccountHistory", b =>
-                {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
-                    b.Property<string>("Address")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AccountNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("BeneficiaryAccount")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BeneficiaryName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasMaxLength(6)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(6)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EuroAccountFK")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Funds")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EuroAccountFK");
-
-                    b.ToTable("EuroAccountHistory");
+                    b.ToTable("EuroAccounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.LoanApplication", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Amount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ApartmentNumber")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasMaxLength(6)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("EmploymentType")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("IDnumberFK")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("MonthToPayOff")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<double>("NetIncome")
-                        .HasColumnType("REAL");
+                        .HasColumnType("float");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -239,95 +158,123 @@ namespace BankSystem.Migrations
 
             modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasMaxLength(6)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<double>("Funds")
-                        .HasColumnType("REAL");
+                        .HasColumnType("float");
 
-                    b.Property<string>("IDnumberFK")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("AccountNumber");
-
-                    b.HasIndex("IDnumberFK")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("PoundAccounts");
                 });
 
-            modelBuilder.Entity("BankSystem.Models.PoundAccountHistory", b =>
+            modelBuilder.Entity("BankSystem.Models.RelationModels.Client_Accounts", b =>
+                {
+                    b.Property<int>("Client_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccountID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("DollarAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EuroAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Client_ID", "AccountID");
+
+                    b.HasIndex("AccountID");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("DollarAccountId");
+
+                    b.HasIndex("EuroAccountId");
+
+                    b.ToTable("Client_Accounts");
+                });
+
+            modelBuilder.Entity("BankSystem.Models.TransferHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Amount")
-                        .HasColumnType("REAL");
+                        .HasColumnType("float");
 
-                    b.Property<string>("BeneficiaryAccount")
+                    b.Property<string>("BeneficiaryAccountNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BeneficiaryName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("PoundAccountFK")
+                    b.Property<string>("FromAccountNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PoundAccountFK");
-
-                    b.ToTable("PoundAccountHistory");
+                    b.ToTable("TransferHistory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -336,17 +283,19 @@ namespace BankSystem.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -358,58 +307,58 @@ namespace BankSystem.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -418,7 +367,8 @@ namespace BankSystem.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
 
@@ -429,17 +379,19 @@ namespace BankSystem.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -452,18 +404,18 @@ namespace BankSystem.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -475,10 +427,10 @@ namespace BankSystem.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -490,18 +442,18 @@ namespace BankSystem.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -515,88 +467,44 @@ namespace BankSystem.Migrations
                     b.Property<string>("ApartmentNumber")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("IDnumber")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Street")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Client");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.DollarAccount", b =>
-                {
-                    b.HasOne("BankSystem.Models.Client", "_Client")
-                        .WithOne("DollarAcc")
-                        .HasForeignKey("BankSystem.Models.DollarAccount", "IDnumberFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Client");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.DollarAccountHistory", b =>
-                {
-                    b.HasOne("BankSystem.Models.DollarAccount", "DollarAcc")
-                        .WithMany("DollarAH")
-                        .HasForeignKey("DollarAccountFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DollarAcc");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
-                {
-                    b.HasOne("BankSystem.Models.Client", "_Client")
-                        .WithOne("EuroAcc")
-                        .HasForeignKey("BankSystem.Models.EuroAccount", "IDnumberFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Client");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.EuroAccountHistory", b =>
-                {
-                    b.HasOne("BankSystem.Models.EuroAccount", "EuroAcc")
-                        .WithMany("EuroAH")
-                        .HasForeignKey("EuroAccountFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EuroAcc");
                 });
 
             modelBuilder.Entity("BankSystem.Models.LoanApplication", b =>
@@ -610,26 +518,27 @@ namespace BankSystem.Migrations
                     b.Navigation("_Client");
                 });
 
-            modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
+            modelBuilder.Entity("BankSystem.Models.RelationModels.Client_Accounts", b =>
                 {
-                    b.HasOne("BankSystem.Models.Client", "_Client")
-                        .WithOne("PoundAcc")
-                        .HasForeignKey("BankSystem.Models.PoundAccount", "IDnumberFK")
+                    b.HasOne("BankSystem.Models.PoundAccount", "Account")
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("AccountID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("_Client");
-                });
+                    b.HasOne("BankSystem.Models.Client", null)
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("ClientId");
 
-            modelBuilder.Entity("BankSystem.Models.PoundAccountHistory", b =>
-                {
-                    b.HasOne("BankSystem.Models.PoundAccount", "PoundAcc")
-                        .WithMany("PoundAH")
-                        .HasForeignKey("PoundAccountFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("BankSystem.Models.DollarAccount", null)
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("DollarAccountId");
 
-                    b.Navigation("PoundAcc");
+                    b.HasOne("BankSystem.Models.EuroAccount", null)
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("EuroAccountId");
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -685,31 +594,24 @@ namespace BankSystem.Migrations
 
             modelBuilder.Entity("BankSystem.Models.DollarAccount", b =>
                 {
-                    b.Navigation("DollarAH");
+                    b.Navigation("Client_Accounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
                 {
-                    b.Navigation("EuroAH");
+                    b.Navigation("Client_Accounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
                 {
-                    b.Navigation("PoundAH");
+                    b.Navigation("Client_Accounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.Client", b =>
                 {
-                    b.Navigation("DollarAcc")
-                        .IsRequired();
-
-                    b.Navigation("EuroAcc")
-                        .IsRequired();
+                    b.Navigation("Client_Accounts");
 
                     b.Navigation("LoanApplications");
-
-                    b.Navigation("PoundAcc")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

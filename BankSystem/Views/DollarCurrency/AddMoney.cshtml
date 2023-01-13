@@ -1,11 +1,13 @@
 ﻿@using BankSystem.Data
 @model BankSystem.Models.Deposit
 @{
-    ViewData["Title"] = "AddMoney";
+    ViewData["Title"] = "Add dollars";
 }
 @{
     var context = new ApplicationDbContext();
-    var accNumber = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc.AccountNumber).FirstOrDefault();
+    var client = context.Clients.Where(c => c.Email == User.Identity.Name).FirstOrDefault();
+    var clientAccount = context.Client_Accounts.Where(ca => ca.Client_ID == client.Id).Select(a => a.AccountID).FirstOrDefault();
+    var accountNumber = context.DollarAccounts.Where(da => da.Id == clientAccount).Select(da => da.AccountNumber).FirstOrDefault();
 }
 
 <h1>AddMoney</h1>
@@ -24,7 +26,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <label asp-for="AccountNumber" class="floating-label"></label>
-                        <input asp-for="AccountNumber" class="form-control" value="@accNumber" readonly />
+                        <input asp-for="AccountNumber" class="form-control" value="@accountNumber" readonly />
                         <span asp-validation-for="AccountNumber" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">

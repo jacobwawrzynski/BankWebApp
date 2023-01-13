@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BankSystem.Data;
 using BankSystem.Models;
+using BankSystem.Models.RelationModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -200,12 +201,33 @@ namespace BankSystem.Areas.Identity.Pages.Account
 
                 //TODO
                 var result = await _userManager.CreateAsync(client, Input.Password);
-                using var context = new ApplicationDbContext()
+                var dollar_client_account = new Client_Accounts() 
+                { 
+                    Client_ID = client.Id,
+                    Client = client,
+                    Account = dollarAcc,
+                    AccountID = dollarAcc.Id 
+                };
+                var euro_client_account = new Client_Accounts()
                 {
+                    Client_ID = client.Id,
+                    Client = client,
+                    Account = euroAcc,
+                    AccountID = euroAcc.Id
+                };
+                var pound_client_account = new Client_Accounts()
+                {
+                    Client_ID = client.Id,
+                    Client = client,
+                    Account = poundAcc,
+                    AccountID = poundAcc.Id
                 };
 
-                //await context.Clients.AddAsync(client);
-                //await context.SaveChangesAsync();
+                using var context = new ApplicationDbContext();
+                await context.Client_Accounts.AddAsync(pound_client_account);
+                await context.Client_Accounts.AddAsync(euro_client_account);
+                await context.Client_Accounts.AddAsync(dollar_client_account);
+                await context.SaveChangesAsync();
 
                 if (result.Succeeded)
                 {

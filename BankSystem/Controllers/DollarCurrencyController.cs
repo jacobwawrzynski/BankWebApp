@@ -23,17 +23,17 @@ namespace BankSystem.Controllers
         // GET: DollarCurrency
         public async Task<IActionResult> History()
         {
-            var applicationDbContext = _context.DollarAccountHistory;
+            var applicationDbContext = _context.TransferHistory;
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: DollarCurrency
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.DollarAccountHistory == null)
+            if (id == null || _context.TransferHistory == null)
                 return NotFound();
 
-            var dollarAccountHistory = await _context.DollarAccountHistory
+            var dollarAccountHistory = await _context.TransferHistory
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dollarAccountHistory == null)
                 return NotFound();
@@ -44,22 +44,32 @@ namespace BankSystem.Controllers
         // GET: DollarCurrency
         public IActionResult Transfer()
         {
-            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber");
+            //ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber");
             return View();
         }
 
         // POST: DollarCurrency
         [HttpPost]
-        public async Task<IActionResult> Transfer([Bind("Id,Title,Amount,Date,Currency,BeneficiaryAccount,Address,BeneficiaryName,DollarAccountFK")] DollarTransactionHistory dollarAccountHistory)
+        public async Task<IActionResult> Transfer([FromForm] TransferViewModel transfer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dollarAccountHistory);
+                var transferHistory = new TransferHistory()
+                {
+                    Amount= transfer.Amount,
+                    Date= transfer.Date,
+                    Title= transfer.Title,
+                    BeneficiaryName= transfer.BeneficiaryName,
+                    BeneficiaryAccountNumber = transfer.BeneficiaryAccountNumber,
+                    FromAccountNumber = transfer.FromAccountNumber,
+                    Address = transfer.Address,
+                    Currency= transfer.Currency,
+                };
+                _context.Add(transferHistory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(History));
             }
-            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return View(dollarAccountHistory);
+            return View(transfer);
         }
 
         public IActionResult AddMoney()

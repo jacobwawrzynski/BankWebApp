@@ -36,8 +36,15 @@ namespace BankSystem.Migrations
 
             modelBuilder.Entity("BankSystem.Models.DollarAccount", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
@@ -47,19 +54,12 @@ namespace BankSystem.Migrations
                     b.Property<double>("Funds")
                         .HasColumnType("float");
 
-                    b.Property<string>("IDnumberFK")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("AccountNumber");
-
-                    b.HasIndex("IDnumberFK")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("DollarAccounts");
                 });
 
-            modelBuilder.Entity("BankSystem.Models.DollarAccountHistory", b =>
+            modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,48 +67,9 @@ namespace BankSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<string>("BeneficiaryAccount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BeneficiaryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DollarAccountFK")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DollarAccountFK");
-
-                    b.ToTable("DollarAccountHistory");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
-                {
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
@@ -118,62 +79,9 @@ namespace BankSystem.Migrations
                     b.Property<double>("Funds")
                         .HasColumnType("float");
 
-                    b.Property<string>("IDnumberFK")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("AccountNumber");
-
-                    b.HasIndex("IDnumberFK")
-                        .IsUnique();
-
-                    b.ToTable("EuroAccounts");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.EuroAccountHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<string>("BeneficiaryAccount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BeneficiaryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EuroAccountFK")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("EuroAccountFK");
-
-                    b.ToTable("EuroAccountHistory");
+                    b.ToTable("EuroAccounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.LoanApplication", b =>
@@ -248,8 +156,15 @@ namespace BankSystem.Migrations
 
             modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
@@ -259,19 +174,42 @@ namespace BankSystem.Migrations
                     b.Property<double>("Funds")
                         .HasColumnType("float");
 
-                    b.Property<string>("IDnumberFK")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("AccountNumber");
-
-                    b.HasIndex("IDnumberFK")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("PoundAccounts");
                 });
 
-            modelBuilder.Entity("BankSystem.Models.PoundAccountHistory", b =>
+            modelBuilder.Entity("BankSystem.Models.RelationModels.Client_Accounts", b =>
+                {
+                    b.Property<int>("Client_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccountID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("DollarAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EuroAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Client_ID", "AccountID");
+
+                    b.HasIndex("AccountID");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("DollarAccountId");
+
+                    b.HasIndex("EuroAccountId");
+
+                    b.ToTable("Client_Accounts");
+                });
+
+            modelBuilder.Entity("BankSystem.Models.TransferHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -280,13 +218,12 @@ namespace BankSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<string>("BeneficiaryAccount")
+                    b.Property<string>("BeneficiaryAccountNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -294,17 +231,15 @@ namespace BankSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PoundAccountFK")
+                    b.Property<string>("FromAccountNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -312,9 +247,7 @@ namespace BankSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PoundAccountFK");
-
-                    b.ToTable("PoundAccountHistory");
+                    b.ToTable("TransferHistory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -572,50 +505,6 @@ namespace BankSystem.Migrations
                     b.HasDiscriminator().HasValue("Client");
                 });
 
-            modelBuilder.Entity("BankSystem.Models.DollarAccount", b =>
-                {
-                    b.HasOne("BankSystem.Models.Client", "_Client")
-                        .WithOne("DollarAcc")
-                        .HasForeignKey("BankSystem.Models.DollarAccount", "IDnumberFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Client");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.DollarAccountHistory", b =>
-                {
-                    b.HasOne("BankSystem.Models.DollarAccount", "DollarAcc")
-                        .WithMany("DollarAH")
-                        .HasForeignKey("DollarAccountFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DollarAcc");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
-                {
-                    b.HasOne("BankSystem.Models.Client", "_Client")
-                        .WithOne("EuroAcc")
-                        .HasForeignKey("BankSystem.Models.EuroAccount", "IDnumberFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Client");
-                });
-
-            modelBuilder.Entity("BankSystem.Models.EuroAccountHistory", b =>
-                {
-                    b.HasOne("BankSystem.Models.EuroAccount", "EuroAcc")
-                        .WithMany("EuroAH")
-                        .HasForeignKey("EuroAccountFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EuroAcc");
-                });
-
             modelBuilder.Entity("BankSystem.Models.LoanApplication", b =>
                 {
                     b.HasOne("BankSystem.Models.Client", "_Client")
@@ -627,26 +516,27 @@ namespace BankSystem.Migrations
                     b.Navigation("_Client");
                 });
 
-            modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
+            modelBuilder.Entity("BankSystem.Models.RelationModels.Client_Accounts", b =>
                 {
-                    b.HasOne("BankSystem.Models.Client", "_Client")
-                        .WithOne("PoundAcc")
-                        .HasForeignKey("BankSystem.Models.PoundAccount", "IDnumberFK")
+                    b.HasOne("BankSystem.Models.PoundAccount", "Account")
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("AccountID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("_Client");
-                });
+                    b.HasOne("BankSystem.Models.Client", null)
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("ClientId");
 
-            modelBuilder.Entity("BankSystem.Models.PoundAccountHistory", b =>
-                {
-                    b.HasOne("BankSystem.Models.PoundAccount", "PoundAcc")
-                        .WithMany("PoundAH")
-                        .HasForeignKey("PoundAccountFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("BankSystem.Models.DollarAccount", null)
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("DollarAccountId");
 
-                    b.Navigation("PoundAcc");
+                    b.HasOne("BankSystem.Models.EuroAccount", null)
+                        .WithMany("Client_Accounts")
+                        .HasForeignKey("EuroAccountId");
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -702,31 +592,24 @@ namespace BankSystem.Migrations
 
             modelBuilder.Entity("BankSystem.Models.DollarAccount", b =>
                 {
-                    b.Navigation("DollarAH");
+                    b.Navigation("Client_Accounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
                 {
-                    b.Navigation("EuroAH");
+                    b.Navigation("Client_Accounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
                 {
-                    b.Navigation("PoundAH");
+                    b.Navigation("Client_Accounts");
                 });
 
             modelBuilder.Entity("BankSystem.Models.Client", b =>
                 {
-                    b.Navigation("DollarAcc")
-                        .IsRequired();
-
-                    b.Navigation("EuroAcc")
-                        .IsRequired();
+                    b.Navigation("Client_Accounts");
 
                     b.Navigation("LoanApplications");
-
-                    b.Navigation("PoundAcc")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

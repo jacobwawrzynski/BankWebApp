@@ -6,7 +6,7 @@ namespace BankSystem.Models.RelationModels
 {
     public class Client_Accounts
     {
-        public int ClientID { get; set; }
+        public int Client_ID { get; set; }
         [NotMapped]
         public Client Client { get; set; }
 
