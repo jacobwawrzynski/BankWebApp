@@ -2,12 +2,13 @@
 @model TransferViewModel
 
 @{
-    ViewData["Title"] = "Transfer";
+    ViewData["Title"] = "Transfer dollars";
 }
 @{
     var context = new ApplicationDbContext();
-    var accNumber = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc.AccountNumber).FirstOrDefault();
-    var account = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.DollarAcc).FirstOrDefault();
+    var client = context.Clients.Where(c => c.Email == User.Identity.Name).FirstOrDefault();
+    var clientAccount = context.Client_Accounts.Where(ca => ca.ClientID == client.Id).Select(a => a.AccountID).FirstOrDefault();
+    var accountNumber = context.DollarAccounts.Where(da => da.Id == clientAccount).Select(da => da.AccountNumber);
 }
 
 <section class="section">
@@ -34,7 +35,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <label asp-for="Date" class="floating-label"></label>
-                        <input asp-for="Date" class="form-control" readonly/>
+                        <input asp-for="Date" class="form-control" value="@DateTime.Now" readonly/>
                         <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
@@ -46,6 +47,11 @@
                         <label asp-for="FromAccountNumber" class="floating-label"></label>
                         <input asp-for="FromAccountNumber" class="form-control" value="@accountNumber" readonly/>
                         <span asp-validation-for="FromAccountNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Currency" class="floating-label"></label>
+                        <input asp-for="Currency" class="form-control" value="@Currency.Dollar" readonly />
+                        <span asp-validation-for="Currency" class="text-danger"></span>
                     </div>
                     
                     <div class="form-floating mb-3">
