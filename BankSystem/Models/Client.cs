@@ -6,9 +6,6 @@ namespace BankSystem.Models
 {
     public class Client : IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(10, MinimumLength = 4, ErrorMessage = "Provide the proper ID number")]
         [RegularExpression("^[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper ID number")]

@@ -180,19 +180,19 @@ namespace BankSystem.Areas.Identity.Pages.Account
                     ApartmentNumber = Input.ApartmentNumber,
                     DollarAcc = new DollarAccount
                     {
-                        IDnumberFK = Input.IDnumber,
+                        ClientFK = Input.IDnumber,
                         AccountNumber = "US" + Input.IDnumber,
                         Funds = 100,
                     },
                     EuroAcc = new EuroAccount
                     {
-                        IDnumberFK = Input.IDnumber,
+                        ClientFK = Input.IDnumber,
                         AccountNumber = "EU" + Input.IDnumber,
                         Funds = 100,
                     },
                     PoundAcc = new PoundAccount
                     {
-                        IDnumberFK = Input.IDnumber,
+                        ClientFK = Input.IDnumber,
                         AccountNumber = "US" + Input.IDnumber,
                         Funds = 100,
                     },

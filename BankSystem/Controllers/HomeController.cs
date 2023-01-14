@@ -1,4 +1,4 @@
-﻿using BankSystem.Models;
+﻿using BankSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;

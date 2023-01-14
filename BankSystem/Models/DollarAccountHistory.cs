@@ -38,7 +38,7 @@ namespace BankSystem.Models
         public string BeneficiaryName { get; set; }
 
         // Many-to-one realationship with DollarAccount
-        public int DollarAccountFK { get; set; }
+        public string DollarAccountFK { get; set; }
         public DollarAccount DollarAcc { get; set; }
         
     }

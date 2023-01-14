@@ -6,8 +6,7 @@ namespace BankSystem.Models
     public class PoundAccount : IAccount
     {
         [Key]
-        public int Id { get; set; }
-
+        [Required]
         [RegularExpression("^[0-9]*$")]
         public string AccountNumber { get; set; }
 
@@ -19,7 +18,7 @@ namespace BankSystem.Models
 
         // One-to-one relationship with Client
         public Client _Client { get; set; }
-        public int ClientFK { get; set; }
+        public string ClientFK { get; set; }
 
         // One-to-many relationship with AccountHistory
         public List<PoundAccountHistory> PoundAH { get; set; }

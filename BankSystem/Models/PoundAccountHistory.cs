@@ -39,7 +39,7 @@ namespace BankSystem.Models
 
         // Many-to-one realationship with EuroAccount
         [DisplayName("Account Number")]
-        public int PoundAccountFK { get; set; }
+        public string PoundAccountFK { get; set; }
         public PoundAccount PoundAcc { get; set; }
     }
 }
