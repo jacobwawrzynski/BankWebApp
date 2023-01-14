@@ -18,14 +18,14 @@ namespace BankSystem.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Date { get; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
 
         [Required]
         public Currency Currency { get; } = Currency.Pound;
 
         [Required]
         [DisplayName("From Account")]
-        public string FromAccount { get => PoundAcc.AccountNumber; }
+        public string FromAccount { get => PoundAccountFK; }
 
         [Required]
         [DisplayName("Beneficiary Account")]

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BankSystem.Data;
 using BankSystem.Models;
 using System.Transactions;
+using BankSystem.Models.ViewModels;
 
 namespace BankSystem.Controllers
 {
@@ -50,16 +51,17 @@ namespace BankSystem.Controllers
 
         // POST: DollarCurrency
         [HttpPost]
-        public async Task<IActionResult> Transfer([Bind("Id,Title,Amount,Date,Currency,BeneficiaryAccount,Address,BeneficiaryName,DollarAccountFK")] DollarAccountHistory dollarAccountHistory)
+        public async Task<IActionResult> Transfer([FromForm] TransferViewModel transfer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dollarAccountHistory);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(History));
+                //TO DO
+                //_context.Add(dollarAccountHistory);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(History));
             }
-            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return View(dollarAccountHistory);
+            //ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
+            return View();
         }
 
         public IActionResult AddMoney()

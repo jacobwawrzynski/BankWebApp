@@ -10,7 +10,6 @@ namespace BankSystem.Models
         public int Id { get; set; }
 
         [Required]
-        [DefaultValue("Standard trasaction")]
         public string Title { get; set; }
 
         [Required]
@@ -18,20 +17,18 @@ namespace BankSystem.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Date { get; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
 
         [Required]
         public Currency Currency { get; } = Currency.Dollar;
 
         [Required]
-        [DisplayName("From Account")]
-        public string FromAccount { get => DollarAcc.AccountNumber; }
+        public string FromAccount { get => DollarAccountFK; }
 
         [Required]
-        [DisplayName("Beneficiary Account")]
         public string BeneficiaryAccount { get; set; }
 
-        public string Address { get; set; } = string.Empty;
+        public string Address { get; set; }
 
         [Required]
         [DisplayName("Beneficiary Name")]
