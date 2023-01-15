@@ -9,10 +9,11 @@ using BankSystem.Data;
 using BankSystem.Models;
 using System.Transactions;
 using BankSystem.Models.ViewModels;
+using BankSystem.Models.Interfaces;
 
 namespace BankSystem.Controllers
 {
-    public class DollarCurrencyController : Controller
+    public class DollarCurrencyController : Controller, ICurrencyController
     {
         private readonly ApplicationDbContext _context;
 
@@ -65,6 +66,8 @@ namespace BankSystem.Controllers
                 dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
                 _context.Add(dollarAccountHistory);
                 await _context.SaveChangesAsync();
+                await Withdrawal(transfer.Amount, transfer.FromAccount);
+                await AddMoney(transfer.Amount, transfer.BeneficiaryAccount);
                 return View();
             }
             ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);

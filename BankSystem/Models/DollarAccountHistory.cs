@@ -26,6 +26,7 @@ namespace BankSystem.Models
         public string FromAccount { get; set; }
 
         [Required]
+        [DisplayName("Beneficiary Account")]
         public string BeneficiaryAccount { get; set; }
 
         public string Address { get; set; }
