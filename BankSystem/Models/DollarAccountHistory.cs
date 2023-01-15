@@ -23,7 +23,7 @@ namespace BankSystem.Models
         public Currency Currency { get; } = Currency.Dollar;
 
         [Required]
-        public string FromAccount { get => DollarAccountFK; }
+        public string FromAccount { get; set; }
 
         [Required]
         public string BeneficiaryAccount { get; set; }

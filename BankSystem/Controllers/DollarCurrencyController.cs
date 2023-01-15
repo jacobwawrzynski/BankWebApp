@@ -53,14 +53,21 @@ namespace BankSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Transfer([FromForm] TransferViewModel transfer)
         {
+            var dollarAccountHistory = new DollarAccountHistory();
             if (ModelState.IsValid)
             {
-                //TO DO
-                //_context.Add(dollarAccountHistory);
-                //await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(History));
+                dollarAccountHistory.Title= transfer.Title;
+                dollarAccountHistory.Amount= transfer.Amount;
+                dollarAccountHistory.FromAccount= transfer.FromAccount;
+                dollarAccountHistory.BeneficiaryAccount = transfer.BeneficiaryAccount;
+                dollarAccountHistory.Address = transfer.Address;
+                dollarAccountHistory.BeneficiaryName = transfer.BeneficiaryName;
+                dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
+                _context.Add(dollarAccountHistory);
+                await _context.SaveChangesAsync();
+                return View();
             }
-            //ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
+            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
             return View();
         }
 

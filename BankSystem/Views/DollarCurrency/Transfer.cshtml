@@ -27,9 +27,8 @@
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <label asp-for="Date" class="floating-label"></label>
-                        <input asp-for="Date" class="form-control"/>
-                        <span asp-validation-for="Date" class="text-danger"></span>
+                        <label class="floating-label">Date</label>
+                        <input class="form-control" value="" id="date" readonly />
                     </div>
                     <div class="form-floating mb-3">
                         <label asp-for="BeneficiaryAccount" class="floating-label"></label>
@@ -56,6 +55,7 @@
                         <input asp-for="BeneficiaryName" class="form-control" />
                         <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
                     </div>
+                    
                     <div class="form-floating mb-3">
                         <input id="transfer-submit" type="submit" value="Send" class="w-100 btn btn-lg btn-info" />
                     </div>
@@ -75,7 +75,11 @@
 <div>
     <a asp-action="History">Back to History</a>
 </div>
-
+<script type="text/javascript">
+    var today = new Date();
+    var date = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();
+    document.getElementById('date').value = date;
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
