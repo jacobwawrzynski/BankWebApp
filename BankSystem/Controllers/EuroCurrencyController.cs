@@ -7,74 +7,81 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BankSystem.Data;
 using BankSystem.Models;
-using System.Transactions;
-using BankSystem.Models.ViewModels;
 using BankSystem.Models.Interfaces;
+using BankSystem.Models.ViewModels;
 
 namespace BankSystem.Controllers
 {
-    public class DollarCurrencyController : Controller, ICurrencyController
+    public class EuroCurrencyController : Controller, ICurrencyController
     {
         private readonly ApplicationDbContext _context;
 
-        public DollarCurrencyController(ApplicationDbContext context)
+        public EuroCurrencyController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: DollarCurrency
+        // GET: EuroCurrency
         public async Task<IActionResult> History()
         {
-            var applicationDbContext = _context.DollarAccountHistory;
+            var applicationDbContext = _context.EuroAccountHistory;
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: DollarCurrency
+        // GET: EuroCurrency/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.DollarAccountHistory == null)
+            if (id == null || _context.EuroAccountHistory == null)
+            {
                 return NotFound();
+            }
 
-            var dollarAccountHistory = await _context.DollarAccountHistory
+            var euroAccountHistory = await _context.EuroAccountHistory
+                .Include(e => e.EuroAcc)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (dollarAccountHistory == null)
+            if (euroAccountHistory == null)
+            {
                 return NotFound();
+            }
 
-            return View(dollarAccountHistory);
+            return View(euroAccountHistory);
         }
 
-        // GET: DollarCurrency
+        // GET: EuroCurrency/Create
         public IActionResult Transfer()
         {
-            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber");
+            ViewData["EuroAccountFK"] = new SelectList(_context.EuroAccounts, "AccountNumber", "AccountNumber");
             return View();
         }
 
-        // POST: DollarCurrency
+        // POST: EuroCurrency/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Transfer([FromForm] TransferViewModel transfer)
         {
-            var dollarAccountHistory = new DollarAccountHistory();
+            var euroAccountHistory = new EuroAccountHistory();
             if (ModelState.IsValid)
             {
-                dollarAccountHistory.Title= transfer.Title;
-                dollarAccountHistory.Amount= transfer.Amount;
-                dollarAccountHistory.FromAccount= transfer.FromAccount;
-                dollarAccountHistory.BeneficiaryAccount = transfer.BeneficiaryAccount;
-                dollarAccountHistory.Address = transfer.Address;
-                dollarAccountHistory.BeneficiaryName = transfer.BeneficiaryName;
-                dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
+                euroAccountHistory.Title = transfer.Title;
+                euroAccountHistory.Amount = transfer.Amount;
+                euroAccountHistory.FromAccount = transfer.FromAccount;
+                euroAccountHistory.BeneficiaryAccount = transfer.BeneficiaryAccount;
+                euroAccountHistory.Address = transfer.Address;
+                euroAccountHistory.BeneficiaryName = transfer.BeneficiaryName;
+                euroAccountHistory.EuroAccountFK = transfer.FromAccount;
                 
-                _context.Add(dollarAccountHistory);
+                _context.Add(euroAccountHistory);
                 await _context.SaveChangesAsync();
-                
+
                 await Withdrawal(transfer.Amount, transfer.FromAccount);
                 await AddMoney(transfer.Amount, transfer.BeneficiaryAccount);
-                
+
                 return RedirectToAction(nameof(History));
             }
-            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return View(dollarAccountHistory);
+            ViewData["EuroAccountFK"] = new SelectList(_context.EuroAccounts, "AccountNumber", "AccountNumber", euroAccountHistory.EuroAccountFK);
+            return View(euroAccountHistory);
         }
 
         public IActionResult AddMoney()
@@ -87,7 +94,7 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.DollarAccounts
+                var account = await _context.EuroAccounts
                     .Where(da => da.AccountNumber == accountNumber)
                     .FirstOrDefaultAsync();
                 account.Funds += amount;
@@ -107,7 +114,7 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.DollarAccounts
+                var account = await _context.EuroAccounts
                     .Where(da => da.AccountNumber == accountNumber)
                     .FirstOrDefaultAsync();
                 account.Funds -= amount;

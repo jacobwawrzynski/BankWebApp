@@ -10,7 +10,7 @@ namespace BankSystem.Models
         public int Id { get; set; }
 
         [Required]
-        [DefaultValue("Standard trasaction")]
+        [DefaultValue("Money transfer")]
         public string Title { get; set; }
 
         [Required]
@@ -25,7 +25,7 @@ namespace BankSystem.Models
 
         [Required]
         [DisplayName("From Account")]
-        public string FromAccount { get => PoundAccountFK; }
+        public string FromAccount { get; set; }
 
         [Required]
         [DisplayName("Beneficiary Account")]

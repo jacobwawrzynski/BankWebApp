@@ -10,6 +10,7 @@ namespace BankSystem.Models
         public int Id { get; set; }
 
         [Required]
+        [DefaultValue("Money transfer")]
         public string Title { get; set; }
 
         [Required]
@@ -29,7 +30,7 @@ namespace BankSystem.Models
         [DisplayName("Beneficiary Account")]
         public string BeneficiaryAccount { get; set; }
 
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
         [Required]
         [DisplayName("Beneficiary Name")]

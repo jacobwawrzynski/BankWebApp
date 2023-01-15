@@ -19,7 +19,7 @@ namespace BankSystem.Models.ViewModels
         public string BeneficiaryAccount { get; set; }
         
         public Currency Currency { get; set; }
-        public string Address { get; set; } = string.Empty;
+        public string Address { get; set; }
 
         [DisplayName("Beneficiary Name")]
         public string BeneficiaryName { get; set; }

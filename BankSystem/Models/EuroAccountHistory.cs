@@ -27,7 +27,7 @@ namespace BankSystem.Models
 
         [Required]
         [DisplayName("From Account")]
-        public string FromAccount { get => EuroAccountFK; }
+        public string FromAccount { get; set; }
 
         [Required]
         [DisplayName("Beneficiary Name")]
