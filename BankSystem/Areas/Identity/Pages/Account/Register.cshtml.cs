@@ -193,7 +193,7 @@ namespace BankSystem.Areas.Identity.Pages.Account
                     PoundAcc = new PoundAccount
                     {
                         ClientFK = Input.IDnumber,
-                        AccountNumber = "US" + Input.IDnumber,
+                        AccountNumber = "GB" + Input.IDnumber,
                         Funds = 100,
                     },
                 };

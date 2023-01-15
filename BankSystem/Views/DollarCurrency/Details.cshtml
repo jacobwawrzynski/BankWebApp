@@ -1,4 +1,4 @@
-﻿@model BankSystem.Models.EuroAccountHistory
+﻿@model BankSystem.Models.DollarAccountHistory
 
 @{
     ViewData["Title"] = "Details";
@@ -53,7 +53,7 @@
             @Html.DisplayFor(model => model.BeneficiaryName)
         </dd>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EuroAcc.AccountNumber)
+            @Html.DisplayFor(model => model.DollarAcc.AccountNumber)
         </dd>
     </dl>
 </div>

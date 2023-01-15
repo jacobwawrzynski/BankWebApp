@@ -1,0 +1,86 @@
+﻿@using BankSystem.Data
+@model BankSystem.Models.ViewModels.TransferViewModel
+
+@{
+    ViewData["Title"] = "Transfer";
+}
+@{
+    var context = new ApplicationDbContext();
+    var accNumber = context.Clients.Where(c => c.Email == User.Identity.Name).Select(a => a.PoundAcc.AccountNumber).FirstOrDefault();
+}
+
+<section class="section">
+    <div class="row">
+    
+        <form asp-action="Transfer" name="TransferForm" id="transfer-form">
+            <div class="card">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Title" class="floating-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Amount" class="floating-label"></label>
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label class="floating-label">Date</label>
+                        <input class="form-control" value="" id="date" readonly />
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="BeneficiaryAccount" class="floating-label"></label>
+                        <input asp-for="BeneficiaryAccount" class="form-control" id="floatingInput" />
+                        <span asp-validation-for="BeneficiaryAccount" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="FromAccount" class="floating-label"></label>
+                        <input asp-for="FromAccount" class="form-control" value="@accNumber" readonly/>
+                        <span asp-validation-for="FromAccount" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Currency" class="floating-label"></label>
+                        <input asp-for="Currency" class="form-control" value="@Currency.Pound" readonly/>
+                        <span asp-validation-for="Currency" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Address" class="floating-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="BeneficiaryName" class="floating-label"></label>
+                        <input asp-for="BeneficiaryName" class="form-control" />
+                        <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input id="transfer-submit" type="submit" value="Send" class="w-100 btn btn-lg btn-info" />
+                    </div>
+                    <div class="form-floating mb-3">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+            </div>
+            
+        </form>
+    
+    </div>
+</section>
+
+
+<div>
+    <a asp-action="History">Back to History</a>
+</div>
+<script type="text/javascript">
+    var today = new Date();
+    var date = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();
+    document.getElementById('date').value = date;
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

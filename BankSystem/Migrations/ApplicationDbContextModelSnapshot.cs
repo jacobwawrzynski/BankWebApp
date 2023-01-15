@@ -44,7 +44,7 @@ namespace BankSystem.Migrations
                     b.HasIndex("ClientFK")
                         .IsUnique();
 
-                    b.ToTable("DollarAccounts");
+                    b.ToTable("DollarAccounts", (string)null);
                 });
 
             modelBuilder.Entity("BankSystem.Models.DollarAccountHistory", b =>
@@ -94,7 +94,7 @@ namespace BankSystem.Migrations
 
                     b.HasIndex("DollarAccountFK");
 
-                    b.ToTable("DollarAccountHistory");
+                    b.ToTable("DollarAccountHistory", (string)null);
                 });
 
             modelBuilder.Entity("BankSystem.Models.EuroAccount", b =>
@@ -119,7 +119,7 @@ namespace BankSystem.Migrations
                     b.HasIndex("ClientFK")
                         .IsUnique();
 
-                    b.ToTable("EuroAccounts");
+                    b.ToTable("EuroAccounts", (string)null);
                 });
 
             modelBuilder.Entity("BankSystem.Models.EuroAccountHistory", b =>
@@ -169,7 +169,7 @@ namespace BankSystem.Migrations
 
                     b.HasIndex("EuroAccountFK");
 
-                    b.ToTable("EuroAccountHistory");
+                    b.ToTable("EuroAccountHistory", (string)null);
                 });
 
             modelBuilder.Entity("BankSystem.Models.LoanApplication", b =>
@@ -239,7 +239,7 @@ namespace BankSystem.Migrations
 
                     b.HasIndex("ClientFK");
 
-                    b.ToTable("LoanApplications");
+                    b.ToTable("LoanApplications", (string)null);
                 });
 
             modelBuilder.Entity("BankSystem.Models.PoundAccount", b =>
@@ -264,7 +264,7 @@ namespace BankSystem.Migrations
                     b.HasIndex("ClientFK")
                         .IsUnique();
 
-                    b.ToTable("PoundAccounts");
+                    b.ToTable("PoundAccounts", (string)null);
                 });
 
             modelBuilder.Entity("BankSystem.Models.PoundAccountHistory", b =>
@@ -314,7 +314,7 @@ namespace BankSystem.Migrations
 
                     b.HasIndex("PoundAccountFK");
 
-                    b.ToTable("PoundAccountHistory");
+                    b.ToTable("PoundAccountHistory", (string)null);
                 });
 
             modelBuilder.Entity("BankSystem.Models.ViewModels.DepositViewModel", b =>
@@ -326,7 +326,7 @@ namespace BankSystem.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.ToTable("DepositViewModel");
+                    b.ToTable("DepositViewModel", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
