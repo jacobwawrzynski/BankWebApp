@@ -6,10 +6,14 @@
 @model Client
 
 @{
-    var context = new ApplicationDbContext();
-    var euros = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.EuroAcc.Funds).FirstOrDefault();
-    var dollars = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.DollarAcc.Funds).FirstOrDefault();
-    var pounds = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.PoundAcc.Funds).FirstOrDefault();
+    //var context = new ApplicationDbContext();
+    //var euros = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.EuroAcc.Funds).FirstOrDefault();
+    //var dollars = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.DollarAcc.Funds).FirstOrDefault();
+    //var pounds = context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.PoundAcc.Funds).FirstOrDefault();
+    var euros = ViewBag.Euros;
+    var dollars = ViewBag.Dollars;
+    var pounds = ViewBag.Pounds;
+
 }
 
 @if (SignInManager.IsSignedIn(User))

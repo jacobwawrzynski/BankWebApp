@@ -22,6 +22,9 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.FromAccount)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.BeneficiaryAccount)
             </th>
             <th>
@@ -43,6 +46,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromAccount)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BeneficiaryAccount)
