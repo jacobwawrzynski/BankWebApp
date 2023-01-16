@@ -35,9 +35,6 @@ namespace BankSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<DepositViewModel>()
-                .HasNoKey();
-
             // Client-accounts relationships
             builder.Entity<Client>()
                 .HasOne(da => da.DollarAcc)
@@ -75,42 +72,6 @@ namespace BankSystem.Data
                 .HasOne(pa => pa.PoundAcc)
                 .WithMany(pah => pah.PoundAH)
                 .HasForeignKey(pa => pa.PoundAccountFK);
-
-            // Currency Enum config
-            builder.Entity<DollarAccountHistory>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
-
-            builder.Entity<EuroAccountHistory>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
-
-            builder.Entity<PoundAccountHistory>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
-
-            builder.Entity<PoundAccount>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
-
-            builder.Entity<EuroAccount>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
-
-            builder.Entity<DollarAccount>()
-                .Property(p => p.Currency)
-                .HasConversion<string>()
-                .HasMaxLength(6);
-
-            builder.Entity<LoanApplication>()
-               .Property(p => p.Currency)
-               .HasConversion<string>()
-               .HasMaxLength(6);
 
             base.OnModelCreating(builder);
         }
