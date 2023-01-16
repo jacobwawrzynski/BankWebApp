@@ -24,7 +24,8 @@ namespace BankSystem.Controllers
         // GET: EuroCurrency
         public async Task<IActionResult> History()
         {
-            var applicationDbContext = _context.EuroAccountHistory;
+            var clientAccount = _context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.EuroAcc.AccountNumber).FirstOrDefault();
+            var applicationDbContext = _context.EuroAccountHistory.Where(a => a.BeneficiaryAccount == clientAccount || a.FromAccount == clientAccount);
             return View(await applicationDbContext.ToListAsync());
         }
 
