@@ -78,7 +78,7 @@ namespace BankSystem.Controllers
                 await _context.SaveChangesAsync();
 
                 await Withdrawal(transfer.Amount, transfer.FromAccount);
-                await AddMoney(transfer.Amount, transfer.BeneficiaryAccount);
+                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
 
                 return RedirectToAction(nameof(History));
             }
@@ -86,13 +86,13 @@ namespace BankSystem.Controllers
             return View(poundAccountHistory);
         }
 
-        public IActionResult AddMoney()
+        public IActionResult Deposit()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMoney([FromForm] double amount, [FromForm] string accountNumber)
+        public async Task<IActionResult> Deposit([FromForm] double amount, [FromForm] string accountNumber)
         {
             if (ModelState.IsValid)
             {
