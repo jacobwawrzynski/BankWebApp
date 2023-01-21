@@ -1,4 +1,6 @@
 using BankSystem.Data;
+using BankSystem.Models;
+using BankSystem.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -16,10 +16,12 @@ namespace BankSystem.Controllers
     public class DollarCurrencyController : Controller, ICurrencyController
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICurrencyService _currencyService;
 
-        public DollarCurrencyController(ApplicationDbContext context)
+        public DollarCurrencyController(ApplicationDbContext context, ICurrencyService currencyService)
         {
             _context = context;
+            _currencyService = currencyService;
         }
 
         // GET: DollarCurrency
@@ -88,12 +90,13 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.DollarAccounts
-                    .Where(da => da.AccountNumber == accountNumber)
-                    .FirstOrDefaultAsync();
-                account.Funds += amount;
-                _context.Update(account);
-                await _context.SaveChangesAsync();
+                await _currencyService.DollarDeposit(amount, accountNumber);
+                //var account = await _context.DollarAccounts
+                //    .Where(da => da.AccountNumber == accountNumber)
+                //    .FirstOrDefaultAsync();
+                //account.Funds += amount;
+                //_context.Update(account);
+                //await _context.SaveChangesAsync();
             }
             return View();
         }

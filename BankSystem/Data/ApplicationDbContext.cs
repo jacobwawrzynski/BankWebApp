@@ -27,6 +27,11 @@ namespace BankSystem.Data
 
         public DbSet<LoanApplication> LoanApplications { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=BankApplication;Integrated Security=True");
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Client-accounts relationships
