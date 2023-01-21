@@ -1,5 +1,4 @@
 ﻿using BankSystem.Models;
-using BankSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,11 +26,6 @@ namespace BankSystem.Data
         public DbSet<DollarAccountHistory> DollarAccountHistory { get; set; }
 
         public DbSet<LoanApplication> LoanApplications { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=BankApplication;Integrated Security=True");
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
