@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BankSystem.Models;
 
-namespace BankSystem.Models
+namespace BankSystem.Data
 {
     public class LoanApplication
     {
         [Key]
         public int Id { get; set; }
-        
+
         [Required]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Provide the proper forename")]
         [RegularExpression("^([^\\p{N}\\p{S}\\p{C}\\p{P}]{2,20})$")]

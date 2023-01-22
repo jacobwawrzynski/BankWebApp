@@ -1,7 +1,8 @@
-﻿using BankSystem.Models.Interfaces;
+﻿using BankSystem.Models;
+using BankSystem.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
-namespace BankSystem.Models
+namespace BankSystem.Data
 {
     public class EuroAccount : IAccount
     {

@@ -1,9 +1,10 @@
-﻿using BankSystem.Models.Interfaces;
+﻿using BankSystem.Models;
+using BankSystem.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
-namespace BankSystem.Models
+namespace BankSystem.Data
 {
-    public class PoundAccount : IAccount
+    public class DollarAccount : IAccount
     {
         [Key]
         [Required]
@@ -14,13 +15,14 @@ namespace BankSystem.Models
         public double Funds { get; set; }
 
         [Required]
-        public Currency Currency { get; } = Currency.Pound;
+        public Currency Currency { get; } = Currency.Dollar;
 
         // One-to-one relationship with Client
         public Client _Client { get; set; }
         public string ClientFK { get; set; }
 
-        // One-to-many relationship with AccountHistory
-        public List<PoundAccountHistory> PoundAH { get; set; }
+        // One-to-many relationship with Account History 
+        public List<DollarAccountHistory> DollarAH { get; set; }
+
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using BankSystem.Models.Interfaces;
+using BankSystem.Models;
 
-namespace BankSystem.Models
+namespace BankSystem.Data
 {
     public class DollarAccountHistory : IAccountHistory
     {
@@ -39,6 +40,6 @@ namespace BankSystem.Models
         // Many-to-one realationship with DollarAccount
         public string DollarAccountFK { get; set; }
         public DollarAccount DollarAcc { get; set; }
-        
+
     }
 }

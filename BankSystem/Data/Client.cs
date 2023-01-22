@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BankSystem.Models
+namespace BankSystem.Data
 {
     public class Client : IdentityUser
     {

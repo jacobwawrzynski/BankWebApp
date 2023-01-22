@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using BankSystem.Models.Interfaces;
+using BankSystem.Models;
 
-namespace BankSystem.Models
+namespace BankSystem.Data
 {
     public class PoundAccountHistory : IAccountHistory
     {
