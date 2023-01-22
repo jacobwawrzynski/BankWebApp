@@ -5,7 +5,7 @@
         public string Title { get; set; }
         public double Amount { get; set; }
         public DateTime Date { get; }
-        public string FromAccount { get; }
+        public string FromAccount { get; set; }
         public string BeneficiaryAccount { get; set; }
         public Currency Currency { get; }
         public string Address { get; set; }

@@ -27,9 +27,12 @@ namespace BankSystem.Controllers
         // GET: DollarCurrency
         public async Task<IActionResult> History()
         {
-            var clientAccount = _context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.DollarAcc.AccountNumber).FirstOrDefault();
-            var applicationDbContext = _context.DollarAccountHistory.Where(a => a.BeneficiaryAccount == clientAccount || a.FromAccount == clientAccount);
-            return View(await applicationDbContext.ToListAsync());
+            var clientAccount = _context.Clients
+                .Where(c => c.Email == User.Identity.Name)
+                .Select(c => c.DollarAcc.AccountNumber)
+                .FirstOrDefault();
+
+            return View(await _currencyService.DollarHistory(clientAccount));
         }
 
         // GET: DollarCurrency
@@ -60,25 +63,30 @@ namespace BankSystem.Controllers
             var dollarAccountHistory = new DollarAccountHistory();
             if (ModelState.IsValid)
             {
-                dollarAccountHistory.Title= transfer.Title;
-                dollarAccountHistory.Amount= transfer.Amount;
-                dollarAccountHistory.FromAccount= transfer.FromAccount;
-                dollarAccountHistory.BeneficiaryAccount = transfer.BeneficiaryAccount;
-                dollarAccountHistory.Address = transfer.Address;
-                dollarAccountHistory.BeneficiaryName = transfer.BeneficiaryName;
-                dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
-                
-                _context.Add(dollarAccountHistory);
-                await _context.SaveChangesAsync();
-                
-                await Withdrawal(transfer.Amount, transfer.FromAccount);
-                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
-                
+                await _currencyService.DollarTransfer(transfer, dollarAccountHistory);
                 return RedirectToAction(nameof(History));
             }
             ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return View(dollarAccountHistory);
+            return View();
         }
+
+        //public async Task DollarDirectTransfer(double amount, string fromAccount, string toAccount)
+        //{
+        //    var senderNumber = await _context.DollarAccounts
+        //        .Where(da => da.AccountNumber == fromAccount)
+        //        .FirstOrDefaultAsync();
+            
+        //    var beneficiaryNumber = await _context.DollarAccounts
+        //        .Where(da => da.AccountNumber == toAccount)
+        //        .FirstOrDefaultAsync();
+
+        //    senderNumber.Funds -= amount;
+        //    beneficiaryNumber.Funds += amount;
+
+        //    _context.Update(senderNumber);
+        //    _context.Update(beneficiaryNumber);
+        //    await _context.SaveChangesAsync();
+        //}
 
         public IActionResult Deposit()
         {
@@ -91,12 +99,6 @@ namespace BankSystem.Controllers
             if (ModelState.IsValid)
             {
                 await _currencyService.DollarDeposit(amount, accountNumber);
-                //var account = await _context.DollarAccounts
-                //    .Where(da => da.AccountNumber == accountNumber)
-                //    .FirstOrDefaultAsync();
-                //account.Funds += amount;
-                //_context.Update(account);
-                //await _context.SaveChangesAsync();
             }
             return View();
         }
@@ -111,12 +113,7 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.DollarAccounts
-                    .Where(da => da.AccountNumber == accountNumber)
-                    .FirstOrDefaultAsync();
-                account.Funds -= amount;
-                _context.Update(account);
-                await _context.SaveChangesAsync();
+                await _currencyService.DollarWithdrawal(amount, accountNumber);
             }
             return View();
         }

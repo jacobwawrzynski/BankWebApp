@@ -1,24 +1,28 @@
-﻿using BankSystem.Models.ViewModels;
+﻿using BankSystem.Data;
+using BankSystem.Models.ViewModels;
 
 namespace BankSystem.Models.Interfaces
 {
     public interface ICurrencyService
     {
-        public void DollarTransfer(TransferViewModel transfer);
-        public void EuroTransfer(TransferViewModel transfer);
-        public void PoundTransfer(TransferViewModel transfer);
+        public Task DollarTransfer(TransferViewModel transfer, DollarAccountHistory dollarAccountHistory);
+        //public Task EuroTransfer(TransferViewModel transfer);
+        //public Task PoundTransfer(TransferViewModel transfer);
         
         public Task DollarDeposit(double amount, string accountNumber);
-        public void EuroDeposit(double amount, string accountNumber);
-        public void PoundDeposit(double amount, string accountNumber);
+        //public Task EuroDeposit(double amount, string accountNumber);
+        //public Task PoundDeposit(double amount, string accountNumber);
         
-        public void DollarWithdrawal(double amount, string accountNumber);
-        public void EuroWithdrawal(double amount, string accountNumber);
-        public void PoundWithdrawal(double amount, string accountNumber);
+        public Task DollarWithdrawal(double amount, string accountNumber);
+        //public Task EuroWithdrawal(double amount, string accountNumber);
+        //public Task PoundWithdrawal(double amount, string accountNumber);
         
         
-        public IQueryable<DollarAccountHistory> DollarHistory();
-        public IQueryable<EuroAccountHistory> EuroHistory();
-        public IQueryable<PoundAccountHistory> PoundHistory();
+        public Task<List<DollarAccountHistory>> DollarHistory(string clientAccount);
+        //public Task<List<EuroAccountHistory>> EuroHistory();
+        //public Task<List<PoundAccountHistory>> PoundHistory();
+
+        public void DirectTransfer(double amount, IAccount fromNumber, IAccount toNumber);
+        public void TransferToHistory(TransferViewModel transfer, IAccountHistory history);
     }
 }

@@ -1,11 +1,13 @@
 ﻿using BankSystem.Data;
 using BankSystem.Models.Interfaces;
 using BankSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.Xml;
 
 namespace BankSystem.Models
 {
-    public class CurrencyService : ICurrencyService
+    public class CurrencyService : Controller, ICurrencyService
     {
         private readonly ApplicationDbContext _context;
         public CurrencyService(ApplicationDbContext context)
@@ -23,59 +25,87 @@ namespace BankSystem.Models
             await _context.SaveChangesAsync();
         }
 
-        public IQueryable<DollarAccountHistory> DollarHistory()
+        public async Task<List<DollarAccountHistory>> DollarHistory(string clientAccount)
+        {
+            var accountHistory = _context.DollarAccountHistory
+                .Where(a => a.BeneficiaryAccount == clientAccount || a.FromAccount == clientAccount);
+
+            return await accountHistory.ToListAsync();
+        }
+
+        public async Task DollarTransfer(TransferViewModel transfer, DollarAccountHistory dollarAccountHistory)
+        {
+            TransferToHistory(transfer, dollarAccountHistory);
+            dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
+            
+            _context.Add(dollarAccountHistory);
+            await _context.SaveChangesAsync();
+        }
+
+        public void DirectTransfer(double amount, IAccount fromAccount, IAccount toAccount)
+        {
+            fromAccount.Funds -= amount;
+            toAccount.Funds += amount;
+        }
+
+        public async Task DollarWithdrawal(double amount, string accountNumber)
+        {
+            var account = await _context.DollarAccounts
+                    .Where(da => da.AccountNumber == accountNumber)
+                    .FirstOrDefaultAsync();
+            account.Funds -= amount;
+            _context.Update(account);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task EuroDeposit(double amount, string accountNumber)
         {
             throw new NotImplementedException();
         }
 
-        public void DollarTransfer(TransferViewModel transfer)
+        public async Task<List<EuroAccountHistory>> EuroHistory()
         {
             throw new NotImplementedException();
         }
 
-        public void DollarWithdrawal(double amount, string accountNumber)
+        public async Task EuroTransfer(TransferViewModel transfer)
         {
             throw new NotImplementedException();
         }
 
-        public void EuroDeposit(double amount, string accountNumber)
+        public async Task EuroWithdrawal(double amount, string accountNumber)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<EuroAccountHistory> EuroHistory()
+        public async Task PoundDeposit(double amount, string accountNumber)
         {
             throw new NotImplementedException();
         }
 
-        public void EuroTransfer(TransferViewModel transfer)
+        public async Task<List<PoundAccountHistory>> PoundHistory()
         {
             throw new NotImplementedException();
         }
 
-        public void EuroWithdrawal(double amount, string accountNumber)
+        public async Task PoundTransfer(TransferViewModel transfer)
         {
             throw new NotImplementedException();
         }
 
-        public void PoundDeposit(double amount, string accountNumber)
+        public async Task PoundWithdrawal(double amount, string accountNumber)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<PoundAccountHistory> PoundHistory()
+        public void TransferToHistory(TransferViewModel transfer, IAccountHistory history)
         {
-            throw new NotImplementedException();
-        }
-
-        public void PoundTransfer(TransferViewModel transfer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PoundWithdrawal(double amount, string accountNumber)
-        {
-            throw new NotImplementedException();
+            history.Title = transfer.Title;
+            history.Amount = transfer.Amount;
+            history.FromAccount = transfer.FromAccount;
+            history.BeneficiaryAccount = transfer.BeneficiaryAccount;
+            history.Address = transfer.Address;
+            history.BeneficiaryName = transfer.BeneficiaryName;
         }
     }
 }
