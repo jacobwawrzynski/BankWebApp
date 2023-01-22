@@ -15,18 +15,23 @@ namespace BankSystem.Controllers
     public class EuroCurrencyController : Controller, ICurrencyController
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICurrencyService _currencyService;
 
-        public EuroCurrencyController(ApplicationDbContext context)
+        public EuroCurrencyController(ApplicationDbContext context, ICurrencyService currencyService)
         {
             _context = context;
+            _currencyService = currencyService;
         }
 
         // GET: EuroCurrency
         public async Task<IActionResult> History()
         {
-            var clientAccount = _context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.EuroAcc.AccountNumber).FirstOrDefault();
-            var applicationDbContext = _context.EuroAccountHistory.Where(a => a.BeneficiaryAccount == clientAccount || a.FromAccount == clientAccount);
-            return View(await applicationDbContext.ToListAsync());
+            var clientAccount = _context.Clients
+                .Where(c => c.Email == User.Identity.Name)
+                .Select(c => c.EuroAcc.AccountNumber)
+                .FirstOrDefault();
+
+            return View(await _currencyService.EuroHistory(clientAccount));
         }
 
         // GET: EuroCurrency/Details/5
@@ -65,19 +70,9 @@ namespace BankSystem.Controllers
             var euroAccountHistory = new EuroAccountHistory();
             if (ModelState.IsValid)
             {
-                euroAccountHistory.Title = transfer.Title;
-                euroAccountHistory.Amount = transfer.Amount;
-                euroAccountHistory.FromAccount = transfer.FromAccount;
-                euroAccountHistory.BeneficiaryAccount = transfer.BeneficiaryAccount;
-                euroAccountHistory.Address = transfer.Address;
-                euroAccountHistory.BeneficiaryName = transfer.BeneficiaryName;
-                euroAccountHistory.EuroAccountFK = transfer.FromAccount;
-                
-                _context.Add(euroAccountHistory);
-                await _context.SaveChangesAsync();
-
-                await Withdrawal(transfer.Amount, transfer.FromAccount);
-                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
+                await _currencyService.EuroTransfer(transfer, euroAccountHistory);
+                await _currencyService.EuroWithdrawal(transfer.Amount, transfer.FromAccount);
+                await _currencyService.EuroDeposit(transfer.Amount, transfer.BeneficiaryAccount);
 
                 return RedirectToAction(nameof(History));
             }
@@ -95,12 +90,7 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.EuroAccounts
-                    .Where(da => da.AccountNumber == accountNumber)
-                    .FirstOrDefaultAsync();
-                account.Funds += amount;
-                _context.Update(account);
-                await _context.SaveChangesAsync();
+                await _currencyService.EuroDeposit(amount, accountNumber);
             }
             return View();
         }
@@ -115,12 +105,7 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.EuroAccounts
-                    .Where(da => da.AccountNumber == accountNumber)
-                    .FirstOrDefaultAsync();
-                account.Funds -= amount;
-                _context.Update(account);
-                await _context.SaveChangesAsync();
+                await _currencyService.EuroWithdrawal(amount, accountNumber);
             }
             return View();
         }
