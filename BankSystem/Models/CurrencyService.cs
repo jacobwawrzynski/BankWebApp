@@ -2,6 +2,7 @@
 using BankSystem.Models.Interfaces;
 using BankSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.Xml;
 
@@ -42,12 +43,6 @@ namespace BankSystem.Models
             await _context.SaveChangesAsync();
         }
 
-        public void DirectTransfer(double amount, IAccount fromAccount, IAccount toAccount)
-        {
-            fromAccount.Funds -= amount;
-            toAccount.Funds += amount;
-        }
-
         public async Task DollarWithdrawal(double amount, string accountNumber)
         {
             var account = await _context.DollarAccounts
@@ -56,6 +51,11 @@ namespace BankSystem.Models
             account.Funds -= amount;
             _context.Update(account);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task TransferTest()
+        {
+            ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber");
         }
 
         public async Task EuroDeposit(double amount, string accountNumber)

@@ -64,29 +64,13 @@ namespace BankSystem.Controllers
             if (ModelState.IsValid)
             {
                 await _currencyService.DollarTransfer(transfer, dollarAccountHistory);
+                await _currencyService.DollarWithdrawal(transfer.Amount, transfer.FromAccount);
+                await _currencyService.DollarDeposit(transfer.Amount, transfer.BeneficiaryAccount);
                 return RedirectToAction(nameof(History));
             }
             ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
             return View();
         }
-
-        //public async Task DollarDirectTransfer(double amount, string fromAccount, string toAccount)
-        //{
-        //    var senderNumber = await _context.DollarAccounts
-        //        .Where(da => da.AccountNumber == fromAccount)
-        //        .FirstOrDefaultAsync();
-            
-        //    var beneficiaryNumber = await _context.DollarAccounts
-        //        .Where(da => da.AccountNumber == toAccount)
-        //        .FirstOrDefaultAsync();
-
-        //    senderNumber.Funds -= amount;
-        //    beneficiaryNumber.Funds += amount;
-
-        //    _context.Update(senderNumber);
-        //    _context.Update(beneficiaryNumber);
-        //    await _context.SaveChangesAsync();
-        //}
 
         public IActionResult Deposit()
         {

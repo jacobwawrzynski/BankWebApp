@@ -22,7 +22,6 @@ namespace BankSystem.Models.Interfaces
         //public Task<List<EuroAccountHistory>> EuroHistory();
         //public Task<List<PoundAccountHistory>> PoundHistory();
 
-        public void DirectTransfer(double amount, IAccount fromNumber, IAccount toNumber);
         public void TransferToHistory(TransferViewModel transfer, IAccountHistory history);
     }
 }
