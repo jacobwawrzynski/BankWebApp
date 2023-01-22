@@ -154,7 +154,12 @@ namespace BankSystem.Models
         /// <exception cref="NotImplementedException"></exception>
         public async Task PoundDeposit(double amount, string accountNumber)
         {
-            throw new NotImplementedException();
+            var account = await _context.PoundAccounts
+                 .Where(ea => ea.AccountNumber == accountNumber)
+                 .FirstOrDefaultAsync();
+            account.Funds += amount;
+            _context.Update(account);
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -162,9 +167,12 @@ namespace BankSystem.Models
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<List<PoundAccountHistory>> PoundHistory()
+        public async Task<List<PoundAccountHistory>> PoundHistory(string clientAccount)
         {
-            throw new NotImplementedException();
+            var accountHistory = _context.PoundAccountHistory
+                .Where(a => a.BeneficiaryAccount == clientAccount || a.FromAccount == clientAccount);
+
+            return await accountHistory.ToListAsync();
         }
 
         /// <summary>
@@ -173,9 +181,13 @@ namespace BankSystem.Models
         /// <param name="transfer"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task PoundTransfer(TransferViewModel transfer)
+        public async Task PoundTransfer(TransferViewModel transfer, PoundAccountHistory poundAccountHistory)
         {
-            throw new NotImplementedException();
+            TransferToHistory(transfer, poundAccountHistory);
+            poundAccountHistory.PoundAccountFK = transfer.FromAccount;
+
+            _context.Add(poundAccountHistory);
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -187,7 +199,12 @@ namespace BankSystem.Models
         /// <exception cref="NotImplementedException"></exception>
         public async Task PoundWithdrawal(double amount, string accountNumber)
         {
-            throw new NotImplementedException();
+            var account = await _context.PoundAccounts
+                  .Where(ea => ea.AccountNumber == accountNumber)
+                  .FirstOrDefaultAsync();
+            account.Funds -= amount;
+            _context.Update(account);
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>

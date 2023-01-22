@@ -16,18 +16,23 @@ namespace BankSystem.Controllers
     public class PoundCurrencyController : Controller, ICurrencyController
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICurrencyService _currencyService;
 
-        public PoundCurrencyController(ApplicationDbContext context)
+        public PoundCurrencyController(ApplicationDbContext context, ICurrencyService currencyService)
         {
+            _currencyService = currencyService;
             _context = context;
         }
 
         // GET: PoundCurrency
         public async Task<IActionResult> History()
         {
-            var clientAccount = _context.Clients.Where(c => c.Email == User.Identity.Name).Select(c => c.PoundAcc.AccountNumber).FirstOrDefault();
-            var applicationDbContext = _context.PoundAccountHistory.Where(a => a.BeneficiaryAccount == clientAccount || a.FromAccount == clientAccount);
-            return View(await applicationDbContext.ToListAsync());
+            var clientAccount = _context.Clients
+                .Where(c => c.Email == User.Identity.Name)
+                .Select(c => c.PoundAcc.AccountNumber)
+                .FirstOrDefault();
+            
+            return View(await _currencyService.PoundHistory(clientAccount));
         }
 
         // GET: PoundCurrency/Details/5
@@ -66,19 +71,9 @@ namespace BankSystem.Controllers
             var poundAccountHistory = new PoundAccountHistory();
             if (ModelState.IsValid)
             {
-                poundAccountHistory.Title = transfer.Title;
-                poundAccountHistory.Amount = transfer.Amount;
-                poundAccountHistory.FromAccount = transfer.FromAccount;
-                poundAccountHistory.BeneficiaryAccount = transfer.BeneficiaryAccount;
-                poundAccountHistory.Address = transfer.Address;
-                poundAccountHistory.BeneficiaryName = transfer.BeneficiaryName;
-                poundAccountHistory.PoundAccountFK = transfer.FromAccount;
-
-                _context.Add(poundAccountHistory);
-                await _context.SaveChangesAsync();
-
-                await Withdrawal(transfer.Amount, transfer.FromAccount);
-                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
+                await _currencyService.PoundTransfer(transfer, poundAccountHistory);
+                await _currencyService.PoundWithdrawal(transfer.Amount, transfer.FromAccount);
+                await _currencyService.PoundDeposit(transfer.Amount, transfer.BeneficiaryAccount);
 
                 return RedirectToAction(nameof(History));
             }
@@ -96,12 +91,7 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.PoundAccounts
-                    .Where(da => da.AccountNumber == accountNumber)
-                    .FirstOrDefaultAsync();
-                account.Funds += amount;
-                _context.Update(account);
-                await _context.SaveChangesAsync();
+                await _currencyService.PoundDeposit(amount, accountNumber);
             }
             return View();
         }
@@ -116,12 +106,7 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var account = await _context.PoundAccounts
-                    .Where(da => da.AccountNumber == accountNumber)
-                    .FirstOrDefaultAsync();
-                account.Funds -= amount;
-                _context.Update(account);
-                await _context.SaveChangesAsync();
+                await _currencyService.PoundWithdrawal(amount, accountNumber);
             }
             return View();
         }
