@@ -13,7 +13,7 @@
 
 }
 
-@if (SignInManager.IsSignedIn(User))
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Client"))
 {
     
     <section class="section dashboard">
@@ -155,6 +155,10 @@
         </div>
       </div>
     </section>
+}
+else if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <h2>Admin page</h2>
 }
 else
 {
