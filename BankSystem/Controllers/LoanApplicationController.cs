@@ -21,7 +21,7 @@ namespace BankSystem.Controllers
         [Authorize(Roles = "Worker")]
         public async Task<IActionResult> Index()
         {
-            return View(_loanService.GetAllLoans());
+            return View(await _loanService.GetAllLoans());
         }
 
         // TODO
