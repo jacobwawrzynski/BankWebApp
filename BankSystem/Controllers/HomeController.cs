@@ -35,7 +35,7 @@ namespace BankSystem.Controllers
             return View();
         }
 
-        public IActionResult LoanApplications()
+        public IActionResult LoanApplication()
         {
             return View();
         }

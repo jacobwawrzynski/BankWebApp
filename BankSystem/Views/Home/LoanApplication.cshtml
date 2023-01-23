@@ -1,0 +1,76 @@
+﻿@using BankSystem.Data
+@model BankSystem.Models.ViewModels.LoanViewModel
+@{
+    var context = new ApplicationDbContext();
+    var client = context.Clients
+    .Where(c => c.Email == User.Identity.Name)
+    .FirstOrDefault();
+    var firstname = client.Firstname;
+    var lastname = client.Lastname;
+    var idNumber = client.IDnumber;
+}
+
+<section class="section">
+    <div class="row">
+
+        <form asp-action="Create" asp-controller="LoanApplication" name="LoanForm" id="loan-form" method="post">
+            <div class="card-loan">
+                <div class="card-body">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <h5 class="card-title">Personal data</h5>
+                    <div class="form-floating mb-3">
+						<label asp-for="Firstname" class="floating-label"></label>
+                        <input asp-for="Firstname" class="form-control" value="@firstname">
+						<span asp-validation-for="Firstname" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Lastname" class="floating-label"></label>
+                        <input asp-for="Lastname" class="form-control" value="@lastname">
+                        <span asp-validation-for="Lastname" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="IDnumber" class="floating-label"></label>
+                        <input asp-for="IDnumber" class="form-control" value="@idNumber">
+                        <span asp-validation-for="IDnumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div> 
+                <div class="card-loan">
+                    <div class="card-body">
+                        <h5 class="card-title">Loan type</h5>
+                        <div class="form-floating mb-3">
+                            <label asp-for="Currency" class="floating-label"></label>
+                            <select asp-for="Currency" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                <option value="@Currency.Dollar" selected>US dolar</option>
+                                <option value="@Currency.Euro">Euro</option>
+                                <option value="@Currency.Pound">British pound</option>
+                            </select>
+                            <span asp-validation-for="Currency" class="text-danger"></span>
+
+                        </div>
+                        
+                        <div>
+                            <label asp-for="MonthsToPayOff" class="form-label">Months to pay off</label>
+                            <input asp-for="MonthsToPayOff" class="range-input" id="monthsLoanValue" value="12" readonly>
+                            <span asp-validation-for="MonthsToPayOff" class="text-danger"></span>
+						    <label for="custom-range"></label>
+                            <input type="range" class="form-range" min="2" max="24" step="1" onchange="updateMonthsValue(this.value);">
+                        </div>
+                        <div>
+                            <label asp-for="Amount" class="form-label">Amount</label>
+                            <input asp-for="Amount" class="range-input" id="amountLoanValue" value="50000" readonly>
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                            <label for="custom-range"></label>
+                            <input type="range" class="form-range" min="1000" max="100000" step="100" onchange="updateLoanValue(this.value);">
+
+                        </div>
+                            <h5 class="card-title">Send application</h5>
+                            <button id="loan-submit" type="submit" class="w-100 btn btn-lg btn-info">Send application</button>
+                
+                    </div>
+                </div>
+                
+        </form>
+        
+    </div>
+</section>

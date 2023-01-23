@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using BankSystem.Models;
+using BankSystem.Models.Interfaces;
 
 namespace BankSystem.Data
 {
-    public class LoanApplication
+    public class LoanApplication : ILoan
     {
         [Key]
         public int Id { get; set; }
@@ -24,7 +25,7 @@ namespace BankSystem.Data
         public Currency Currency { get; set; }
 
         [Required]
-        public int MonthToPayOff { get; set; }
+        public int MonthsToPayOff { get; set; }
 
         [Required]
         public int Amount { get; set; }
