@@ -32,19 +32,29 @@ namespace BankSystem.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
+
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context
+            )
         {
+
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            
+            _roleManager = roleManager;
+            _context = context;
         }
 
         /// <summary>
@@ -205,8 +215,21 @@ namespace BankSystem.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if (!await _roleManager.RoleExistsAsync(UserRoles.ClientEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.ClientEndUser));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(UserRoles.WorkerEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.WorkerEndUser));
+                    }
+
+                    // Change UserRoles.<Role> to ClientEndUser or WorkerEndUser
+                    await _userManager.AddToRoleAsync(client, UserRoles.ClientEndUser);
+
                     _logger.LogInformation("User created a new account with password.");
 
+                    // EMAIL CONFIRMATION
                     //var userId = await _userManager.GetUserIdAsync(user);
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

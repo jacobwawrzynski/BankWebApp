@@ -9,9 +9,12 @@ using BankSystem.Data;
 using BankSystem.Models;
 using BankSystem.Models.Interfaces;
 using BankSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace BankSystem.Controllers
 {
+    [Authorize(Roles = "Client")]
     public class EuroCurrencyController : Controller, ICurrencyController
     {
         private readonly ApplicationDbContext _context;

@@ -25,7 +25,7 @@ else
 }
 </ul>
 
-@if (SignInManager.IsSignedIn(User))
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Client"))
 {
     <aside id="sidebar" class="sidebar">
 
@@ -58,6 +58,26 @@ else
                 <a class="nav-link" asp-action="LoanApplications" asp-controller="Home">
                     <i class="bi bi-envelope"></i>
                     <span>My loan applications</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+}
+@if(SignInManager.IsSignedIn(User) && User.IsInRole("Worker"))
+{
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-heading">Menu</li>
+
+
+            <li class="nav-item">
+                <a class="nav-link bg-danger bg-opacity-75 text-white" asp-action="CurrencyExchange" asp-controller="Home">
+                    <i class="bi bi-envelope"></i>
+                    <span>Currency exchange</span>
                 </a>
             </li>
 
