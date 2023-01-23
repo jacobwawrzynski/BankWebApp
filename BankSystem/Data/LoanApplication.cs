@@ -36,6 +36,10 @@ namespace BankSystem.Data
         [Required]
         public int Amount { get; set; }
 
+        [Required]
+        [Column(TypeName = "char(10)")]
+        public LoanStatus Status { get; set; } = LoanStatus.Considered;
+
         // Many-to-one relationship with Client
         public string ClientFK { get; set; }
         public Client _Client { get; set; }

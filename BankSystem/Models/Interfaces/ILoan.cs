@@ -8,5 +8,6 @@
         public Currency Currency { get; set; }
         public int MonthsToPayOff { get; set; }
         public int Amount { get; set; }
+        public LoanStatus Status { get; set; }
     }
 }

@@ -18,29 +18,30 @@ namespace BankSystem.Controllers
             _loanService = loanService;
         }
 
-        //[Authorize(Roles = "Client")]
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> Index()
+        {
+            return View(_loanService.GetAllLoans());
+        }
 
-        // GET: LoanApplicationController/Details/5
-        public ActionResult Details(int id)
+        // TODO
+        [Authorize(Roles = "Worker")]
+        public ActionResult Details(int? id)
         {
             return View();
         }
 
         // GET: LoanApplicationController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: LoanApplicationController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client")]
-        public async Task<ActionResult> Create([FromForm] LoanViewModel loanModel)
+        public async Task<IActionResult> Create([FromForm] LoanViewModel loanModel)
         {
             var clientId = _context.Clients
                 .Where(c => c.Email == User.Identity.Name)
@@ -55,46 +56,50 @@ namespace BankSystem.Controllers
 
 		}
 
-		// GET: LoanApplicationController/Edit/5
-		public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        // GET: LoanApplicationController/Edit/5
+        //[Authorize(Roles = "Worker")]
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: LoanApplicationController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Worker")]
+        //public ActionResult Edit(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: LoanApplicationController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //[Authorize(Roles = "Worker")]
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: LoanApplicationController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Worker")]
+        //public ActionResult Delete(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }
