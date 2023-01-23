@@ -6,7 +6,7 @@
 
 3. Aplikację należy uruchomić za pomocą Visual Studio 2022
 4. Można stworzyć nowego użytkownika za pomocą Register w prawym górnym rogu lub zalogować się na istniejącego:
-    Pracownik: admin@mail.com, hasło: admin;
+    Pracownik: worker@mail.com, hasło: worker;
     Klient A: clienta@mail.com, hasło: clientA
     Klient B: clientb@mail.com, hasło: clientB
 5. po zalogowaniu wyświtlą się 3 konta walutowe
