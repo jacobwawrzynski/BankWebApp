@@ -8,7 +8,7 @@ namespace BankSystem.Data
     {
         [Key]
         [Required]
-        [RegularExpression("^[0-9]*$")]
+        [RegularExpression("^[A-Za-z0-9 ]+$")]
         public string AccountNumber { get; set; }
 
         [Required]

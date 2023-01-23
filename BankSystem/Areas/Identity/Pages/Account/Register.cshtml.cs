@@ -219,12 +219,12 @@ namespace BankSystem.Areas.Identity.Pages.Account
                     {
                         await _roleManager.CreateAsync(new IdentityRole(UserRoles.ClientEndUser));
                     }
-                    if (!await _roleManager.RoleExistsAsync(UserRoles.AdminEndUser))
+                    if (!await _roleManager.RoleExistsAsync(UserRoles.WorkerEndUser))
                     {
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.AdminEndUser));
+                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.WorkerEndUser));
                     }
 
-                    // Change UserRoles.<Role> to ClientEndUser or AdminEndUser
+                    // Change UserRoles.<Role> to ClientEndUser or WorkerEndUser
                     await _userManager.AddToRoleAsync(client, UserRoles.ClientEndUser);
 
                     _logger.LogInformation("User created a new account with password.");

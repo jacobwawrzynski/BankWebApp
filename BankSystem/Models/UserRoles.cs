@@ -2,7 +2,7 @@
 {
     public class UserRoles
     {
-        public const string AdminEndUser = "Admin";
+        public const string WorkerEndUser = "Worker";
         public const string ClientEndUser = "Client";
     }
 }
