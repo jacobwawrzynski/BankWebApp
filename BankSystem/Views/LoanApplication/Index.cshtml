@@ -72,9 +72,12 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="DeclineLoan" asp-route-id="@item.Id">Decline</a> |
-                <a asp-action="AcceptLoan" asp-route-id="@item.Id">Accept</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                @if (item.Status == LoanStatus.Considered)
+                {
+                    <a asp-action="DeclineLoan" asp-route-id="@item.Id">Decline</a> 
+                    <a asp-action="AcceptLoan" asp-route-id="@item.Id">Accept</a>    
+                }
 
             </td>
         </tr>

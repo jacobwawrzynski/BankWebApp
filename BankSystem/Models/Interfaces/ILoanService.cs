@@ -8,7 +8,7 @@ namespace BankSystem.Models.Interfaces
 		public Task SendLoanApplication(LoanViewModel loanModel, string clientId);
 		public Task<ICollection<LoanApplication>> GetAllLoans();
 		public Task<LoanApplication?> FindBy(int? id);
-		public Task<bool> Accept(int? id);
-		public Task<bool> Decline(int? id);
+		public Task Accept(int? id);
+		public Task Decline(int? id);
 	}
 }

@@ -13,7 +13,7 @@ namespace BankSystem.Models
 			_context = context;
 		}
 
-        public async Task<bool> Accept(int? id)
+        public async Task Accept(int? id)
         {
             try
 			{
@@ -23,18 +23,15 @@ namespace BankSystem.Models
 					loan.Status = LoanStatus.Accepted;
 					_context.Update(loan);
 					await _context.SaveChangesAsync();
-					return true;
 				}
-				return false;
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-
-				return false;
+				return;
 			}
 		}
 
-        public async Task<bool> Decline(int? id)
+        public async Task Decline(int? id)
         {
             try
             {
@@ -44,14 +41,11 @@ namespace BankSystem.Models
                     loan.Status = LoanStatus.Declined;
                     _context.Update(loan);
                     await _context.SaveChangesAsync();
-                    return true;
                 }
-                return false;
             }
             catch (DbUpdateConcurrencyException)
             {
-
-                return false;
+                return;
             }
         }
 

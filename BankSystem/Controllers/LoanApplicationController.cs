@@ -24,11 +24,10 @@ namespace BankSystem.Controllers
             return View(await _loanService.GetAllLoans());
         }
 
-        // TODO
         [Authorize(Roles = "Worker")]
-        public ActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            return View(await _loanService.FindBy(id));
         }
 
         // GET: LoanApplicationController/Create
@@ -36,6 +35,20 @@ namespace BankSystem.Controllers
         //{
         //    return View();
         //}
+
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> AcceptLoan(int? id)
+        {
+            await _loanService.Accept(id);
+            return RedirectToAction("Index", "LoanApplication");
+        }
+
+        [Authorize(Roles = "Worker")]
+        public async Task<IActionResult> DeclineLoan(int? id)
+        {
+            await _loanService.Decline(id);
+            return RedirectToAction("Index", "LoanApplication");
+        }
 
         // POST: LoanApplicationController/Create
         [HttpPost]
