@@ -22,6 +22,12 @@ namespace BankSystem.Data
         public string Lastname { get; set; }
 
         [Required]
+        public string EmploymentType { get; set; } = string.Empty;
+
+        [Required]
+        public double MonthlyIncome { get; set; } = 0;
+
+        [Required]
         public Currency Currency { get; set; }
 
         [Required]

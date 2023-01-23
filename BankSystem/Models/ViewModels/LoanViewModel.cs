@@ -8,6 +8,8 @@ namespace BankSystem.Models.ViewModels
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public Currency Currency { get; set; }
+        public string EmploymentType { get; set; }
+        public double MonthlyIncome { get; set; }
         public int MonthsToPayOff { get; set; }
         public int Amount { get; set; }
     }

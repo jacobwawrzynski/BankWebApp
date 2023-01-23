@@ -8,6 +8,7 @@
     var firstname = client.Firstname;
     var lastname = client.Lastname;
     var idNumber = client.IDnumber;
+    var clientId = client.Id; 
 }
 
 <section class="section">
@@ -33,6 +34,17 @@
                         <input asp-for="IDnumber" class="form-control" value="@idNumber">
                         <span asp-validation-for="IDnumber" class="text-danger"></span>
                     </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="EmploymentType" class="floating-label"></label>
+                        <input asp-for="EmploymentType" class="form-control" value="">
+                        <span asp-validation-for="EmploymentType" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="MonthlyIncome" class="floating-label"></label>
+                        <input asp-for="MonthlyIncome" class="form-control" value="">
+                        <span asp-validation-for="MonthlyIncome" class="text-danger"></span>
+                    </div>
+
                 </div>
             </div> 
                 <div class="card-loan">
