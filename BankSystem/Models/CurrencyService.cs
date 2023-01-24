@@ -100,20 +100,9 @@ namespace BankSystem.Models
         /// <returns></returns>
         public async Task Withdrawal(double amount, IAccount account)
         {
-            //var account = await _context.DollarAccounts
-            //        .Where(da => da.AccountNumber == accountNumber)
-            //        .FirstOrDefaultAsync();
             account.Funds -= amount;
             _context.Update(account);
             await _context.SaveChangesAsync();
         }
-
-        
-
-
-
-
-
-
     }
 }
