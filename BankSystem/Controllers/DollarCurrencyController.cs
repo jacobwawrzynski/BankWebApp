@@ -94,6 +94,7 @@ namespace BankSystem.Controllers
                 var account = await _context.DollarAccounts
                    .Where(da => da.AccountNumber == accountNumber)
                    .FirstOrDefaultAsync();
+
                 await _currencyService.Deposit(amount, account);
             }
             return View();

@@ -73,14 +73,19 @@ namespace BankSystem.Controllers
             var euroAccountHistory = new EuroAccountHistory();
             if (ModelState.IsValid)
             {
-                await _currencyService.EuroTransfer(transfer, euroAccountHistory);
-                await _currencyService.EuroWithdrawal(transfer.Amount, transfer.FromAccount);
-                await _currencyService.EuroDeposit(transfer.Amount, transfer.BeneficiaryAccount);
+                _currencyService.Transfer(transfer, euroAccountHistory);
+                euroAccountHistory.EuroAccountFK = transfer.FromAccount;
+
+                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
+                await Withdrawal(transfer.Amount, transfer.FromAccount);
+
+                _context.Add(euroAccountHistory);
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(History));
             }
             ViewData["EuroAccountFK"] = new SelectList(_context.EuroAccounts, "AccountNumber", "AccountNumber", euroAccountHistory.EuroAccountFK);
-            return View(euroAccountHistory);
+            return View();
         }
 
         public IActionResult Deposit()
@@ -93,7 +98,11 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _currencyService.EuroDeposit(amount, accountNumber);
+                var account = await _context.EuroAccounts
+                    .Where(ea => ea.AccountNumber== accountNumber)
+                    .FirstOrDefaultAsync();
+
+                await _currencyService.Deposit(amount, account);
             }
             return View();
         }
@@ -108,7 +117,11 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _currencyService.EuroWithdrawal(amount, accountNumber);
+                var account = await _context.EuroAccounts
+                   .Where(ea => ea.AccountNumber == accountNumber)
+                   .FirstOrDefaultAsync();
+
+                await _currencyService.Withdrawal(amount, account);
             }
             return View();
         }
