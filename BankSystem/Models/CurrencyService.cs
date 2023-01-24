@@ -25,11 +25,8 @@ namespace BankSystem.Models
         /// <param name="amount"></param>
         /// <param name="accountNumber"></param>
         /// <returns></returns>
-        public async Task DollarDeposit(double amount, string accountNumber)
+        public async Task Deposit(double amount, IAccount account)
         {
-            var account = await _context.DollarAccounts
-                   .Where(da => da.AccountNumber == accountNumber)
-                   .FirstOrDefaultAsync();
             account.Funds += amount;
             _context.Update(account);
             await _context.SaveChangesAsync();
@@ -42,10 +39,10 @@ namespace BankSystem.Models
         /// <returns></returns>
         public async Task<List<DollarAccountHistory>> DollarHistory(string clientAccount)
         {
-            var accountHistory = _context.DollarAccountHistory
+            var history = _context.DollarAccountHistory
                 .Where(a => a.BeneficiaryAccount == clientAccount || a.FromAccount == clientAccount);
 
-            return await accountHistory.ToListAsync();
+            return await history.ToListAsync();
         }
 
         /// <summary>
@@ -54,13 +51,21 @@ namespace BankSystem.Models
         /// <param name="transfer"></param>
         /// <param name="dollarAccountHistory"></param>
         /// <returns></returns>
-        public async Task DollarTransfer(TransferViewModel transfer, DollarAccountHistory dollarAccountHistory)
+        public IAccountHistory Transfer(TransferViewModel transfer, IAccountHistory history)
         {
-            TransferToHistory(transfer, dollarAccountHistory);
-            dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
+            history.Title = transfer.Title;
+            history.Amount = transfer.Amount;
+            history.FromAccount = transfer.FromAccount;
+            history.BeneficiaryAccount = transfer.BeneficiaryAccount;
+            history.Address = transfer.Address;
+            history.BeneficiaryName = transfer.BeneficiaryName;
+
+            return history;
+            //TransferToHistory(transfer, dollarAccountHistory);
+            //dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
             
-            _context.Add(dollarAccountHistory);
-            await _context.SaveChangesAsync();
+            //_context.Add(dollarAccountHistory);
+            //await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -69,11 +74,11 @@ namespace BankSystem.Models
         /// <param name="amount"></param>
         /// <param name="accountNumber"></param>
         /// <returns></returns>
-        public async Task DollarWithdrawal(double amount, string accountNumber)
+        public async Task Withdrawal(double amount, IAccount account)
         {
-            var account = await _context.DollarAccounts
-                    .Where(da => da.AccountNumber == accountNumber)
-                    .FirstOrDefaultAsync();
+            //var account = await _context.DollarAccounts
+            //        .Where(da => da.AccountNumber == accountNumber)
+            //        .FirstOrDefaultAsync();
             account.Funds -= amount;
             _context.Update(account);
             await _context.SaveChangesAsync();

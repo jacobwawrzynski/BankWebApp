@@ -29,10 +29,10 @@ namespace BankSystem.Controllers
         // GET: DollarCurrency
         public async Task<IActionResult> History()
         {
-            var clientAccount = _context.Clients
+            var clientAccount = await _context.Clients
                 .Where(c => c.Email == User.Identity.Name)
                 .Select(c => c.DollarAcc.AccountNumber)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             return View(await _currencyService.DollarHistory(clientAccount));
         }
@@ -62,12 +62,19 @@ namespace BankSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Transfer([FromForm] TransferViewModel transfer)
         {
+            
             var dollarAccountHistory = new DollarAccountHistory();
             if (ModelState.IsValid)
             {
-                await _currencyService.DollarTransfer(transfer, dollarAccountHistory);
-                await _currencyService.DollarWithdrawal(transfer.Amount, transfer.FromAccount);
-                await _currencyService.DollarDeposit(transfer.Amount, transfer.BeneficiaryAccount);
+                _currencyService.Transfer(transfer, dollarAccountHistory);
+                dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
+                
+                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
+                await Withdrawal(transfer.Amount, transfer.FromAccount);
+
+                _context.Add(dollarAccountHistory);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(History));
             }
             ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
@@ -84,7 +91,10 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _currencyService.DollarDeposit(amount, accountNumber);
+                var account = await _context.DollarAccounts
+                   .Where(da => da.AccountNumber == accountNumber)
+                   .FirstOrDefaultAsync();
+                await _currencyService.Deposit(amount, account);
             }
             return View();
         }
@@ -99,7 +109,10 @@ namespace BankSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _currencyService.DollarWithdrawal(amount, accountNumber);
+                var account = await _context.DollarAccounts
+                   .Where(da => da.AccountNumber == accountNumber)
+                   .FirstOrDefaultAsync();
+                await _currencyService.Withdrawal(amount, account);
             }
             return View();
         }
