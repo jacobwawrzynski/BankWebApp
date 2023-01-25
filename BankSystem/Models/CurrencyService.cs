@@ -19,7 +19,7 @@ namespace BankSystem.Models
 
         // Dollar Currency
         /// <summary>
-        /// Shows list of dollar transaction
+        /// Shows list of dollar transactions
         /// </summary>
         /// <param name="clientAccount">Account number</param>
         /// <returns></returns>
@@ -33,7 +33,7 @@ namespace BankSystem.Models
 
         // Pound Currency
         /// <summary>
-        /// Shows list of pouns transaction
+        /// Shows list of pouns transactions
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
@@ -47,7 +47,7 @@ namespace BankSystem.Models
 
         // Euro Currency
         /// <summary>
-        /// Shows list of euro transaction
+        /// Shows list of euro transactions
         /// </summary>
         /// <param name="clientAccount"></param>
         /// <returns></returns>
@@ -60,7 +60,7 @@ namespace BankSystem.Models
         }
 
         /// <summary>
-        /// Adds the amount of dollars to DollarAccount
+        /// Adds the amount of currency to IAccount
         /// </summary>
         /// <param name="amount"></param>
         /// <param name="accountNumber"></param>
@@ -75,10 +75,10 @@ namespace BankSystem.Models
         
 
         /// <summary>
-        /// Gets transfer data from the form and creates DollarAccountHistory object
+        /// Gets transfer data from the form and creates IAccountHistory object
         /// </summary>
         /// <param name="transfer"></param>
-        /// <param name="dollarAccountHistory"></param>
+        /// <param name="history"></param>
         /// <returns></returns>
         public IAccountHistory Transfer(TransferViewModel transfer, IAccountHistory history)
         {
@@ -93,7 +93,7 @@ namespace BankSystem.Models
         }
 
         /// <summary>
-        /// Withdraws the amount of dollars
+        /// Withdraws the amount of currency
         /// </summary>
         /// <param name="amount"></param>
         /// <param name="accountNumber"></param>

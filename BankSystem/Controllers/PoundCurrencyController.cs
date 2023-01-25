@@ -74,16 +74,25 @@ namespace BankSystem.Controllers
             var poundAccountHistory = new PoundAccountHistory();
             if (ModelState.IsValid)
             {
-                _currencyService.Transfer(transfer, poundAccountHistory);
-                poundAccountHistory.PoundAccountFK = transfer.FromAccount;
+                var poundAccount = await _context.PoundAccounts
+                    .Where(pa => pa.AccountNumber == transfer.BeneficiaryAccount)
+                    .FirstOrDefaultAsync();
 
-                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
-                await Withdrawal(transfer.Amount, transfer.FromAccount);
+                if (poundAccount is not null)
+                {
+                    _currencyService.Transfer(transfer, poundAccountHistory);
+                    poundAccountHistory.PoundAccountFK = transfer.FromAccount;
 
-                _context.Add(poundAccountHistory);
-                await _context.SaveChangesAsync();
+                    await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
+                    await Withdrawal(transfer.Amount, transfer.FromAccount);
 
-                return RedirectToAction(nameof(History));
+                    _context.Add(poundAccountHistory);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(History));
+                }
+                return BadRequest("Incorrect account number");
+                
             }
             ViewData["PoundAccountFK"] = new SelectList(_context.PoundAccounts, "AccountNumber", "AccountNumber", poundAccountHistory.PoundAccountFK);
             return View();

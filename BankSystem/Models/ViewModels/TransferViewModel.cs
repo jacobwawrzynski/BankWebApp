@@ -1,5 +1,6 @@
 ﻿using BankSystem.Models.Interfaces;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankSystem.Models.ViewModels
 {
@@ -16,6 +17,7 @@ namespace BankSystem.Models.ViewModels
         public string FromAccount { get; set; }
 
         [DisplayName("Beneficiary Account")]
+        [RegularExpression("^(US|GB|EU)[A-Za-z0-9 ]+$", ErrorMessage = "Provide the proper account number.")]
         public string BeneficiaryAccount { get; set; }
         
         public Currency Currency { get; set; }

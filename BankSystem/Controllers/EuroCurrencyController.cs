@@ -73,16 +73,25 @@ namespace BankSystem.Controllers
             var euroAccountHistory = new EuroAccountHistory();
             if (ModelState.IsValid)
             {
-                _currencyService.Transfer(transfer, euroAccountHistory);
-                euroAccountHistory.EuroAccountFK = transfer.FromAccount;
+                var euroAccount = await _context.EuroAccounts
+                    .Where(ea => ea.AccountNumber == transfer.BeneficiaryAccount)
+                    .FirstOrDefaultAsync();
 
-                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
-                await Withdrawal(transfer.Amount, transfer.FromAccount);
+                if (euroAccount is not null)
+                {
+                    _currencyService.Transfer(transfer, euroAccountHistory);
+                    euroAccountHistory.EuroAccountFK = transfer.FromAccount;
 
-                _context.Add(euroAccountHistory);
-                await _context.SaveChangesAsync();
+                    await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
+                    await Withdrawal(transfer.Amount, transfer.FromAccount);
 
-                return RedirectToAction(nameof(History));
+                    _context.Add(euroAccountHistory);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(History));
+                }
+                return BadRequest("Incorrect account number");
+                
             }
             ViewData["EuroAccountFK"] = new SelectList(_context.EuroAccounts, "AccountNumber", "AccountNumber", euroAccountHistory.EuroAccountFK);
             return View();

@@ -66,19 +66,29 @@ namespace BankSystem.Controllers
             var dollarAccountHistory = new DollarAccountHistory();
             if (ModelState.IsValid)
             {
-                _currencyService.Transfer(transfer, dollarAccountHistory);
-                dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
+                var dollarAccount = await _context.DollarAccounts
+                    .Where(da => da.AccountNumber == transfer.BeneficiaryAccount)
+                    .FirstOrDefaultAsync();
+
+                if (dollarAccount is not null)
+                {
+                    _currencyService.Transfer(transfer, dollarAccountHistory);
+                    dollarAccountHistory.DollarAccountFK = transfer.FromAccount;
+
+
+                    await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
+                    await Withdrawal(transfer.Amount, transfer.FromAccount);
+
+                    _context.Add(dollarAccountHistory);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(History));
+                }
+                return BadRequest("Incorrect account number");
                 
-                await Deposit(transfer.Amount, transfer.BeneficiaryAccount);
-                await Withdrawal(transfer.Amount, transfer.FromAccount);
-
-                _context.Add(dollarAccountHistory);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(History));
             }
             ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return View();
+            return BadRequest();
         }
 
         public IActionResult Deposit()
