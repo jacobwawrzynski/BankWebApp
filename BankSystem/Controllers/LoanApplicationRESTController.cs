@@ -32,14 +32,14 @@ namespace BankSystem.Controllers
 
         // GET api/<LoanApplicationRESTController>/5
         [HttpGet("{id}")]
-        public async Task<LoanApplication?> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var loanApplication = await _loanService.FindBy(id);
             if (loanApplication is not null)
             {
-                return loanApplication;
+                return new OkObjectResult(loanApplication);
             }
-            return null;
+            return BadRequest();
         }
 
         // POST api/<LoanApplicationRESTController>
