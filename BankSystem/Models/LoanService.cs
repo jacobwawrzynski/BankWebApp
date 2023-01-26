@@ -9,6 +9,7 @@ namespace BankSystem.Models
 	public class LoanService : ILoanService
 	{
 		private readonly ApplicationDbContext _context;
+
 		public LoanService(ApplicationDbContext context)
 		{
 			_context = context;
@@ -100,12 +101,11 @@ namespace BankSystem.Models
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-
 				return false;
 			}
 		}
 
-		public async Task<bool> Delete(int id)
+		public async Task<bool> Delete(int? id)
 		{
 			try
 			{

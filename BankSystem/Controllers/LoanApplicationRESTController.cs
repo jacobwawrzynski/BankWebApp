@@ -20,15 +20,19 @@ namespace BankSystem.Controllers
 
         // GET: api/<LoanApplicationRESTController>
         [HttpGet]
-        public async Task<IEnumerable<LoanApplication>> Get()
+        public async Task<IActionResult> Get()
         {
             var getAllLoans = await _loanService.GetAllLoans();
-            return getAllLoans;
+            if (getAllLoans is not null)
+            {
+                return Ok(getAllLoans);
+            }
+            return BadRequest();
         }
 
         // GET api/<LoanApplicationRESTController>/5
         [HttpGet("{id}")]
-        public async Task<LoanApplication> Get(int id)
+        public async Task<LoanApplication?> Get(int id)
         {
             var loanApplication = await _loanService.FindBy(id);
             if (loanApplication is not null)
