@@ -10,5 +10,7 @@ namespace BankSystem.Models.Interfaces
 		public Task<LoanApplication?> FindBy(int? id);
 		public Task Accept(int? id);
 		public Task Decline(int? id);
+		public Task<bool> Update(LoanApplication loanApplication);
+		public Task<bool> Delete(int? id);
 	}
 }

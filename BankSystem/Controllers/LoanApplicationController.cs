@@ -69,50 +69,50 @@ namespace BankSystem.Controllers
 
 		}
 
-        // GET: LoanApplicationController/Edit/5
-        //[Authorize(Roles = "Worker")]
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+        //GET: LoanApplicationController/Edit/5
+        [Authorize(Roles = "Worker")]
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
 
-        // POST: LoanApplicationController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Worker")]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        //POST: LoanApplicationController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Worker")]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
-        // GET: LoanApplicationController/Delete/5
-        //[Authorize(Roles = "Worker")]
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        //GET: LoanApplicationController/Delete/5
+        [Authorize(Roles = "Worker")]
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
 
-        // POST: LoanApplicationController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Worker")]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        //POST: LoanApplicationController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Worker")]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

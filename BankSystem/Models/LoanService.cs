@@ -1,6 +1,7 @@
 ﻿using BankSystem.Data;
 using BankSystem.Models.Interfaces;
 using BankSystem.Models.ViewModels;
+using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankSystem.Models
@@ -78,31 +79,49 @@ namespace BankSystem.Models
 			await _context.SaveChangesAsync();
 		}
 
-		//public bool ChangeStatus(int? id)
-		//{
+		public async Task<bool> Update(LoanApplication loan)
+		{
+			try
+			{
+				var find = await _context.LoanApplications.FindAsync(loan.Id);
+				if (find is not null)
+				{
+					find.IDnumber= loan.IDnumber;
+					find.Firstname= loan.Firstname;
+					find.Lastname= loan.Lastname;
+					find.EmploymentType = loan.EmploymentType;
+                    find.MonthlyIncome = loan.MonthlyIncome;
+                    find.MonthsToPayOff = loan.MonthsToPayOff;
+                    find.Amount = loan.Amount;
+					await _context.SaveChangesAsync();
+					return true;
+				}
+				return false;
+			}
+			catch (DbUpdateConcurrencyException)
+			{
 
-		//}
+				return false;
+			}
+		}
 
-		//public async Task<bool> Update(LoanApplication loan)
-		//{
-		//	try
-		//	{
-		//		var find = await _context.LoanApplications.FindAsync(loan.Id);
-		//		if (find is not null)
-		//		{
-		//			find.Amount = loan.Amount;
-		//			find.MonthlyIncome = loan.MonthlyIncome;
-		//			find.MonthsToPayOff = loan.MonthsToPayOff;
-		//			await _context.SaveChangesAsync();
-		//			return true;
-		//		}
-		//		return false;
-		//	}
-		//	catch (DbUpdateConcurrencyException)
-		//	{
-
-		//		return false;
-		//	}
-		//}
-    }
+		public async Task<bool> Delete(int id)
+		{
+			try
+			{
+                var loan = await FindBy(id);
+                if (loan is not null)
+                {
+                    _context.Remove(loan);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+				return false;
+            }
+			catch (DbUpdateConcurrencyException)
+			{
+				return false;
+			}
+		}
+	}
 }
