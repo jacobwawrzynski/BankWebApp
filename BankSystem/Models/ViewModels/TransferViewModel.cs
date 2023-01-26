@@ -8,10 +8,11 @@ namespace BankSystem.Models.ViewModels
     {
         [DefaultValue("Standard trasaction")]
         public string Title { get; set; }
-        
+
+        [Range(1, 500000, ErrorMessage = "Value must be between 1 and 500 000")]
         public double Amount { get; set; }
 
-        public DateTime Date { get; set; } 
+        public DateTime Date { get; set; }
 
         [DisplayName("From Account")]
         public string FromAccount { get; set; }

@@ -37,23 +37,27 @@ namespace BankSystem.Data
             builder.Entity<Client>()
                 .HasOne(da => da.DollarAcc)
                 .WithOne(c => c._Client)
-                .HasForeignKey<DollarAccount>(da => da.ClientFK);
+                .HasForeignKey<DollarAccount>(da => da.ClientFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Client>()
                 .HasOne(ea => ea.EuroAcc)
                 .WithOne(c => c._Client)
-                .HasForeignKey<EuroAccount>(ea => ea.ClientFK);
+                .HasForeignKey<EuroAccount>(ea => ea.ClientFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Client>()
                 .HasOne(pa => pa.PoundAcc)
                 .WithOne(c => c._Client)
-                .HasForeignKey<PoundAccount>(pa => pa.ClientFK);
+                .HasForeignKey<PoundAccount>(pa => pa.ClientFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Client-LoanApplications relationship
             builder.Entity<Client>()
                 .HasMany(la => la.LoanApplications)
                 .WithOne(c => c._Client)
-                .HasForeignKey(la => la.ClientFK);
+                .HasForeignKey(la => la.ClientFK)
+                .OnDelete(DeleteBehavior.NoAction);
 
             //Accounts - AccountHistory relationships
             builder.Entity<DollarAccountHistory>()

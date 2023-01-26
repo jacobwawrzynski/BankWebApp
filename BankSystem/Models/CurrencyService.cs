@@ -67,9 +67,12 @@ namespace BankSystem.Models
         /// <returns></returns>
         public async Task Deposit(double amount, IAccount account)
         {
-            account.Funds += amount;
-            _context.Update(account);
-            await _context.SaveChangesAsync();
+            if (amount <= 500_000 && amount >= 1)
+            {
+                account.Funds += amount;
+                _context.Update(account);
+                await _context.SaveChangesAsync();
+            }
         }
 
         
@@ -100,9 +103,13 @@ namespace BankSystem.Models
         /// <returns></returns>
         public async Task Withdrawal(double amount, IAccount account)
         {
-            account.Funds -= amount;
-            _context.Update(account);
-            await _context.SaveChangesAsync();
+            if (amount <= 500_000 && amount >= 1)
+            {
+                account.Funds -= amount;
+                _context.Update(account);
+                await _context.SaveChangesAsync();
+            }
+            
         }
     }
 }
