@@ -25,7 +25,7 @@ namespace BankSystem.Controllers
             var getAllLoans = await _loanService.GetAllLoans();
             if (getAllLoans is not null)
             {
-                return Ok(getAllLoans);
+                return new OkObjectResult(getAllLoans);
             }
             return BadRequest();
         }
@@ -53,26 +53,18 @@ namespace BankSystem.Controllers
 
         // PUT api/<LoanApplicationRESTController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(LoanApplication loanApplication)
+        public async Task<bool> Put(LoanApplication loanApplication)
         {
             var isUpdated = await _loanService.Update(loanApplication);
-            if (isUpdated)
-            {
-                return Ok();
-            }
-            return BadRequest();
+            return isUpdated;
         }
 
         // DELETE api/<LoanApplicationRESTController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var isDeleted = await _loanService.Delete(id);
-            if (isDeleted)
-            {
-                return Ok();
-            }
-            return BadRequest();
+            return isDeleted;
         }
     }
 }

@@ -20,6 +20,14 @@ namespace BankSystem.Models
         {
             var loan = new LoanApplication();
             loan.Id = UniqId();
+            loan.Status = loanModel.Status;
+            loan.Currency = loanModel.Currency;
+            loan.Amount = loanModel.Amount;
+            loan.MonthsToPayOff = loanModel.MonthsToPayOff;
+            loan.EmploymentType= loanModel.EmploymentType;
+            loan.MonthlyIncome = loanModel.MonthlyIncome;
+            loan.Firstname= loanModel.Firstname;
+            loan.Lastname= loanModel.Lastname;
             repository.Add(loan.Id, loan);
         }
 
