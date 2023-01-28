@@ -5,85 +5,87 @@
 
 <div class="container">
 
-      <section class="section register d-flex flex-column align-items-center justify-content-center py-4">
+      <section class="section register">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-              <div class="card mb-3">
+              <div class="card mb-2 register-cards">
 
-                <div class="card-body">
+                
 
                   <div class="pt-4 pb-2">
                     <h5 class="text-center pb-0 fs-4">Create an Account</h5>
                   </div>
 
-                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                        <hr />
+                    <form id="registerForm" class="register-cards" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div class="card-body register-first">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-floating">
-                            <input asp-for="Input.Email" class="form-control" aria-required="true" />
+                                    <input asp-for="Input.Email" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.Email"></label>
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.Password" class="form-control" aria-required="true" />
+                            <input asp-for="Input.Password" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.Password"></label>
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.ConfirmPassword" class="form-control" aria-required="true" />
+                            <input asp-for="Input.ConfirmPassword" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.ConfirmPassword"></label>
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.Firstname" class="form-control" aria-required="true" />
+                            <input asp-for="Input.Firstname" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.Firstname"></label>
                             <span asp-validation-for="Input.Firstname" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.Lastname" class="form-control" aria-required="true" />
+                            <input asp-for="Input.Lastname" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.Lastname"></label>
                             <span asp-validation-for="Input.Lastname" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.IDnumber" class="form-control" aria-required="true" />
+                            <input asp-for="Input.IDnumber" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.IDnumber"></label>
                             <span asp-validation-for="Input.IDnumber" class="text-danger"></span>
                         </div>
+                        </div>
+                        <div class="card-body register-second">
                         <div class="form-floating">
-                            <input asp-for="Input.Phone" class="form-control" aria-required="true" />
+                            <input asp-for="Input.Phone" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.Phone"></label>
                             <span asp-validation-for="Input.Phone" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.City" class="form-control" aria-required="true" />
+                            <input asp-for="Input.City" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.City"></label>
                             <span asp-validation-for="Input.City" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.PostalCode" class="form-control" aria-required="true" />
+                            <input asp-for="Input.PostalCode" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.PostalCode"></label>
                             <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.Street" class="form-control" />
+                            <input asp-for="Input.Street" class="form-control login-input-margin" />
                             <label asp-for="Input.Street"></label>
                             <span asp-validation-for="Input.Street" class="text-danger"></span>
                         </div>
                         <div class="form-floating">
-                            <input asp-for="Input.ApartmentNumber" class="form-control" aria-required="true" />
+                            <input asp-for="Input.ApartmentNumber" class="form-control login-input-margin" aria-required="true" />
                             <label asp-for="Input.ApartmentNumber"></label>
                             <span asp-validation-for="Input.ApartmentNumber" class="text-danger"></span>
                         </div>
                         <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-info">Register</button>
                                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
                     </form>
 
-                </div>
+                
               </div>
 
-            </div>
+            
           </div>
         </div>
 
