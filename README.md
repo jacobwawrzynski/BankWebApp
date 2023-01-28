@@ -8,30 +8,30 @@
 <p>▶️ TABLE OF CONTENTS</p>
   <ol>
     <li>
-      <a href="gettingstarted">Getting started</a>
+      <a href="#gettingstarted">Getting started</a>
     </li>
     <li>
-      <a href="mainview">Main View</a>
+      <a href="#mainview">Main View</a>
       <ul type="a">
         <li>
-            <a href="withdrawaldeposit">Withdrawal and Deposit</a>
+            <a href="#withdrawaldeposit">Withdrawal and Deposit</a>
         </li>
         <li>
-            <a href="transferhistory">Transfer and history</a>
+            <a href="#transferhistory">Transfer and history</a>
         </li>
         <li>
-            <a href="loanapplications">My loan applications</a>
+            <a href="#loanapplications">My loan applications</a>
         </li>
       </ul>
     </li>
     <li>
-      <a href="workermode">Worker mode</a>
+      <a href="#workermode">Worker mode</a>
       <ul type="a">
         <li>
-            <a href="workerview">Main worker view</a>
+            <a href="#workerview">Main worker view</a>
         </li>
         <li>
-            <a href="listofloanapplications">List of loan applications</a>
+            <a href="#listofloanapplications">List of loan applications</a>
         </li>
       </ul>
     </li>
