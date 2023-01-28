@@ -89,6 +89,7 @@
         <h4>On every account you can see the same options: to withdraw, to deposit, do transfer and check transfer history</h4>
     </li>
  </ul>
+ <br/>
 
 <div id="withdrawaldeposit"></div>
 
@@ -97,24 +98,30 @@
 <h4>You can withdraw or add money to account using these two options</h4><br/>
 <img src="ReadMeImgs/withdrawal.png">
 <img src="ReadMeImgs/beforewithdrawal.png">
+<br/>
+<p align="right"><a href="#top">🔺 TOP 🔺</a></p>
 
 <div id="transferhistory"></div>
 
 ## Transfer and history
 <img src="ReadMeImgs/transfer.png">
-<h4>This section allows you to transfer money between accounts, <br/>
-    your account number, currency and date are typed automatically <br/>
+<h4>This section allows you to transfer money between accounts,
+    your account number, currency and date are typed automatically
     and are read-only</h4>
 <h4 style="color:red;">You cannot transfer money between accounts with different currency</h4><br/>
 
 <img src="ReadMeImgs/history.png">
 <h4>After transfer you can check its details in history tab</h4>
+<br/>
+<p align="right"><a href="#top">🔺 TOP 🔺</a></p>
 
 <div id="loanapplications"></div>
 
 ## Loan Applications
 <img src="ReadMeImgs/loanapplication.png">
 <h4>In the My Loan Applications tab you can send your application for a loan</h4>
+<br/>
+<p align="right"><a href="#top">🔺 TOP 🔺</a></p>
 
 <div id="workermode"></div>
 
@@ -125,10 +132,14 @@
 ## Main worker view
 <img src="ReadMeImgs/workermode.png">
 <h4>In worker mode you have other options to control accounts and clients</h4>
+<br/>
+<p align="right"><a href="#top">🔺 TOP 🔺</a></p>
 
 <div id="listofloanapplications"></div>
 
 ## Worker's loan applications list
 <img src="ReadMeImgs/workerloanlist.png">
-<h4>In the loan list you can check current applications for a loan <br/>
+<h4>In the loan list you can check current applications for a loan 
     with options to check details, decline or accept application</h4>
+<br/>
+<p align="right"><a href="#top">🔺 TOP 🔺</a></p>
