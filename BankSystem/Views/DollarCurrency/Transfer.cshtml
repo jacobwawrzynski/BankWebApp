@@ -60,6 +60,7 @@
                         <input id="transfer-submit" type="submit" value="Send" class="w-100 btn btn-lg btn-info" />
                     </div>
                     <div class="form-floating mb-3">
+                        <span class="text-danger">@ViewBag.NullAccount</span>
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     </div>
                 </div>

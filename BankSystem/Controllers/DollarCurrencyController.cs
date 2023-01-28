@@ -84,11 +84,10 @@ namespace BankSystem.Controllers
 
                     return RedirectToAction(nameof(History));
                 }
-                return BadRequest("Incorrect account number");
-                
+                ViewBag.NullAccount = "Incorrect account number";
             }
             ViewData["DollarAccountFK"] = new SelectList(_context.DollarAccounts, "AccountNumber", "AccountNumber", dollarAccountHistory.DollarAccountFK);
-            return BadRequest();
+            return View();
         }
 
         public IActionResult Deposit()

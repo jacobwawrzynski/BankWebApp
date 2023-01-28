@@ -90,8 +90,8 @@ namespace BankSystem.Controllers
 
                     return RedirectToAction(nameof(History));
                 }
-                return BadRequest("Incorrect account number");
-                
+                ViewBag.NullAccount = "Incorrect account number";
+
             }
             ViewData["EuroAccountFK"] = new SelectList(_context.EuroAccounts, "AccountNumber", "AccountNumber", euroAccountHistory.EuroAccountFK);
             return View();

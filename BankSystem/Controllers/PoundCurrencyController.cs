@@ -91,7 +91,7 @@ namespace BankSystem.Controllers
 
                     return RedirectToAction(nameof(History));
                 }
-                return BadRequest("Incorrect account number");
+                ViewBag.NullAccount = "Incorrect account number";
                 
             }
             ViewData["PoundAccountFK"] = new SelectList(_context.PoundAccounts, "AccountNumber", "AccountNumber", poundAccountHistory.PoundAccountFK);
