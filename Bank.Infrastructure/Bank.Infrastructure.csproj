@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bank.CommonPackages\Bank.CommonPackages.csproj" />
+    <ProjectReference Include="..\Bank.Core\Bank.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -16,4 +16,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bank.CommonPackages\Bank.CommonPackages.csproj" />
+    <ProjectReference Include="..\Bank.Core\Bank.Core.csproj" />
+    <ProjectReference Include="..\Bank.Infrastructure\Bank.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
