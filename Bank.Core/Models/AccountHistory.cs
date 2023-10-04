@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank.Core.Models
 {
-    public class AccountHistory
+    public class AccountHistory : BaseModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

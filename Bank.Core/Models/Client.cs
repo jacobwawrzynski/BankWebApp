@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank.Core.Models
 {
-    public class Client
+    public class Client : BaseModel
     {
         public string IdNumber { get; set; }
         public string Forename { get; set; }

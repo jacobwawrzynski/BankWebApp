@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank.Core.Models
 {
-    public class LoanApplication
+    public class LoanApplication : BaseModel
     {
         public int Id { get; set; }
         public string IdNumber { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Bank.Core.Models;
+using Bank.Infrastructure.DataContext;
 using Bank.Infrastructure.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,38 @@ namespace Bank.Infrastructure.Services
 {
     public class AccountService : IAccountService
     {
-        public Task<bool> CreateAsync(Account account)
+        private readonly AppDbContext _appDbContext;
+        private IBaseRepository<Account> _accountRepo;
+        
+        public AccountService(IBaseRepository<Account> accountRepo)
         {
-            throw new NotImplementedException();
+            _accountRepo = accountRepo;
         }
 
-        public Task<bool> DeleteAsync(string id)
+        public async Task<bool> CreateAsync(Account account)
         {
-            throw new NotImplementedException();
+            return await _accountRepo.CreateAsync(account);
         }
 
-        public Task<IEnumerable<Account>> GetAllAsync()
+        public async Task<bool> DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var account = await GetByIdAsync(id);
+            return await _accountRepo.DeleteAsync(account);
         }
 
-        public Task<Account?> GetByIdAsync(string id)
+        public async Task<IEnumerable<Account>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _accountRepo.GetAllAsync();
         }
 
-        public Task<bool> UpdateAsync(Account? account)
+        public async Task<Account?> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await _appDbContext.Accounts.FindAsync(id);
+        }
+
+        public async Task<bool> UpdateAsync(Account? account)
+        {
+            return await _accountRepo.UpdateAsync(account);
         }
     }
 }
