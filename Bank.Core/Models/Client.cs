@@ -8,7 +8,6 @@ namespace Bank.Core.Models
 {
     public class Client : BaseModel
     {
-        public string IdNumber { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }

@@ -41,7 +41,7 @@ namespace Bank.Infrastructure.DataContext
 
             builder.Entity<AccountHistory>()
                 .HasOne(ah => ah._Account)
-                .WithMany(a => a.AccountHistories)
+                .WithMany(a => a._AccountHistory)
                 .HasForeignKey(ah => ah.AccountFK)
                 .OnDelete(DeleteBehavior.NoAction);
 

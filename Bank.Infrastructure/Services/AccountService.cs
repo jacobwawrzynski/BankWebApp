@@ -11,7 +11,6 @@ namespace Bank.Infrastructure.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly AppDbContext _appDbContext;
         private IBaseRepository<Account> _accountRepo;
         
         public AccountService(IBaseRepository<Account> accountRepo)
@@ -24,9 +23,9 @@ namespace Bank.Infrastructure.Services
             return await _accountRepo.CreateAsync(account);
         }
 
-        public async Task<bool> DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(int? id)
         {
-            var account = await GetByIdAsync(id);
+            var account = await _accountRepo.GetByAsync(id);
             return await _accountRepo.DeleteAsync(account);
         }
 
@@ -35,13 +34,15 @@ namespace Bank.Infrastructure.Services
             return await _accountRepo.GetAllAsync();
         }
 
-        public async Task<Account?> GetByIdAsync(string id)
+        public async Task<Account?> GetByAsync(int? id)
         {
-            return await _appDbContext.Accounts.FindAsync(id);
+            return await _accountRepo.GetByAsync(id);
         }
 
-        public async Task<bool> UpdateAsync(Account? account)
+        public async Task<bool> UpdateAsync(int? id, Account accountUpdate)
         {
+            var account = await _accountRepo.GetByAsync(id);
+            account.Balance = accountUpdate.Balance;
             return await _accountRepo.UpdateAsync(account);
         }
     }

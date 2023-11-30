@@ -12,6 +12,6 @@ namespace Bank.Infrastructure.Services.Interfaces
         public Task<IEnumerable<LoanApplication>> GetAllAsync();
         public Task<LoanApplication> GetAsync(int id);
         public Task<bool> SaveAsync(LoanApplication loanApplication);
-        public Task<bool> DeleteAsync(int id);
+        public Task<bool> DeleteAsync(LoanApplication? loanApplication);
     }
 }

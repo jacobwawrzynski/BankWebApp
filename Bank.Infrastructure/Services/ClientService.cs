@@ -10,9 +10,17 @@ namespace Bank.Infrastructure.Services
 {
     public class ClientService : IClientService
     {
-        public Task<bool> DeleteAsync(string id)
+        private IBaseRepository<Client> _clientRepo;
+
+        public ClientService(IBaseRepository<Client> clientRepo)
         {
-            throw new NotImplementedException();
+            _clientRepo = clientRepo;
+        }
+
+        public async Task<bool> DeleteAsync(int? id)
+        {
+            var account = await _clientRepo.GetByAsync(id);
+            return await _clientRepo.DeleteAsync(account);
         }
 
         public Task<IEnumerable<Client>> GetAllAsync()
@@ -33,6 +41,11 @@ namespace Bank.Infrastructure.Services
         public Task<bool> UpdateAsync(Client? client)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<bool> CreateAsync(Client client)
+        {
+
         }
     }
 }

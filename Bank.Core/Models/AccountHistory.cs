@@ -8,7 +8,6 @@ namespace Bank.Core.Models
 {
     public class AccountHistory : BaseModel
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; }
         public double Amount { get; set; }

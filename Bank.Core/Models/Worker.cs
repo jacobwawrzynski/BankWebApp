@@ -8,7 +8,6 @@ namespace Bank.Core.Models
 {
     public class Worker : BaseModel
     {
-        public int Id { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
     }

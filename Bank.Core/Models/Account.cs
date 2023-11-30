@@ -16,6 +16,6 @@ namespace Bank.Core.Models
         public string ClientFK { get; set; }
         public Client _Client { get; set; }
 
-        public IEnumerable<AccountHistory> AccountHistories { get; set; }
+        public IEnumerable<AccountHistory> _AccountHistory { get; set; }
     }
 }

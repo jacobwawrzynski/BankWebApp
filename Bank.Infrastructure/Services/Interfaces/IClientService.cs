@@ -10,9 +10,9 @@ namespace Bank.Infrastructure.Services.Interfaces
     public interface IClientService
     {
         Task<IEnumerable<Client>> GetAllAsync();
-        Task<Client?> GetByIdAsync(string id);
+        Task<Client?> GetByAsync(int? id);
         Task<bool> SaveAsync(Client client);
-        Task<bool> DeleteAsync(string id);
+        Task<bool> DeleteAsync(Client? id);
         Task<bool> UpdateAsync(Client? client);
     }
 }

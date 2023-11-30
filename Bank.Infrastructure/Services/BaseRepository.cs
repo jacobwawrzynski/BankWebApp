@@ -22,7 +22,7 @@ namespace Bank.Infrastructure.Services
             _dbSet = appDbContext.Set<T>();
         }
 
-        public async Task<bool> CreateAsync(T entity)
+        public async Task<bool> CreateAsync(T? entity)
         {
             if (entity is not null)
             {
@@ -31,7 +31,7 @@ namespace Bank.Infrastructure.Services
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(T entity)
+        public async Task<bool> DeleteAsync(T? entity)
         {
             if (entity is not null)
             {
@@ -45,7 +45,7 @@ namespace Bank.Infrastructure.Services
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<bool> UpdateAsync(T entity)
+        public async Task<bool> UpdateAsync(T? entity)
         {
             if (entity is not null)
             {
@@ -65,6 +65,16 @@ namespace Bank.Infrastructure.Services
             {
                 return false;
             }
+        }
+
+        public async Task<T?> GetByAsync(int? id)
+        {
+            if (id == null)
+            {
+                throw new NullReferenceException($"Entity with id '{id}' does not exist");
+            }
+            var entity = await _dbSet.FindAsync(id);
+            return entity;
         }
     }
 }

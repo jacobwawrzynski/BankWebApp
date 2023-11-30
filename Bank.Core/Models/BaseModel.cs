@@ -8,6 +8,6 @@ namespace Bank.Core.Models
 {
     public class BaseModel
     {
-        // For repository purposes
+        public int Id { get; set; }
     }
 }
