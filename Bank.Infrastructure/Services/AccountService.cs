@@ -25,7 +25,7 @@ namespace Bank.Infrastructure.Services
 
         public async Task<bool> DeleteAsync(int? id)
         {
-            var account = await _accountRepo.GetByAsync(id);
+            var account = await _accountRepo.GetByIdAsync(id);
             return await _accountRepo.DeleteAsync(account);
         }
 
@@ -34,14 +34,14 @@ namespace Bank.Infrastructure.Services
             return await _accountRepo.GetAllAsync();
         }
 
-        public async Task<Account?> GetByAsync(int? id)
+        public async Task<Account?> GetByIdAsync(int? id)
         {
-            return await _accountRepo.GetByAsync(id);
+            return await _accountRepo.GetByIdAsync(id);
         }
 
         public async Task<bool> UpdateAsync(int? id, Account accountUpdate)
         {
-            var account = await _accountRepo.GetByAsync(id);
+            var account = await _accountRepo.GetByIdAsync(id);
             account.Balance = accountUpdate.Balance;
             return await _accountRepo.UpdateAsync(account);
         }

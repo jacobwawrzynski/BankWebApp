@@ -67,7 +67,7 @@ namespace Bank.Infrastructure.Services
             }
         }
 
-        public async Task<T?> GetByAsync(int? id)
+        public async Task<T?> GetByIdAsync(int? id)
         {
             if (id == null)
             {

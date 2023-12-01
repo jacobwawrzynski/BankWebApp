@@ -10,7 +10,7 @@ namespace Bank.Infrastructure.Services.Interfaces
     public interface IAccountService
     {
         Task<IEnumerable<Account>> GetAllAsync();
-        Task<Account?> GetByAsync(int? id);
+        Task<Account?> GetByIdAsync(int? id);
         Task<bool> CreateAsync(Account account);
         Task<bool> UpdateAsync(int? id, Account accountUpdate);
         Task<bool> DeleteAsync(int? id);

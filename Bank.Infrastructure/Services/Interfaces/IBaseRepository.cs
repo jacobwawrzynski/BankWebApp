@@ -14,7 +14,7 @@ namespace Bank.Infrastructure.Services.Interfaces
         Task<bool> UpdateAsync(T? entity);
         Task<bool> DeleteAsync(T? entity);
         Task<bool> SaveChangesAsync();
-        Task<T?> GetByAsync(int? id);
+        Task<T?> GetByIdAsync(int? id);
 
     }
 }

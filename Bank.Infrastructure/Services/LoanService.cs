@@ -10,24 +10,32 @@ namespace Bank.Infrastructure.Services
 {
     public class LoanService : ILoanService
     {
-        public Task<bool> DeleteAsync(int id)
+        private IBaseRepository<LoanApplication> _loanRepo;
+
+        public LoanService(IBaseRepository<LoanApplication> loanRepo)
         {
-            throw new NotImplementedException();
+            _loanRepo = loanRepo;
         }
 
-        public Task<IEnumerable<LoanApplication>> GetAllAsync()
+        public async Task<bool> CreateAsync(LoanApplication loanApplication)
         {
-            throw new NotImplementedException();
+            return await _loanRepo.CreateAsync(loanApplication);
         }
 
-        public Task<LoanApplication> GetAsync(int id)
+        public async Task<bool> DeleteAsync(int? id)
         {
-            throw new NotImplementedException();
+            var loan = await _loanRepo.GetByIdAsync(id);
+            return await _loanRepo.DeleteAsync(loan);
         }
 
-        public Task<bool> SaveAsync(LoanApplication loanApplication)
+        public async Task<IEnumerable<LoanApplication>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _loanRepo.GetAllAsync();
+        }
+
+        public async Task<LoanApplication> GetByIdAsync(int? id)
+        {
+            return await _loanRepo.GetByIdAsync(id);
         }
     }
 }

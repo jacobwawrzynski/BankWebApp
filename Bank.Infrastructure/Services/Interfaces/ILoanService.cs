@@ -10,8 +10,8 @@ namespace Bank.Infrastructure.Services.Interfaces
     public interface ILoanService
     {
         public Task<IEnumerable<LoanApplication>> GetAllAsync();
-        public Task<LoanApplication> GetAsync(int id);
-        public Task<bool> SaveAsync(LoanApplication loanApplication);
-        public Task<bool> DeleteAsync(LoanApplication? loanApplication);
+        public Task<LoanApplication> GetByIdAsync(int? id);
+        public Task<bool> CreateAsync(LoanApplication loanApplication);
+        public Task<bool> DeleteAsync(int? id);
     }
 }

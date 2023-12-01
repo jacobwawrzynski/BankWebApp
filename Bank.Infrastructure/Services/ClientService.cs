@@ -19,33 +19,33 @@ namespace Bank.Infrastructure.Services
 
         public async Task<bool> DeleteAsync(int? id)
         {
-            var account = await _clientRepo.GetByAsync(id);
+            var account = await _clientRepo.GetByIdAsync(id);
             return await _clientRepo.DeleteAsync(account);
         }
 
-        public Task<IEnumerable<Client>> GetAllAsync()
+        public async Task<IEnumerable<Client>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _clientRepo.GetAllAsync();
         }
 
-        public Task<Client?> GetByIdAsync(string id)
+        public Task<Client?> GetByIdAsync(int? id)
         {
-            throw new NotImplementedException();
+            return _clientRepo.GetByIdAsync(id);
         }
 
-        public Task<bool> SaveAsync(Client client)
+        public async Task<bool> UpdateAsync(int? id, Client clientUpdate)
         {
-            throw new NotImplementedException();
+            var client = await _clientRepo.GetByIdAsync(id);
+            client.Phone = clientUpdate.Phone;
+            client.City = clientUpdate.City;
+            client.Surname = clientUpdate.Surname;
+            client.Forename = clientUpdate.Forename;
+            return await _clientRepo.UpdateAsync(client);
         }
 
-        public Task<bool> UpdateAsync(Client? client)
+        public async Task<bool> CreateAsync(Client client)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> CreateAsync(Client client)
-        {
-
+            return await _clientRepo.CreateAsync(client);
         }
     }
 }
